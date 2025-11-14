@@ -84,6 +84,100 @@ int menuPrincipal() {
     return opcao;
 }
 
+//-----------------------------------------------------------------------------
+//---------------------------{ OPCAO 1 - LOGIN }-------------------------------
+//-----------------------------------------------------------------------------
+int opcao1(){
+    
+    int opcaoTemp;
+    printf("Digite a ação que deseja realizar: \n");
+        printf("[1] Login.\n");
+        printf("[2] Cadastrar.\n");
+        printf("[3] Sair.\n");
+        
+        do{
+            
+            scanf("%d", &opcaoTemp);
+            if(!(opcaoTemp==1 || opcaoTemp==2 || opcaoTemp==3)){
+                printf("\nOpcao inválida! Digite novamente: ");
+            }
+            
+        }while(!(opcaoTemp==1 || opcaoTemp==2 || opcaoTemp==3));
+    
+    return opcaoTemp;
+}
+
+//-----------------------------------------------------------------------------
+//---------------------------{ OPCAO 2 - CADASTRO }----------------------------
+//-----------------------------------------------------------------------------
+int escolha2(){
+
+    int opcaoTemp;
+    printf("Digite a ação que deseja realizar: \n");
+    printf("[1] Reservar.\n");
+    printf("[2] Visualizar suas reservas.\n");
+    printf("[3] Saldo/Deposito em conta.\n");
+    printf("[4] Sair.\n");
+        
+    do{
+        scanf("%d", &opcaoTemp);
+        if(!(opcaoTemp==1 || opcaoTemp==2 || opcaoTemp==3 || opcaoTemp==4)){
+            printf("\nOpcao inválida! Digite novamente: ");
+        }
+    }while(!(opcaoTemp==1 || opcaoTemp==2 || opcaoTemp==3 || opcaoTemp==4));
+
+    return opcaoTemp;
+}
+
+//-----------------------------------------------------------------------------
+//-------------------------{ OPCAO 3 - SABER MAIS }----------------------------
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+//-----------------------------{ OPCAO PARA SAIR }-----------------------------
+//-----------------------------------------------------------------------------
+int confirmarSaida() {
+    char resposta;
+
+    limparTela(); 
+
+    do {
+        printf("=========================================\n");
+        printf("              SAIR DO PROGRAMA\n");
+        printf("=========================================\n\n");
+        printf("Voce tem certeza que deseja sair?\n");
+        printf("Todos os dados serao salvos.\n\n");
+        printf("[S] - Sim, desejo sair\n");
+        printf("[N] - Nao, quero voltar ao menu\n");
+        printf("\nDigite sua escolha: ");
+
+        // espaço antes do %c para consumir buffer
+        if (scanf(" %c", &resposta) != 1) {
+            resposta = ' '; // Define como inválido se o scanf falhar
+        }
+
+        // Limpa o buffer de entrada para a próxima iteração
+        while (getchar() != '\n'); 
+
+        resposta = toupper(resposta); // Converte para maiúsculo
+
+        if (resposta != 'S' && resposta != 'N') {
+            printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
+            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            getchar(); // Aguarda o usuário pressionar Enter
+        }
+
+    } while (resposta != 'S' && resposta != 'N');
+
+    if (resposta == 'S') {
+        return 1; // 1 = Sim, sair
+    } else {
+        return 0; // 0 = Não, voltar
+    }
+}
+
+
 
 int validaCpf(struct Usuarios usuarios[], int qtdUsuarios, int *posicao){
     int flag=0;
@@ -126,44 +220,9 @@ int validaSenha(struct Usuarios usuarios[], int qtdUsuarios, int posicao){
     return flag;
 }
 
-int escolha1(){
-    
-    int opcaoTemp;
-    printf("Digite a ação que deseja realizar: \n");
-        printf("[1] Login.\n");
-        printf("[2] Cadastrar.\n");
-        printf("[3] Sair.\n");
-        
-        do{
-            
-            scanf("%d", &opcaoTemp);
-            if(!(opcaoTemp==1 || opcaoTemp==2 || opcaoTemp==3)){
-                printf("\nOpcao inválida! Digite novamente: ");
-            }
-            
-        }while(!(opcaoTemp==1 || opcaoTemp==2 || opcaoTemp==3));
-    
-    return opcaoTemp;
-}
 
-int escolha2(){
 
-    int opcaoTemp;
-    printf("Digite a ação que deseja realizar: \n");
-    printf("[1] Reservar.\n");
-    printf("[2] Visualizar suas reservas.\n");
-    printf("[3] Saldo/Deposito em conta.\n");
-    printf("[4] Sair.\n");
-        
-    do{
-        scanf("%d", &opcaoTemp);
-        if(!(opcaoTemp==1 || opcaoTemp==2 || opcaoTemp==3 || opcaoTemp==4)){
-            printf("\nOpcao inválida! Digite novamente: ");
-        }
-    }while(!(opcaoTemp==1 || opcaoTemp==2 || opcaoTemp==3 || opcaoTemp==4));
 
-    return opcaoTemp;
-}
 
 /*void listarInicial(int a, struct Filmes *filmes[]){
     
