@@ -1,35 +1,35 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Sessoes{
-    char horario[6];
-    char assento[15][15];
-};
-
-struct Filmes{
+// (S1) Registro Independente 1 
+typedef struct Sessoes{
     int id;
-    char nome[50];
-    struct Sessoes sessoes[7];
+    char horario_inicio[6];
+    char horario_final[6];
+    char data[9];
+    int sala;
+    char assento[15][15];
+    char nome_filme[50];
     int limIdade;
     float valorIngresso;
-};
+}Sessoes;
 
-
-struct Usuarios{
-    char nome[30];
+// (S2) Registro Independente 2
+typedef struct Usuarios{
+    char nome[70];
     int idade;
     char cpf[15];
     char senha[15];
     float saldo;
-};
+}Usuarios;
 
-struct Reservas{
-    int id;
-    char nomeUsuario[30];
-    char nomeFilme[50];
-    char nomeSessao[6];
-    int nomeAssento;
-};
+// (S3) Registro Relacional
+typedef struct Reservas{
+    int id;                
+    char cpf_usuario[15];   // Aponta para um Usuario (S2). O cpf é único.
+    int id_sessao;          // Aponta para S1 
+    char assento[4];        // Informação adicional (ex: "F10")
+} Reservas;
 
 int validaCpf(struct Usuarios usuarios[], int qtdUsuarios, int *posicao){
     int flag=0;
