@@ -291,14 +291,40 @@ int main(){
     
     //listarInicial(qtdFilmes, &filmes); Desconsiderar por enquanto
 
-    menuPrincipal();
+    // Inicializa o menu e atribui o valor a variável opcao.
+    int opcao = menuPrincipal();
+
+    while (opcao != 4) { // 4 é a opção "Sair" do menuPrincipal
+        switch (opcao){
+            case 1:
+                /* code */
+                break;
+            
+            case 2:
+                break;
+
+            case 3:
+                break;
+
+            case 4:
+                if (confirmarSaida() == 0) { // Se a função retornar 0 (Não)
+                        opcao = 0; // Reseta a opção para o loop continuar
+                    }
+                    // Se a função retornar 1 (Sim), opcao continua 4
+                    // e o loop 'while' vai terminar.
+                    break;
+        }
+    }
+
+    return 0;
     
     while(1){
         
         int opcao;
-        opcao = escolha1(); // Menu;
+        //opcao = escolha1(); // Menu;
         getchar();
         
+
         switch(opcao){
             
                 case 1: // Login do usuario;
