@@ -118,18 +118,31 @@ Usuarios cadastro(){
 
     limparTela(); 
 
-        printf("=========================================\n");
-        printf("                Cadastro\n");
-        printf("=========================================\n\n");
-        printf("        Digite o seu nome completo          ");
-        printf("\n-----------------------------------------\n");
-        printf("Nome: ");
+    printf("=========================================\n");
+    printf("                Cadastro\n");
+    printf("=========================================\n\n");
+    printf("        Digite o seu nome completo          ");
+    printf("\n-----------------------------------------\n");
+    printf("Nome: ");
 
-        // Limpa o buffer de entrada para a próxima iteração
-        while (getchar() != '\n'); 
-        fgets(usuarios_func.nome, sizeof(usuarios_func.nome),stdin);
-    
-        return usuarios_func;
+    // Limpa o buffer de entrada para a próxima iteração
+    while (getchar() != '\n'); 
+    fgets(usuarios_func.nome, sizeof(usuarios_func.nome),stdin);
+
+    limparTela(); 
+
+    printf("=========================================\n");
+    printf("                Cadastro\n");
+    printf("=========================================\n\n");
+    printf("Digite o seu CPF neste fomato XXX.XXX.XXX-XX\n");
+    printf("\n-----------------------------------------\n");
+    printf("CPF: ");
+
+    // Limpa o buffer de entrada para a próxima iteração
+    while (getchar() != '\n'); 
+    fgets(usuarios_func.cpf, sizeof(usuarios_func.cpf),stdin);
+
+    return usuarios_func;
    
 }
 
