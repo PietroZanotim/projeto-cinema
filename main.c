@@ -262,56 +262,6 @@ int validaSenha(struct Usuarios usuarios[], int qtdUsuarios, int posicao){
     return flag;
 }
 
-
-
-
-
-/*void listarInicial(int a, struct Filmes *filmes[]){
-    
-    int i=0;
-    
-    while( i < a){
-        int flag=1;
-        printf("id Nº%d: ", (i+1));
-        scanf("%d", &filmes[i]->id);
-        
-        for(int b=0; b < i; b++){
-            if(filmes[i]->id==filmes[b]->id){
-                flag=0;
-                break;
-            }
-        }
-        
-        if(flag==0){
-            continue;
-        }
-        
-        getchar();
-        fgets(filmes[i]->nome,49,stdin);
-        filmes[i]->nome[strcspn(filmes[i]->nome,"\n")] = '\0';
-        
-        for(int b = 0; b < 6; i++){
-            
-            fgets(filmes[i]->horario[b].horas,5,stdin);
-            filmes[i]->horario[b].horas[strcspn(filmes[i]->horario[b].horas,"\n")] = '\0';
-            
-            int atribuiAssentos=1;
-            for(int c = 0; c < 15; c++){
-                for(int d = 0; d < 15; d++){
-                    filmes[i]->horario[b].assento[c][d] = atribuiAssentos;
-                    atribuiAssentos++;
-                }
-            }
-            
-        }
-        
-        i++;
-        
-    }
-    
-};
-*/
-
 //-----------------------------------------------------------------------------
 //--------------------------------{ MAIN }-------------------------------------
 //-----------------------------------------------------------------------------
