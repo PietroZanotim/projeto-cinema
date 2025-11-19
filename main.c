@@ -40,7 +40,7 @@ typedef struct Reservas{
 int validarCPF(){
     char cpf[15];
     fgets(cpf, sizeof(cpf),stdin);
-    if (cpf[3] && cpf[7] != '.') return 0;
+    if (cpf[3] != '.' || cpf[7] != '.') return 0;
     if (cpf[11] != '-') return 0;
     return 1;
 }
@@ -207,6 +207,7 @@ Usuarios cadastro(){
     while (validarCPF() == 0) {
         puts("Você digitou o CPF incorretamente");
         puts("Digite o seu CPF neste fomato XXX.XXX.XXX-XX");
+        printf("CPF: ");
     }
 
     limparTela(); 
@@ -268,6 +269,7 @@ int confirmarSaida() {
     } while (resposta != 'S' && resposta != 'N');
 
     if (resposta == 'S') {
+        limparTela();
         return 1; // 1 = Sim, sair
     } else {
         return 0; // 0 = Não, voltar
