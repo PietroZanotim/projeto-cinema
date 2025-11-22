@@ -27,8 +27,9 @@ typedef struct Usuarios{
     float saldo;
 }Usuarios;
 //-----------------------------------------------------------------------------
-int qtdUsuarios = 0; //Inicializado o vetor de usuarios globalmente, pois é usado não apenas na main;
-int const qtdMAX = 100; // Quantidade máxima de usuários no nosso sistema
+int qtdUsuarios = 0; // Inicializado o vetor de usuarios globalmente, pois é usado não apenas na main;
+#define qtdMAX 100 // Use #define para constantes de array globais // Quantidade máxima de usuários no nosso sistema
+Usuarios usuarios_temp; // Struct temporária utilizada por algumas funcoes
 Usuarios usuarios[qtdMAX];
 //-----------------------------------------------------------------------------
 
@@ -44,30 +45,7 @@ typedef struct Reservas{
 //---------------------------{ FUNCÕES AUXILIARES }----------------------------
 //-----------------------------------------------------------------------------
 
-int validarCPF(int cadastro){
-    int i;
-    char cpf[15];
-    fgets(cpf, sizeof(cpf),stdin);
-    // Remover quebra de linha se existir
-    cpf[strcspn(cpf, "\n")] = '\0';
-    // 1. Verificar tamanho
-    if (strlen(cpf) != 14) return 0;
-    // 2. Verificar formato fixo XXX.XXX.XXX-XX
-    if (cpf[3] != '.' || cpf[7] != '.' || cpf[11] != '-') return 0;
-    // 3. Verificar se os dígitos são numéricos
-    for (i = 0; i < 14; i++) {
-        if (i == 3 || i == 7 || i == 11) continue; // posições de pontuação
-
-        if (!isdigit(cpf[i])) return 0;
-    }
-    // 4. Verifica se o CPF já está cadastrado
-    if (cadastro == 1) {
-        if (buscaCpfCadastro(cpf)) {strcpy(usuarios_func.cpf, cpf); return 1;} //Passa o cpf para o usuarios_func caso tudo estiver correto.
-        else return -1;
-    }  
-}
-
-int buscaCpfCadastro(char *cpfTemp, struct Usuarios *usuarios){
+int buscaCpfCadastro(char *cpfTemp){
     
     int i,i2;
     int contIguais = 0;
@@ -88,6 +66,30 @@ int buscaCpfCadastro(char *cpfTemp, struct Usuarios *usuarios){
     
     return 1;
 }
+
+int validarCPF(int cadastro){
+    int i;
+    char cpf[15];
+    fgets(cpf, sizeof(cpf),stdin);
+    // Remover quebra de linha se existir
+    cpf[strcspn(cpf, "\n")] = '\0';
+    // 1. Verificar tamanho
+    if (strlen(cpf) != 14) return 0;
+    // 2. Verificar formato fixo XXX.XXX.XXX-XX
+    if (cpf[3] != '.' || cpf[7] != '.' || cpf[11] != '-') return 0;
+    // 3. Verificar se os dígitos são numéricos
+    for (i = 0; i < 14; i++) {
+        if (i == 3 || i == 7 || i == 11) continue; // posições de pontuação
+
+        if (!isdigit(cpf[i])) return 0;
+    }
+    // 4. Verifica se o CPF já está cadastrado
+    if (cadastro == 1) {
+        if (buscaCpfCadastro(cpf)) {strcpy(usuarios_temp.cpf, cpf); return 1;} //Passa o cpf para o usuarios_temp caso tudo estiver correto.
+        else return -1;
+    }  
+}
+
 
 int buscaCpfLogin(struct Usuarios *usuarios, int qtdUsuarios, int *posicao){
     int i;
@@ -192,9 +194,6 @@ int menuPrincipal() {
 //-----------------------------------------------------------------------------
 Usuarios cadastro(){
 
-    // Inicializar structs dentro de cadastro para depoin enviar para as structs inicializadas na main
-    Usuarios usuarios_func;
-
     limparTela(); 
 
     printf("=========================================\n");
@@ -206,7 +205,7 @@ Usuarios cadastro(){
 
     // Limpa o buffer de entrada para a próxima iteração
     while (getchar() != '\n'); 
-    fgets(usuarios_func.nome, sizeof(usuarios_func.nome),stdin);
+    fgets(usuarios_temp.nome, sizeof(usuarios_temp.nome),stdin);
 
     limparTela(); 
 
@@ -218,7 +217,7 @@ Usuarios cadastro(){
     printf("Idade: ");
 
     // nao utilizo o loop para limpar o buffer aqui, porque o fgets anterior consumirá o \n e o loop ficará infinito.
-    scanf(" %d",&usuarios_func.idade);
+    scanf(" %d",&usuarios_temp.idade);
 
     limparTela(); 
 
@@ -238,12 +237,12 @@ Usuarios cadastro(){
 
         // Forma compacta de if(validarCPF(1) != 0) break;
         if (validarCPF(1)) break;
-        else if validarCPF == 0{
+        else if (validarCPF == 0){
             puts("Você digitou o CPF incorretamente.");
             puts("Digite o seu CPF neste fomato XXX.XXX.XXX-XX");
             printf("CPF: ");
         } 
-        else if validarCPF == -1 {
+        else if (validarCPF == -1) {
             puts("Esse CPF já está cadastrado.");
             puts("Digite um outro CPF ou retorne ao menu.");
             printf("CPF: ");
@@ -263,10 +262,10 @@ Usuarios cadastro(){
 
     // Limpa o buffer de entrada para a próxima iteração
     while (getchar() != '\n'); 
-    fgets(usuarios_func.senha, sizeof(usuarios_func.senha),stdin);
+    fgets(usuarios_temp.senha, sizeof(usuarios_temp.senha),stdin);
 
     qtdUsuarios++; // Se o usuário foi cadastrado com sucesso, incrementa na variável global.
-    return usuarios_func;
+    return usuarios_temp;
    
 }
 
