@@ -235,19 +235,20 @@ Usuarios cadastro(){
         // Limpa o buffer sempre antes de ler
         while (getchar() != '\n');
 
-        // Forma compacta de if(validarCPF(1) != 0) break;
-        if (validarCPF(1)) break;
-        else if (validarCPF == 0){
+        int resultado_validacao = validarCPF(1);
+
+        if (resultado_validacao == 1) { // 1: Tudo correto, CPF validado e não cadastrado
+            break;
+        } else if (resultado_validacao == 0) { // 0: CPF em formato incorreto
             puts("Você digitou o CPF incorretamente.");
             puts("Digite o seu CPF neste fomato XXX.XXX.XXX-XX");
             printf("CPF: ");
-        } 
-        else if (validarCPF == -1) {
+        } else if (resultado_validacao == -1) { // -1: CPF já está cadastrado
             puts("Esse CPF já está cadastrado.");
             puts("Digite um outro CPF ou retorne ao menu.");
             printf("CPF: ");
         }
-        
+            
     }
 
 
