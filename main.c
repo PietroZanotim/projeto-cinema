@@ -46,14 +46,11 @@ typedef struct Reservas{
 //-----------------------------------------------------------------------------
 
 int buscaCpfCadastro(char *cpfTemp){
-    
     int i;
-
     for(i = 0; i < qtdUsuarios; i++){
-        if(strcmp(usuarios[i].cpf,cpfTemp)==0) return 0;
+        if(strcmp(usuarios[i].cpf,cpfTemp)==0) return i; // CPF já está cadastrado
     }
-    
-    return 1;
+    return -1; // CPF não está cadastrado 
 }
 
 int validarCPF(int cadastro){
@@ -74,10 +71,19 @@ int validarCPF(int cadastro){
         if (!isdigit(cpfTemp[i])) return 0;
     }
     // 4. Verifica se o CPF já está cadastrado
+    int resultado_cadastro = buscaCpfCadastro(cpfTemp);
     if (cadastro == 1) {
-        if (buscaCpfCadastro(cpfTemp)) {strcpy(usuarios_temp.cpf, cpfTemp); return 1;} //Passa o cpf para o usuarios_temp caso tudo estiver correto.
+        // CPF não está cadastrado
+        if (buscaCpfCadastro == -1) {strcpy(usuarios_temp.cpf, cpfTemp); return 1;} //Passa o cpf para o usuarios_temp caso tudo estiver correto.
+        // CPF está cadastrado
         else return -1;
-    }  
+    }
+    if (cadastro == 0) {
+        // CPF não está cadastrado
+        if (buscaCpfCadastro(cpfTemp) == -1) return -1; 
+        // CPF está cadastrado 
+        else return resultado_cadastro;
+    }
 }
 
 
