@@ -214,7 +214,7 @@ Usuarios cadastro(){
     printf("================================================\n");
     printf("                  Cadastro\n");
     printf("================================================\n\n");
-    printf("Digite o seu CPF neste formato XXX.XXX.XXX-XX\n");
+    printf(" Digite o seu CPF neste formato XXX.XXX.XXX-XX\n");
     printf("\n-----------------------------------------------\n");
     printf("CPF: ");
     
