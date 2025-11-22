@@ -58,7 +58,7 @@ int buscaCpfCadastro(char *cpfTemp){
 
 int validarCPF(int cadastro){
     int i;
-    char cpfTemp[16];
+    char cpfTemp[15];
     scanf(" %14[^\n]",cpfTemp);
     //Caso formos voltar para o fgets: fgets(cpfTemp, sizeof(cpfTemp),stdin);
     // Remover quebra de linha se existir
@@ -214,7 +214,7 @@ Usuarios cadastro(){
     printf("=========================================\n");
     printf("                Cadastro\n");
     printf("=========================================\n\n");
-    printf("Digite o seu CPF neste fomato XXX.XXX.XXX-XX\n");
+    printf("Digite o seu CPF neste formato XXX.XXX.XXX-XX\n");
     printf("\n-----------------------------------------\n");
     printf("CPF: ");
     
