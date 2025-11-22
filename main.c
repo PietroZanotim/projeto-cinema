@@ -43,21 +43,21 @@ typedef struct Reservas{
 //---------------------------{ FUNCÕES AUXILIARES }----------------------------
 //-----------------------------------------------------------------------------
 
-int validarCPF(char *cpf){
+int validarCPF(){
     int i;
-    int tamanho=0; // Usando um for pois se usarmos strlen em ponteiro irá retornar 1;
+    char cpf[15];
+    fgets(cpf, sizeof(cpf),stdin);
+    // Remover quebra de linha se existir
+    cpf[strcspn(cpf, "\n")] = '\0';
     // 1. Verificar tamanho
-    for(int i=0; cpf[i]!='\0';i++){
-        tamanho++;
-    }
-    if(tamanho!=14){return 0;}
+    if (strlen(cpf) != 14) return 0;
     // 2. Verificar formato fixo XXX.XXX.XXX-XX
     if (cpf[3] != '.' || cpf[7] != '.' || cpf[11] != '-') return 0;
     // 3. Verificar se os dígitos são numéricos
     for (i = 0; i < 14; i++) {
         if (i == 3 || i == 7 || i == 11) continue; // posições de pontuação
 
-        if (!(isdigit(cpf[i]))) return 0;
+        if (!isdigit(cpf[i])) return 0;
     }
     return 1;
 }
