@@ -17,7 +17,7 @@
 * **Nome Completo:** Letícia Moura Lemos 
     * **Matrícula:** 12511BSI215
 * **Nome Completo:** Pietro Alves Zanotim
-    * **Matrícula:** 
+    * **Matrícula:** 12511BSI227
 * **Nome Completo:** Renan Cesar Vieira Mallagoli 
     * **Matrícula:** 12511BSI219
 * **Nome Completo:** Rhyan Videira Barros Guidastre
