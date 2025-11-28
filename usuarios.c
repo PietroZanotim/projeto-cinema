@@ -147,12 +147,13 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     printf("\n-----------------------------------------------\n");
     printf("Idade: ");
     scanf(" %d", &novoUsuario.idade);
-    while(!isdigit(novoUsuario.idade)) {
+    while(novoUsuario.idade < 1 || novoUsuario.idade > 200) {
         while (getchar() != '\n');
         puts("\n\nVocê digitou incorretamente. Por favor, digite um número");
         printf("Idade: ");
         scanf(" %d", &novoUsuario.idade);
     }
+    
     
 
     limparTela(); 
