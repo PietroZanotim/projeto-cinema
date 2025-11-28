@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "usuarios.h"
 
-#define MAX_USUARIOS 100 
+#define MAX_USUARIOS 5
 
 int main(){
     // Criação das variáveis "Globais" dentro da main
