@@ -96,3 +96,118 @@ int confirmarSaida() {
         return 0; // 0 = Não, voltar
     }
 }
+
+//-----------------------------------------------------------------------------
+//-----------------------------{ SABER MAIS }----------------------------------
+//-----------------------------------------------------------------------------
+
+int voltar(){
+    char vazio;
+
+    // Validação para voltar ao menu
+    int valid = 0;
+
+    do{
+        // Consumir o buffer antes de ler a próxima tecla
+        while (getchar() != '\n');
+        // Lê o caracter do buffer de entrada
+        vazio = getchar();
+
+        // Se o usuário digitar Enter, a função retorna 1
+        if(vazio == '\n'){
+            return 1;
+        }
+        // Se a condição anterior for falsa, altera o valor da validação para 1
+        else{
+            valid = 1;
+            printf("Digito inválido, aperte Enter para voltar: ");
+        }
+    }while (valid == 1);
+}
+
+
+//Função para mostrar as funcionalidades do sistema
+int saberFuncionalidades(){
+
+    limparTela();
+
+    printf("\n==============================================\n");
+    printf("                 FUNCIONALIDADES\n");
+    printf("==============================================\n\n");
+
+    //Explicações das funcionalidades do programa
+    printf("1- CRIAR CONTA:\n");
+    printf("No menu principal, digite 2 para registrar-se e poder utilizar \no sistema de reserva de filmes e acessar seu saldo de dinheiro.\n(*Importante* - Lembre-se de seus dados do cadastro para realizar o login.)\n\n");
+    printf("2- REALIZAR LOGIN:\n");
+    printf("No menu principal, digite 1 para realizar o login, é necessário \njá ter criado uma conta em nosso sistema para isso.\nÉ necessário realizar o login sempre que você reiniciar nosso sistema.\n\n");
+    //printf("3 - RESERVAR UMA SESSÃO:\n");
+
+    printf("Aperte Enter para voltar: ");
+
+    // Chama a função voltar, se retornar 1 a função saberFuncionalidade se encerra
+    if(voltar() == 1){
+        return 0;
+    }
+}
+
+//Função para explicar como funciona as sessões e horários dos filmes
+void saberHorarios(){
+
+}
+
+//Função para mostrar os detalhes dos filmes disponíveis
+void saberFilmes(){
+
+}
+
+
+
+int saberMais(){
+
+    int escolha = 0; // Inicializa como opção inválida
+
+    limparTela();
+    do{
+        printf("==============================================\n");
+        printf("                 SAIBA MAIS\n");
+        printf("==============================================\n\n");
+        printf("   [1] - Funcionalidades\n");
+        printf("   [2] - Sessão e Horários\n");
+        printf("   [3] - Filmes\n");
+        printf("   [4] - Voltar\n");
+        printf("\n--------------------------------------------\n");
+        printf("Digite a opcao desejada: ");
+
+        // Validação do input
+        do {
+            if (scanf("%d", &escolha) != 1) {
+                // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
+                // limpamos o buffer de entrada para evitar um loop infinito.
+                escolha = 0; // Reseta para um valor inválido
+                while (getchar() != '\n'); // Limpa o buffer
+            }
+
+            // Validação de intervalo numérico        
+            if (escolha < 1 || escolha > 4) {
+                printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
+                while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+                getchar(); // Aguarda o usuário pressionar Enter
+            }
+
+        } while (escolha < 1 || escolha > 4); // Repete o menu do saber mais se a opção for inválida
+
+        //Condições para selecionar a função escolhida pelo usuário
+        if(escolha == 1){
+            saberFuncionalidades();
+        }
+        else if(escolha == 2){
+            saberFilmes();
+        }
+        else if(escolha == 3){
+           saberFilmes();
+        }
+        else{
+            break;
+        }
+    } while(escolha != 4);
+}
