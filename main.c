@@ -5,10 +5,15 @@
 #include "usuarios.h"
 
 #define MAX_USUARIOS 5
+#define MAX_SESSOES 5
+#define MAX_RESERVAS 10
 
 int main(){
     // Criação das variáveis "Globais" dentro da main
     Usuarios listaUsuarios[MAX_USUARIOS];
+    Sessoes listaSessoes[MAX_SESSOES];
+    Reservas listaReservas[MAX_RESERVAS];
+
     int qtdUsuarios = 0; 
     
     while (1) {
