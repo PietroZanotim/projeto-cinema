@@ -21,7 +21,7 @@ int main(){
 
         switch (opcao){
             case 1:
-                login(listaUsuarios, qtdUsuarios);
+                int indiceUsuario = login(listaUsuarios, qtdUsuarios);
                 break;
             
             case 2:

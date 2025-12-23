@@ -58,7 +58,7 @@ int validarCPF(Usuarios *lista, int qtd, char *destCpf, int modoCadastro){
 //---------------------------{ OPCAO 1 - LOGIN }-------------------------------
 //-----------------------------------------------------------------------------
 
-void login(Usuarios *lista, int qtdUsuarios){
+int login(Usuarios *lista, int qtdUsuarios){
     int indiceUsuario;
     limparTela(); 
     printf("================================================\n");
@@ -112,6 +112,8 @@ void login(Usuarios *lista, int qtdUsuarios){
     printf("  Login realizado com sucesso! [Enter] para continuar...\n");
     printf("=========================================================\n");
     getchar();
+
+    return indiceUsuario; // Alteração para retornar o indice do usuario, de modo a acessá-lo no painel do login.
 }
 
 //-----------------------------------------------------------------------------

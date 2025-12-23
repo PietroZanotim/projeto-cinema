@@ -56,7 +56,7 @@ int menuPrincipal() {
 //-----------------------------------------------------------------------------
 //---------------------------{ MENU DE LOGIN }--------------------------------
 //-----------------------------------------------------------------------------
-int menuLogin(int tipoMenu) {
+void menuLogin(int tipoMenu) {
 
     int opcao = 0; // Inicializa com um valor inválido
 
