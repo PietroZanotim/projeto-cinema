@@ -54,6 +54,52 @@ int menuPrincipal() {
 }
 
 //-----------------------------------------------------------------------------
+//---------------------------{ MENU DE LOGIN }--------------------------------
+//-----------------------------------------------------------------------------
+int menuLogin(int tipoMenu) {
+
+    int opcao = 0; // Inicializa com um valor inválido
+
+    if(tipoMenu == 1){
+
+        do {
+
+            limparTela(); 
+
+            printf("===============================================================\n");
+            printf("       TELA PRINCIPAL - Olá: \n");
+            printf("===============================================================\n\n");
+            printf("   [1] - Visualizar filmes disponíveis.\n");
+            printf("   [2] - Visualizar minhas sessões.\n");
+            printf("   [3] - Comprar ingresso.\n"); 
+            printf("   [4] - Alterar senha.\n"); // Alteração dos registros.
+            printf("   [5] - Excluir esta conta.\n"); // Remoção dos registros.
+            printf("   [6] - Voltar ao menu inicial\n");
+            printf("\n--------------------------------------------\n");
+            printf("Digite a opcao desejada: ");
+
+            // Validação de tipo de input
+            if (scanf("%d", &opcao) != 1) {
+                // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
+                // limpamos o buffer de entrada para evitar um loop infinito.
+                opcao = 0; // Reseta para um valor inválido
+                while (getchar() != '\n'); // Limpa o buffer
+            }
+
+            // Validação de intervalo numérico        
+            if (opcao < 1 || opcao > 6) {
+                printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
+                while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+                getchar(); // Aguarda o usuário pressionar Enter
+            }
+
+        } while (opcao < 1 || opcao > 6); // Repete o menu se a opção for inválida
+        
+    }
+
+}
+
+//-----------------------------------------------------------------------------
 //-----------------------------{ OPCAO PARA SAIR }-----------------------------
 //-----------------------------------------------------------------------------
 int confirmarSaida() {
