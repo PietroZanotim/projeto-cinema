@@ -8,6 +8,7 @@ int menuPrincipal();
 int confirmarSaida();
 int confirmarRetorno();
 void verSaldo();
+void realizarDeposito();
 int voltar();
 int saberFuncionalidade();
 int saberMais();

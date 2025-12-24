@@ -25,7 +25,7 @@ int main(){
                 int indiceUsuario = login(listaUsuarios, qtdUsuarios); // Pegamos a posição do usuario;
 
                 int controleAdmin = 1; // Para sabermos se são opções do admin ou usuario padrão;
-
+                
                 while(1){
 
                     int opcao = menuLogin(listaUsuarios, indiceUsuario, &controleAdmin);
@@ -47,7 +47,7 @@ int main(){
                                 break;
 
                             case 4:
-
+                                realizarDeposito(listaUsuarios, indiceUsuario);
                                 break;
 
                             case 5:
