@@ -48,7 +48,6 @@ int main(){
                                 break;
 
                             case 4:
-                                realizarDeposito(listaUsuarios, indiceUsuario);
                                 break;
 
                             case 5:
@@ -62,11 +61,8 @@ int main(){
                             case 7:
                                 break;
 
-                            case 8:
-                                break;
-
                         }
-                        if(opcao==8){
+                        if(opcao==7){
                             if (confirmarRetorno() == 1){
                                 break; // Break para sair do loop do menu de login;
                             }
