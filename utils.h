@@ -6,6 +6,7 @@ void saberHorarios();
 void saberFilmes();
 int menuPrincipal();
 int confirmarSaida();
+int confirmarRetorno();
 int voltar();
 int saberFuncionalidade();
 int saberMais();

@@ -22,18 +22,53 @@ int main(){
         switch (opcao){
             case 1: // Login do usuario;
                     
-                    int indiceUsuario = login(listaUsuarios, qtdUsuarios); // Pegamos a posição do usuario;
+                int indiceUsuario = login(listaUsuarios, qtdUsuarios); // Pegamos a posição do usuario;
 
-                    int controleAdmin = 1; // Para sabermos se são opções do admin ou usuario padrão;
+                int controleAdmin = 1; // Para sabermos se são opções do admin ou usuario padrão;
+
+                while(1){
 
                     int opcao = menuLogin(listaUsuarios, indiceUsuario, &controleAdmin);
 
-                    if(controleAdmin==1){
+                    if(controleAdmin==1){ //Opções caso o usuário seja o usuário padrão
 
                         switch(opcao){
                             
-                            
+                            case 1:
 
+                                break;
+
+                            case 2:
+
+                                break;
+
+                            case 3:
+
+                                break;
+
+                            case 4:
+
+                                break;
+
+                            case 5:
+
+                                break;
+
+                            case 6:
+
+                                break;
+
+                            case 7:
+                                break;
+
+                            case 8:
+                                break;
+
+                        }
+                        if(opcao==8){
+                            if (confirmarRetorno() == 1){
+                                break; // Break para sair do loop do menu de login;
+                            }
                         }
 
                     } else {
@@ -42,6 +77,8 @@ int main(){
                         
                         }
                     } 
+                    
+                }
 
                 break;
             

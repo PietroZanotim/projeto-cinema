@@ -72,11 +72,12 @@ int menuLogin(Usuarios *usuario, int indiceUsuario, int *controleAdmin) {
             printf("===============================================================\n\n");
             printf("   [1] - Visualizar filmes disponíveis.\n");
             printf("   [2] - Visualizar minhas sessões.\n");
-            printf("   [3] - Comprar ingresso.\n"); 
-            printf("   [4] - Comprar ingresso.\n"); 
-            printf("   [5] - Alterar senha.\n"); // Alteração dos registros.
-            printf("   [6] - Excluir esta conta.\n"); // Remoção dos registros.
-            printf("   [7] - Voltar ao menu inicial\n");
+            printf("   [3] - Visualizar meu saldo.\n");
+            printf("   [4] - Realizar depósito.\n");
+            printf("   [5] - Comprar ingresso.\n"); 
+            printf("   [6] - Alterar senha.\n"); // Alteração dos registros.
+            printf("   [7] - Excluir esta conta.\n"); // Remoção dos registros.
+            printf("   [8] - Voltar ao menu inicial\n");
             printf("\n--------------------------------------------\n");
             printf("Digite a opcao desejada: ");
 
@@ -120,6 +121,50 @@ int confirmarSaida() {
         printf("              SAIR DO PROGRAMA\n");
         printf("=========================================\n\n");
         printf("Voce tem certeza que deseja sair?\n");
+        printf("Todos os dados serao salvos.\n\n");
+        printf("[S] - Sim, desejo sair\n");
+        printf("[N] - Nao, quero voltar ao menu\n");
+        printf("\nDigite sua escolha: ");
+
+        // espaço antes do %c para consumir buffer
+        if (scanf(" %c", &resposta) != 1) {
+            resposta = ' '; // Define como inválido se o scanf falhar
+        }
+
+        // Limpa o buffer de entrada para a próxima iteração
+        while (getchar() != '\n'); 
+
+        resposta = toupper(resposta); // Converte para maiúsculo
+
+        if (resposta != 'S' && resposta != 'N') {
+            printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
+            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            getchar(); // Aguarda o usuário pressionar Enter
+        }
+
+    } while (resposta != 'S' && resposta != 'N');
+
+    if (resposta == 'S') {
+        limparTela();
+        return 1; // 1 = Sim, sair
+    } else {
+        return 0; // 0 = Não, voltar
+    }
+}
+
+//-----------------------------------------------------------------------------
+//-----------------------------{ OPCAO PARA RETORNAR }-------------------------
+//-----------------------------------------------------------------------------
+int confirmarRetorno() {
+    char resposta;
+
+    limparTela(); 
+
+    do {
+        printf("=========================================\n");
+        printf("          RETONAR AO MENU PRINCIPAL\n");
+        printf("=========================================\n\n");
+        printf("Voce tem certeza que deseja retornar?\n");
         printf("Todos os dados serao salvos.\n\n");
         printf("[S] - Sim, desejo sair\n");
         printf("[N] - Nao, quero voltar ao menu\n");
