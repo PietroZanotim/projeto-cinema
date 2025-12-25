@@ -25,11 +25,11 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
         printf("Sala: %d\n", sessao[i].sala);
         printf("Valor: %d\n", sessao[i].valorIngresso);
         printf("Assentos:\n");
-        printf("    (C0) (C1) (C2) (C3) (C4) (C5) (C6) (C7) (C8) (C9) (C10)");
-        for(int i=0; i<15; i++){
-            printf("(L%d)", i);
-            for(int a=0; a<15; a++){
-            if(a==14){
+        printf("    (C1) (C2) (C3) (C4) (C5) (C6) (C7) (C8) (C9) (C10)");
+        for(int i=0; i<10; i++){
+            printf("(L%d)", (i+1));
+            for(int a=0; a<10; a++){
+            if(a==9){
                 printf("[%d]\n",sessao[i].assento[i][a]); // Para pular para outra "linha" de assentos;
             } else {
                 printf("[%d] ",sessao[i].assento[i][a]);
@@ -87,9 +87,11 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
         do{
             printf("\nDigite a linha do assento desejado (Ex.1): ");
             scanf("%d", &linhaAssento);
+            linhaAssento -= 1;
 
             printf("\nDigite a coluna do assento desejado (Ex.1): ");
             scanf("%d", &colunaAssento);
+            colunaAssento -= 1;
 
             if(sessao[indiceSessao].assento[linhaAssento][colunaAssento]=='X'){
                 printf("Sentimos muito, este assento está ocupado...\n");
