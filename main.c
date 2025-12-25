@@ -15,6 +15,7 @@ int main(){
     Reservas listaReservas[MAX_RESERVAS];
 
     int qtdUsuarios = 0;
+    int qtdSessoes = 0;
     
     while (1) {
         int opcao = menuPrincipal();
