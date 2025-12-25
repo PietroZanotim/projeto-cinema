@@ -46,7 +46,7 @@ typedef struct Sessoes{
     char horario_final[6];
     char data[9];
     int sala;
-    char assento[15][15];   // Matriz de controle de assentos
+    char assento[10][10];   // Matriz de controle de assentos
     char nome_filme[50];
     int limIdade;
     float valorIngresso;
