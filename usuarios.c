@@ -278,8 +278,8 @@ void verSaldo(Usuarios *usuario, int indiceUsuario){
     char resposta;
     
     do{
-    printf("\nDeseja realizar um depósito? (S/N)");
-    if (scanf(" %c", &resposta) != 1) {
+        printf("\nDeseja realizar um depósito? (S/N)");
+        if (scanf(" %c", &resposta) != 1) {
             resposta = ' '; // Define como inválido se o scanf falhar
         }
 
@@ -298,63 +298,32 @@ void verSaldo(Usuarios *usuario, int indiceUsuario){
 
     if(resposta=='S'){
         float valorDeposito;
+        printf("\n*** MAX - R$100.00 | POR OPERAÇÃO ***");
         printf("\nDigite o valor que deseja depositar: ");
 
         while(scanf("%f", &valorDeposito)!=1 || valorDeposito>100.00){
-        printf("\nValor digitado inválido ou acima do permitido!");
-        printf("\n[Enter] para tentar novamente.");
-        while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-        getchar(); // Aguarda o usuário pressionar Enter
+            printf("\nValor digitado inválido ou acima do permitido!");
+            printf("\n[Enter] para tentar novamente.");
+            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            getchar(); // Aguarda o usuário pressionar Enter
+            limparTela();
+            printf("\nDigite o valor que deseja depositar: ");
+            scanf("%f", &valorDeposito);
         }
 
-    usuario[indiceUsuario].saldo += valorDeposito;
+        usuario[indiceUsuario].saldo += valorDeposito;
 
-    limparTela();
-    printf("===============================================================\n");
-    printf("                 Depósito realizado com sucesso!");
-    printf("\n===============================================================\n");
+        limparTela();
+        printf("===============================================================\n");
+        printf("                 Depósito realizado com sucesso!");
+        printf("\n===============================================================\n");
 
     } else {
         limparTela();
     }
 
     printf("\n[Enter] para retornar ao menu login...");
-    getchar(); // Aguarda o usuário pressionar Enter
-
+    while (getchar() != '\n'); // Consome o buffer
+    getchar(); // Aguarda o usuário enviar o enter
 }
 
-//-----------------------------------------------------------------------------
-//------------------{ REALIZAR DEPÓSITO NO SALDO DO USUARIO }------------------
-//-----------------------------------------------------------------------------
-
-void realizarDeposito(Usuarios *usuario, int indiceUsuario){
-
-    limparTela();
-
-    float valorDeposito=0.00;
-
-    printf("===============================================================\n");
-    printf("       Saldo de: - %s\n", usuario[indiceUsuario].nome);
-    printf("===============================================================\n\n");
-    printf("\n*** MAX - R$100.00 | POR OPERAÇÃO ***");
-    printf("\nDigite o valor que deseja depositar: ");
-
-    while(scanf("%f", &valorDeposito)!=1 || valorDeposito>100.00){
-        printf("\nValor digitado inválido ou acima do permitido!");
-        printf("\n[Enter] para tentar novamente.");
-        while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-        getchar(); // Aguarda o usuário pressionar Enter
-    }
-
-    usuario[indiceUsuario].saldo += valorDeposito;
-
-    limparTela();
-    printf("===============================================================\n");
-    printf("                 Depósito realizado com sucesso!");
-    printf("\n===============================================================\n");
-
-    printf("\n[Enter] para retornar ao menu login...");
-    while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-    getchar(); // Aguarda o usuário pressionar Enter
-
-}

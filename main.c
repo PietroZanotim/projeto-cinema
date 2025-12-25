@@ -31,7 +31,7 @@ int main(){
                     //Menu dos demais usuarios;
                     while(1){
 
-                    int opcao = menuLogin(listaUsuarios, indiceUsuario);
+                        int opcao = menuLogin(listaUsuarios, indiceUsuario);
 
                         switch(opcao){
                             
