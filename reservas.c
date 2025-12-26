@@ -1,3 +1,3 @@
 //--------------------------!! SOBRE O ARQUIVO !!------------------------------
-//----------{ FUNCOES QUE CONSULTAM/ALTERAM A STRUCT DE RESERVA }-------------
+//----------{ FUNCOES QUE CONSULTAM/ALTERAM A STRUCT DE RESERVA }--------------
 //-----------------------------------------------------------------------------
