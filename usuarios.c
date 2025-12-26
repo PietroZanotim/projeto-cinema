@@ -229,14 +229,14 @@ int menuLogin(Usuarios *usuario, int indiceUsuario) {
 
             printf("===============================================================\n");
             printf("       TELA PRINCIPAL - Olá: %s\n", usuario[indiceUsuario].nome);
-            printf("===============================================================\n");
+            printf("===============================================================\n\n");
             printf("   [1] - Visualizar filmes disponíveis.\n");
             printf("   [2] - Visualizar minhas sessões.\n");
             printf("   [3] - Visualizar meu saldo.\n");
             printf("   [4] - Alterar senha.\n"); // Alteração dos registros.
             printf("   [5] - Excluir esta conta.\n"); // Remoção dos registros.
-            printf("   [6] - Voltar ao menu inicial\n");
-            printf("\n--------------------------------------------\n");
+            printf("   [6] - Voltar ao menu inicial\n\n");
+            printf("---------------------------------------------------------------\n");
             printf("Digite a opcao desejada: ");
 
             // Validação de tipo de input
