@@ -30,15 +30,18 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
         printf("Sala: %d\n", sessao[i].sala);
         printf("Valor: %d\n", sessao[i].valorIngresso);
         printf("Assentos:\n");
-        printf("    (C1) (C2) (C3) (C4) (C5) (C6) (C7) (C8) (C9) (C10)");
-        for(int i=0; i<10; i++){
-            printf("(L%d)", (i+1));
-            for(int a=0; a<10; a++){
-            if(a==9){
-                printf("[%d]\n",sessao[i].assento[i][a]); // Para pular para outra "linha" de assentos;
-            } else {
-                printf("[%d] ",sessao[i].assento[i][a]);
-            }
+        
+        char Linha = {A, B, C, D, E, F, G, H, I, J};
+
+        for(int L = 1; L <= 10; L++){
+            for(int C = 1; C <= 10; C++){
+                if(C != 9){
+                    if(sessao[i].assento[L][C] == 0) printf("%c%d ",Linha[L],C);
+                    else printf("X ");
+                } else {
+                    if(sessao[i].assento[L][C] == 0) printf("%c%d\n",Linha[L],C);
+                    else printf("X\n");
+                }
             }
         }
         printf("_________________________________________________________________\n");

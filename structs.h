@@ -10,7 +10,7 @@ typedef struct Sessoes{
     char horario_final[6];
     char data[9];
     int sala;
-    char assento[10][10];
+    char assento[10][10]; // Se 0, disponível. Se 1, ocupado
     char nome_filme[50];
     int limIdade;
     float valorIngresso;
