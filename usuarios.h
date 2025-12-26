@@ -1,5 +1,5 @@
 //--------------------------!! SOBRE O ARQUIVO !!------------------------------
-//---------------{ FUNCOES QUE ALTERAM A STRUCT DE USUÁRIO }-------------------
+//----------{ FUNCOES QUE CONSULTAM/ALTERAM A STRUCT DE SUSUÁRIO }-------------
 //-----------------------------------------------------------------------------
 
 #ifndef USUARIOS_H

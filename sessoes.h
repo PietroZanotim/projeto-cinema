@@ -1,3 +1,7 @@
+//--------------------------!! SOBRE O ARQUIVO !!------------------------------
+//----------{ FUNCOES QUE CONSULTAM/ALTERAM A STRUCT DE SESSOES }--------------
+//-----------------------------------------------------------------------------
+
 #ifndef SESSOES_H  // Guardas de inclusão (evita erro de redefinição)
 #define SESSOES_H
 
