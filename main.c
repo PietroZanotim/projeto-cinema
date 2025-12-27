@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "structs.h"
 #include "utils.h"
 #include "usuarios.h"
 #include "sessoes.h"
+#include "admin.h"
 
 #define MAX_USUARIOS 5
 #define MAX_SESSOES 5
@@ -27,9 +29,9 @@ int main(){
                     
                 int indiceUsuario = login(listaUsuarios, qtdUsuarios); // Pegamos a posição do usuario;
                 
-                if(listaUsuarios[indiceUsuario].cpf=="000.000.000-00") {
-                    //Menu do admin;
-
+                if (strcmp(listaUsuarios[indiceUsuario].cpf, "000.000.000-00") == 0) {
+                    // Menu do admin
+                    menuAdmin(); 
                 } else {
                     //Menu dos demais usuarios;
                     while(1){
