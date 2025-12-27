@@ -36,15 +36,36 @@ int main(){
                 
                 if (indiceUsuario == 0) {
                     // Menu do admin
-                    menuAdmin(); 
-                } else {
+                    while(1){
+                        int opcao = menuAdmin(); 
+                        switch(opcao){
+                            case 1:
+                                // CRUD de Sessões
+                                break;
+                            case 2:
+                                // CRUD de Usuários
+                                break;
+                            case 3:
+                                // CRUD de Reservas
+                                break;
+                            case 4:
+                                // Consultas
+                                break;
+                            case 5:
+                                // Relatórios
+                                break;
+                        }
+                        if (opcao == 6){
+                                if(confirmarRetorno() == 1) break;
+                                else continue;
+                        }
+                    }
+                } 
+                else {
                     //Menu dos demais usuarios;
                     while(1){
-
                         int opcao = menuLogin(listaUsuarios, indiceUsuario);
-
                         switch(opcao){
-                            
                             case 1:
                                 listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, listaReservas, &qtdReservas);
                                 break;
@@ -63,15 +84,10 @@ int main(){
                             case 5:
 
                                 break;
-
-                            case 6:
-
-                                break;
                         }
-                        if(opcao==6){
-                            if (confirmarRetorno() == 1){
-                                break; // Break para sair do loop do menu de login;
-                            }
+                        if (opcao == 6){
+                            if(confirmarRetorno() == 1) break;
+                            else continue;
                         }
                     }
                 }
