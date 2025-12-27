@@ -117,7 +117,7 @@ int main(){
                                             //visualizar_todas_reservas();
                                             break;
                                     }
-                                    if (opcao_2 == 3){
+                                    if (opcao_3 == 3){
                                         if(confirmarRetorno() == 1) break;
                                         else continue;
                                     }
