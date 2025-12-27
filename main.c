@@ -44,12 +44,36 @@ int main(){
                         switch(opcao){
                             case 1:
                                 // CRUD de Sessões
+                                while(1){
+                                    int opcao_1 = menu_CRUD_reservas();
+                                    switch(opcao_1){
+                                        case 1:
+                                            //adicionar_sessao();
+                                            break;
+                                        case 2:
+                                            //excluir_sessao();
+                                            break;
+                                        case 3:
+                                            //modificar_sessao();
+                                            break;
+                                        case 4:
+                                            //visualizar_sessao_id();
+                                            break;
+                                        case 5:
+                                            //visualizar_todas_sessoes();
+                                            break;
+                                    }
+                                    if (opcao_1 == 6){
+                                        if(confirmarRetorno() == 1) break;
+                                        else continue;
+                                    }
+                                }
                                 break;
                             case 2:
                                 // CRUD de Usuários
                                 while(1){
-                                    int opcao_1 = menu_CRUD_usuarios();
-                                    switch(opcao_1){
+                                    int opcao_2 = menu_CRUD_usuarios();
+                                    switch(opcao_2){
                                         case 1:
                                             adicionar_usuario();
                                             break;
@@ -66,7 +90,7 @@ int main(){
                                             visualizar_todos_usuarios();
                                             break;
                                     }
-                                    if (opcao_1 == 6){
+                                    if (opcao_2 == 6){
                                         if(confirmarRetorno() == 1) break;
                                         else continue;
                                     }
@@ -75,8 +99,8 @@ int main(){
                             case 3:
                                 // CRUD de Reservas
                                 while(1){
-                                    int opcao_2 = menu_CRUD_reservas();
-                                    switch(opcao_2){
+                                    int opcao_3 = menu_CRUD_reservas();
+                                    switch(opcao_3){
                                         case 1:
                                             //adicionar_reserva();
                                             break;
@@ -93,7 +117,7 @@ int main(){
                                             //visualizar_todas_reservas();
                                             break;
                                     }
-                                    if (opcao_2 == 6){
+                                    if (opcao_2 == 3){
                                         if(confirmarRetorno() == 1) break;
                                         else continue;
                                     }
