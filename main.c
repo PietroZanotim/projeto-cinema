@@ -26,7 +26,9 @@ int main(){
     int qtdReservas = 0;
 
     // Ler o arquivo bin
-    qtdUsuarios = inicializar_sistema(listaUsuarios);
+    qtdUsuarios = carregar_usuarios(listaUsuarios);
+    qtdSessoes = carregar_sessoes(listaSessoes);
+    qtdReservas = carregar_reservas(listaReservas);
     
     while (1) {
         int opcao = menuPrincipal();
