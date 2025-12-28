@@ -12,7 +12,7 @@ int menu_CRUD_reservas();
 void adicionar_reserva();
 void excluir_reserva();
 void modificar_reserva();
-void visualizar_reserva_id();
-void visualizar_todas_reservas();
+void visualizar_reserva_id(Reservas *reserva, int qtdReservas);
+void visualizar_todas_reservas(); //declarar funções do crud
 
 #endif
