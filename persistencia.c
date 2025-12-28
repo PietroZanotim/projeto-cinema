@@ -5,7 +5,7 @@
 // fread: copia do arquivo para a memória
 
 //------------------------------------
-//-----------{ Usuarios }-------------
+//-------{ Carregar Usuarios }--------
 //------------------------------------
 int carregar_usuarios(Usuarios *listaUsuarios){
     FILE *p_usuarios_bin;
@@ -45,7 +45,7 @@ int carregar_usuarios(Usuarios *listaUsuarios){
 }
 
 //------------------------------------
-//------------{ Sessoes }-------------
+//--------{ Carregar Sessoes }--------
 //------------------------------------
 int carregar_sessoes(Sessoes *listaSessoes){
     FILE *p_sessoes_bin;
@@ -64,7 +64,7 @@ int carregar_sessoes(Sessoes *listaSessoes){
 }
 
 //------------------------------------
-//------------{ Reservas }------------
+//-------{ Carregar Reservas }--------
 //------------------------------------
 int carregar_reservas(Reservas *listaReservas){
     FILE *p_reservas_bin;
@@ -80,4 +80,43 @@ int carregar_reservas(Reservas *listaReservas){
     }
 
     return qtdReservas_bin;
+}
+
+//------------------------------------
+//--------{ Salvar Usuarios }---------
+//------------------------------------
+void salvar_usuarios(Usuarios *lista, int qtd){
+    FILE *p_bin;
+    p_bin = fopen("usuarios.bin", "wb"); // Modo escrita
+
+    // Protocolo de comunicacao (Header) - Primeira informacao será um int
+    fwrite(&qtd, sizeof(int), 1, p_bin);
+    fwrite(lista, sizeof(Usuarios), qtd, p_bin);
+    fclose(p_bin);
+}
+
+//------------------------------------
+//--------{ Salvar Sessoes }----------
+//------------------------------------
+void salvar_sessoes(Sessoes *lista, int qtd){
+    FILE *p_bin;
+    p_bin = fopen("sessoes.bin", "wb"); // Modo escrita
+
+    // Protocolo de comunicacao (Header) - Primeira informacao será um int
+    fwrite(&qtd, sizeof(int), 1, p_bin);
+    fwrite(lista, sizeof(Sessoes), qtd, p_bin);
+    fclose(p_bin);
+}
+
+//------------------------------------
+//--------{ Salvar Reservas }---------
+//------------------------------------
+void salvar_reservas(Reservas *lista, int qtd){
+    FILE *p_bin;
+    p_bin = fopen("reservas.bin", "wb"); // Modo escrita
+
+    // Protocolo de comunicacao (Header) - Primeira informacao será um int
+    fwrite(&qtd, sizeof(int), 1, p_bin);
+    fwrite(lista, sizeof(Reservas), qtd, p_bin);
+    fclose(p_bin);
 }

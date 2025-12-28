@@ -13,6 +13,8 @@ int carregar_usuarios(Usuarios *listaUsuarios);
 int carregar_sessoes(Sessoes *listaSessoes);
 int carregar_reservas(Reservas *listaReservas);
 
-
+void salvar_usuarios(Usuarios *lista, int qtdTotal);
+void salvar_sessoes(Sessoes *lista, int qtdTotal);
+void salvar_reservas(Reservas *lista, int qtdTotal);
 
 #endif
