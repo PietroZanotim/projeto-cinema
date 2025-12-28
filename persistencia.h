@@ -17,4 +17,6 @@ void salvar_usuarios(Usuarios *lista, int qtdTotal);
 void salvar_sessoes(Sessoes *lista, int qtdTotal);
 void salvar_reservas(Reservas *lista, int qtdTotal);
 
+void finalizar_sistema(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
+
 #endif

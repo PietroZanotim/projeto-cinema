@@ -1,0 +1,1 @@
+gcc main.c usuarios.c sessoes.c utils.c CRUD_reservas.c CRUD_usuarios.c CRUD_sessoes.c persistencia.c admin.c

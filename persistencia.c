@@ -1,5 +1,6 @@
 #include "structs.h"
 #include <string.h>
+#include <stdio.h>
 
 // fwrite: copia da memória para o arquivo
 // fread: copia do arquivo para a memória
@@ -119,4 +120,10 @@ void salvar_reservas(Reservas *lista, int qtd){
     fwrite(&qtd, sizeof(int), 1, p_bin);
     fwrite(lista, sizeof(Reservas), qtd, p_bin);
     fclose(p_bin);
+}
+
+void finalizar_sistema(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
+    salvar_usuarios(listaUsuarios, qtdUsuarios);
+    salvar_sessoes(listaSessoes, qtdSessoes);
+    salvar_reservas(listaReservas, qtdReservas);
 }

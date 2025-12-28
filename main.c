@@ -179,7 +179,10 @@ int main(){
                 break;
 
             case 4:
-                if (confirmarSaida() == 1) return 0;
+                if (confirmarSaida() == 1) {
+                    finalizar_sistema(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                    return 0;
+                }
                 break;
         }
     }
