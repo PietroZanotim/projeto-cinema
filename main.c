@@ -9,6 +9,7 @@
 #include "CRUD_sessoes.h"
 #include "CRUD_usuarios.h"
 #include "CRUD_reservas.h"
+#include "persistencia.h"
 
 #define MAX_USUARIOS 5
 #define MAX_SESSOES 5
@@ -20,14 +21,12 @@ int main(){
     Sessoes listaSessoes[MAX_SESSOES];
     Reservas listaReservas[MAX_RESERVAS];
 
-    // Sistema temporário para acessar o admin
-    strcpy(listaUsuarios[0].nome, "Admin");
-    strcpy(listaUsuarios[0].cpf, "000.000.000-00");
-    strcpy(listaUsuarios[0].senha, "123senha");
-
     int qtdUsuarios = 1; // 1 por causa do Admin
     int qtdSessoes = 0;
     int qtdReservas = 0;
+
+    // Ler o arquivo bin
+    qtdUsuarios = inicializar_sistema(listaUsuarios);
     
     while (1) {
         int opcao = menuPrincipal();
