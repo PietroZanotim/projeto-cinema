@@ -74,7 +74,7 @@ int main(){
                                     int opcao_2 = menu_CRUD_usuarios();
                                     switch(opcao_2){
                                         case 1:
-                                            adicionar_usuario();
+                                            adicionar_usuario(listaUsuarios, &qtdUsuarios, MAX_USUARIOS);
                                             break;
                                         case 2:
                                             excluir_usuario();
