@@ -148,7 +148,7 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
         printf("==========================================================\n");
         printf("Idade: %d\n.", lista[resultado_validacao].idade);
         printf("CPF: %s.\n", lista[resultado_validacao].cpf);
-        printf("Senha: %d.\n", lista[resultado_validacao].senha);
+        printf("Senha: %s.\n", lista[resultado_validacao].senha);
         printf("Saldo: %.2f.\n", lista[resultado_validacao].saldo);
         
         char resposta;
@@ -243,7 +243,7 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
         printf("==========================================================\n");
         printf("Idade: %d\n.", lista[resultado_validacao].idade);
         printf("CPF: %s.\n", lista[resultado_validacao].cpf);
-        printf("Senha: %d.\n", lista[resultado_validacao].senha);
+        printf("Senha: %s.\n", lista[resultado_validacao].senha);
         
         printf("---------------------------------------------------------------\n");
         printf("   [1] - Alterar nome.\n");
@@ -466,7 +466,7 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
         printf("==========================================================\n");
         printf("Idade: %d\n.", lista[resultado_validacao].idade);
         printf("CPF: %s.\n", lista[resultado_validacao].cpf);
-        printf("Senha: %d.\n", lista[resultado_validacao].senha);
+        printf("Senha: %s.\n", lista[resultado_validacao].senha);
         printf("Saldo: %.2f.\n", lista[resultado_validacao].saldo);
 
         printf("\n[Enter] para continuar...\n");
@@ -489,7 +489,7 @@ void visualizar_todos_usuarios(Usuarios *lista, int qtdUsuario){
         printf("==========================================================\n");
         printf("Idade: %d\n.", lista[i].idade);
         printf("CPF: %s.\n", lista[i].cpf);
-        printf("Senha: %d.\n", lista[i].senha);
+        printf("Senha: %s.\n", lista[i].senha);
         printf("Saldo: %.2f.\n\n", lista[i].saldo);
 
     }
