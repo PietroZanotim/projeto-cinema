@@ -338,6 +338,7 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
 
             int resultado_validacaoLocal; //Usado para pegarmos o indice do usuário.
             int contErros=0; //Adicionei essa váriavel para caso o usuário erre 3 vezes o CPF na busca, saia deste menu;
+            char cpfTemp[15];
 
             while (1) {
 
@@ -346,9 +347,8 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
                 }
                 // Limpa o buffer sempre antes de ler
                 while (getchar() != '\n');
-
-                // Passamos o endereço de novoUsuario.cpf para salvar se for validado
-                int resultado_validacaoLocal = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
+                
+                int resultado_validacaoLocal = validarCPF(lista, *qtdUsuarios, cpfTemp, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
 
                 if (resultado_validacaoLocal == 0) {
                     // 0: CPF em formato incorreto
@@ -357,7 +357,7 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
                     printf("CPF: ");
                     contErros++;
                 } else if(resultado_validacaoLocal == -1) { 
-                    //Cópia o CPF para o do usuario, a verificar...
+                    strcpy(lista[resultado_validacao].cpf, cpfTemp); // O cpf digitado não existe... Válido!!!
                     break;
                     contErros++;
                 } else {

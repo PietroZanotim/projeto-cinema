@@ -51,6 +51,11 @@ int validarCPF(Usuarios *lista, int qtd, char *destCpf, int modoCadastro){
     }
     
     if (modoCadastro == 0) {
+        
+        if(indiceEncontrado == -1){
+            strcpy(destCpf, cpfTemp); //If para modificar o CPF no CRUD de usuarios(modificar CPF).
+        }
+         
         // Queremos logar, então TEM que existir (retorna o indice)
         if (indiceEncontrado == -1) return -1; 
         else return indiceEncontrado;
