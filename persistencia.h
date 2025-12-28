@@ -9,7 +9,7 @@
 
 // --- PERSISTÊNCIA (Requisito 3) ---
 // Funções para carregar/salvar os vetores em arquivos binários
-void inicializar_sistema(); // Pode englobar os carregamentos
+int inicializar_sistema(Usuarios *lista); // Pode englobar os carregamentos
 void finalizar_sistema();   // Pode englobar os salvamentos
 
 #endif
