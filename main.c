@@ -86,7 +86,7 @@ int main()
                             switch(opcao_2)
                             {
                             case 1:
-                                adicionar_usuario();
+                                //adicionar_usuario();
                                 break;
                             case 2:
                                 excluir_usuario();
@@ -128,7 +128,7 @@ int main()
                                 visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
                                 break;
                             case 5:
-                                //visualizar_todas_reservas();
+                                visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);
                                 break;
                             }
                             if (opcao_3 == 6)

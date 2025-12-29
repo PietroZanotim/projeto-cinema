@@ -95,3 +95,7 @@ void visualizar_reserva_id(Reservas *reservas, int qtdReservas, Usuarios *usuari
     printf("\n[Enter] para continuar...\n");
     getchar();
 }
+
+void visualizar_todas_reservas(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
+    printf("feito");
+}
