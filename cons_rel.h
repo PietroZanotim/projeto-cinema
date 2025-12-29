@@ -9,7 +9,7 @@
 
 // --- CONSULTAS NA TELA (Requisito 5f - Output Terminal) ---
 // Deve mostrar dados da Reserva + Nome do Filme + Nome do Usuário 
-void CONS_reservas_por_filme();
+void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
 void CONS_reservas_por_data();
 void CONS_reservas_por_cpf();
 
