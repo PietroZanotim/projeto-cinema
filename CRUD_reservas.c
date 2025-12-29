@@ -101,11 +101,11 @@ void visualizar_todas_reservas(Reservas *reservas, int qtdReservas, Usuarios *us
 
     limparTela();
     for(i=0; i<qtdReservas; i++){
-        printf("Nome: %s.\n", usuarios[resultado_validacao].nome);
-        printf("CPF: %s.\n", reservas[resultado_validacao].cpf_usuario);
-        printf("ID: %d.\n", reservas[resultado_validacao].id);
-        printf("ID Sessão: %d.\n", reservas[resultado_validacao].id_sessao);
-        printf("Assento: %s.\n", reservas[resultado_validacao].assento);
+        printf("Nome: %s.\n", usuarios[i].nome);
+        printf("CPF: %s.\n", reservas[i].cpf_usuario);
+        printf("ID: %d.\n", reservas[i].id);
+        printf("ID Sessão: %d.\n", reservas[i].id_sessao);
+        printf("Assento: %s.\n", reservas[i].assento);
         printf("-------------------------------------------------------\n");
     }
 }
