@@ -198,7 +198,10 @@ int main()
             break;
 
         case 4:
-            if (confirmarSaida() == 1) return 0;
+            if (confirmarSaida() == 1){
+                finalizar_sistema();
+                return 0;
+            }
             break;
         }
     }
