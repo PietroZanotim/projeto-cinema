@@ -52,7 +52,7 @@ int main()
                         // CRUD de Sessões
                         while(1)
                         {
-                            int opcao_1 = menu_CRUD_reservas();
+                            int opcao_1 = menu_CRUD_sessoes();
                             switch(opcao_1)
                             {
                             case 1:
