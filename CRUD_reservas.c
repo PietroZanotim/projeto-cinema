@@ -49,15 +49,15 @@ int menu_CRUD_reservas() //codar as funções previamente declaradas em CRUD_res
     return opcao; //isso retorna para a função main na linha 115 para opcao_3
 }
 
-void visualizar_reserva_id(Reservas *reservas, int qtdReservas)
+void visualizar_reserva_id(Reservas *reservas, int qtdReservas, Usuarios *usuarios)
 {
     int idProcurado;
 
     limparTela();
     printf("================================================\n");
-    printf("             Consulta de Reserva por ID\n");
+    printf("             Visualizar reservas por ID\n");
     printf("================================================\n\n");
-    printf("            Digite o Id da reserva        \n");
+    printf("             Digite o Id da reserva\n");
     printf("\n----------------------------------------------\n");
     printf("ID: ");
     int resultado_validacao; //Usado para pegarmos o indice do usuário.
@@ -86,6 +86,7 @@ void visualizar_reserva_id(Reservas *reservas, int qtdReservas)
     printf("==========================================================\n");
     printf("           Reserva:\n");
     printf("==========================================================\n");
+    printf("Nome: %s.\n", usuarios[resultado_validacao].nome);
     printf("CPF: %s.\n", reservas[resultado_validacao].cpf_usuario);
     printf("ID: %d.\n", reservas[resultado_validacao].id);
     printf("ID Sessão: %d.\n", reservas[resultado_validacao].id_sessao);

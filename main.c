@@ -125,7 +125,7 @@ int main()
                                 //modificar_reserva();
                                 break;
                             case 4:
-                                visualizar_reserva_id(listaReservas, qtdReservas);
+                                visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
                                 break;
                             case 5:
                                 //visualizar_todas_reservas();
