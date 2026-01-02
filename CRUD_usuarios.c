@@ -388,7 +388,8 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
             break;
 
             case 4:
-
+            
+            while (getchar() != '\n');
             limparTela();
             printf("==========================================================\n");
             printf("             Usuário: %s\n", lista[resultado_validacao].nome);

@@ -176,6 +176,7 @@ int main()
                         break;
 
                     case 4:
+                        modificarSenha(listaUsuarios, indiceUsuario);
                         break;
 
                     case 5:

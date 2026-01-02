@@ -234,9 +234,8 @@ int menuLogin(Usuarios *usuario, int indiceUsuario) {
         do {
 
             limparTela(); 
-
             printf("===============================================================\n");
-            printf("       TELA PRINCIPAL - Olá: %s\n", usuario[indiceUsuario].nome);
+            printf("             TELA PRINCIPAL - Olá: %s\n", usuario[indiceUsuario].nome);
             printf("===============================================================\n\n");
             printf("   [1] - Visualizar filmes disponíveis.\n");
             printf("   [2] - Visualizar minhas sessões.\n");
@@ -334,11 +333,16 @@ void verSaldo(Usuarios *usuario, int indiceUsuario){
     }
 }
 
+//-----------------------------------------------------------------------------
+//---------------------{ MODIFICAR SENHA DO USUARIO }-------------------------
+//-----------------------------------------------------------------------------
+
 void modificarSenha(Usuarios *lista, int indiceUsuario) {
 
+    while (getchar() != '\n');
     limparTela();
     printf("==========================================================\n");
-    printf("           Usuário: %s\n", lista[indiceUsuario].nome);
+    printf("                 Usuário: %s\n", lista[indiceUsuario].nome);
     printf("==========================================================\n");
     printf("Senha atualizada: ");
 
@@ -353,7 +357,6 @@ void modificarSenha(Usuarios *lista, int indiceUsuario) {
     printf("                 Senha atualizada com sucesso!");
     printf("\n===============================================================\n");
     printf("\n[Enter] para retornar ao menu login...");
-    while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
     getchar(); // Aguarda o usuário enviar o enter
 
 }

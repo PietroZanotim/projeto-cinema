@@ -22,31 +22,44 @@ int buscaSessao(Sessoes *sessao,int id, int qtdSessoes){
 void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, int indiceUsuario, Reservas *reserva, int *qtdReservas){
 
     limparTela();
+    while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+    printf("===============================================================\n");
+    printf("                       SESSOES DISPONÍVEIS:");
+    printf("\n===============================================================\n");
 
-    for(int i=0; i<quantidadeSessoes; i++){
+    if(quantidadeSessoes==0){
 
-        printf("Filme: %s - Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
-        printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
-        printf("Sala: %d\n", sessao[i].sala);
-        printf("Valor: %lf\n", sessao[i].valorIngresso);
-        printf("Assentos:\n");
+        printf("\nSentimos muito... Nenhum filme disponivel no momento.");
+        printf("\n[Enter] para retornar ao menu login...");
+        getchar();
         
-        char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    }
+    else {
 
-        for(int L = 1; L <= 10; L++){
-            for(int C = 1; C <= 10; C++){
-                if(C != 9){
-                    if(sessao[i].assento[L][C] == 0) printf("%c%d ",Linha[L],C);
-                    else printf("X ");
-                } else {
-                    if(sessao[i].assento[L][C] == 0) printf("%c%d\n",Linha[L],C);
-                    else printf("X\n");
+        for(int i=0; i<quantidadeSessoes; i++){
+
+            printf("Filme: %s - Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
+            printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
+            printf("Sala: %d\n", sessao[i].sala);
+            printf("Valor: %lf\n", sessao[i].valorIngresso);
+            printf("Assentos:\n");
+            
+            char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+
+            for(int L = 1; L <= 10; L++){
+                for(int C = 1; C <= 10; C++){
+                    if(C != 9){
+                        if(sessao[i].assento[L][C] == 0) printf("%c%d ",Linha[L],C);
+                        else printf("X ");
+                    } else {
+                        if(sessao[i].assento[L][C] == 0) printf("%c%d\n",Linha[L],C);
+                        else printf("X\n");
+                    }
                 }
             }
+            printf("_________________________________________________________________\n");
+            printf("                             TELA\n");
         }
-        printf("_________________________________________________________________\n");
-        printf("                             TELA\n");
-    }
         char resposta;
 
         do{
@@ -129,5 +142,8 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
             printf("\n[Enter] para retornar ao menu login...");
             getchar(); // Aguarda o usuário enviar o enter
         }
+
+    }
+
 
 }
