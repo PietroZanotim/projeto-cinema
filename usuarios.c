@@ -114,7 +114,7 @@ int login(Usuarios *lista, int qtdUsuarios){
 
         if(strcmp(senhaTemp, lista[indiceUsuario].senha) == 0) break;   
         else {
-            puts("\nSenha invalida. Digite novamente:\nSenha: ");
+            printf("\nSenha invalida.\nDigite novamente: ");
         }
     }
 
@@ -332,4 +332,28 @@ void verSaldo(Usuarios *usuario, int indiceUsuario){
         printf("\n[Enter] para retornar ao menu login...");
         getchar(); // Aguarda o usuário enviar o enter
     }
+}
+
+void modificarSenha(Usuarios *lista, int indiceUsuario) {
+
+    limparTela();
+    printf("==========================================================\n");
+    printf("           Usuário: %s\n", lista[indiceUsuario].nome);
+    printf("==========================================================\n");
+    printf("Senha atualizada: ");
+
+    char senha[15];
+    fgets(senha,15,stdin);
+    senha[strcspn(senha,"\n")] = '\0';
+
+    strcpy(lista[indiceUsuario].senha,senha);
+
+    limparTela();
+    printf("===============================================================\n");
+    printf("                 Senha atualizada com sucesso!");
+    printf("\n===============================================================\n");
+    printf("\n[Enter] para retornar ao menu login...");
+    while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+    getchar(); // Aguarda o usuário enviar o enter
+
 }

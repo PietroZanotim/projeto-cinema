@@ -391,15 +391,15 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
 
             limparTela();
             printf("==========================================================\n");
-            printf("           Usuário: %s\n", lista[resultado_validacao].nome);
+            printf("             Usuário: %s\n", lista[resultado_validacao].nome);
             printf("==========================================================\n");
             printf("Senha atualizada: ");
 
             char senha[15];
-            fgets(nome,15,stdin);
-            nome[strcspn(nome,"\n")] = '\0';
+            fgets(senha,15,stdin);
+            senha[strcspn(senha,"\n")] = '\0';
 
-            strcpy(lista[resultado_validacao].nome,nome);
+            strcpy(lista[resultado_validacao].senha,senha);
 
             limparTela();
             printf("===============================================================\n");

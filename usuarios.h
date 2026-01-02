@@ -15,5 +15,6 @@ int login(Usuarios *lista, int qtdUsuarios);
 void cadastro(Usuarios *lista, int *qtdUsuarios, int max);
 int menuLogin(Usuarios *usuario, int indiceUsuario);
 void verSaldo(Usuarios *usuario, int indiceUsuario);
+void modificarSenha(Usuarios *Usuarios, int indiceUsuario);
 
 #endif
