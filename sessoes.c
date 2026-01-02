@@ -25,10 +25,10 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
     for(int i=0; i<quantidadeSessoes; i++){
 
-        printf("Filme: %d - Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
+        printf("Filme: %s - Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
         printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
         printf("Sala: %d\n", sessao[i].sala);
-        printf("Valor: %d\n", sessao[i].valorIngresso);
+        printf("Valor: %lf\n", sessao[i].valorIngresso);
         printf("Assentos:\n");
         
         char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
