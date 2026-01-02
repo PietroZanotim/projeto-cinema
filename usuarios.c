@@ -34,7 +34,7 @@ int validarCPF(Usuarios *lista, int qtd, char *destCpf, int modoCadastro){
     // 1. Verificar tamanho
     if (strlen(cpfTemp) != 14) return -2;
     // 2. Verificar formato fixo XXX.XXX.XXX-XX
-    if (cpfTemp[3] != '.' || cpfTemp[7] != '.' || cpfTemp[11] != '-') return 0;
+    if (cpfTemp[3] != '.' || cpfTemp[7] != '.' || cpfTemp[11] != '-') return -2;
     // 3. Verificar se os dígitos são numéricos
     for (i = 0; i < 14; i++) {
         if (i == 3 || i == 7 || i == 11) continue;
@@ -42,7 +42,8 @@ int validarCPF(Usuarios *lista, int qtd, char *destCpf, int modoCadastro){
     }
     // 4. Verifica se o CPF já está cadastrado
     int indiceEncontrado = buscaCpfCadastro(lista, qtd, cpfTemp);
-    if (modoCadastro == 1) {
+
+    if (modoCadastro == 1) { // ***MODO CADASTRO****
         if (indiceEncontrado == -1) {
             if(destCpf != NULL) strcpy(destCpf, cpfTemp); //Passa o cpf para o destCpf caso tudo estiver correto. 
             return 1; // Sucesso
@@ -50,10 +51,12 @@ int validarCPF(Usuarios *lista, int qtd, char *destCpf, int modoCadastro){
         else return -1; // Erro: já existe
     }
     
-    if (modoCadastro == 0) {
+    if (modoCadastro == 0) { // ***MODO LOGIN***
         
         if(indiceEncontrado == -1){
+            if(destCpf != NULL){
             strcpy(destCpf, cpfTemp); //If para modificar o CPF no CRUD de usuarios(modificar CPF).
+            }
         }
          
         // Queremos logar, então TEM que existir (retorna o indice)
