@@ -209,7 +209,6 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     // IndiceUsuario do admin é 0, portanto, para os próximos usuários: IndiceUsuario = qtdUsuario
     // Antes de incrementar o qtdUsuario
     lista[*qtdUsuarios] = novoUsuario;
-
     // Incrementamos a quantidade de usuários
     (*qtdUsuarios)++; 
 

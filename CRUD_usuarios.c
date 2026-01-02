@@ -84,9 +84,8 @@ void adicionar_usuario(Usuarios *lista, int *qtdUsuarios, int max){
     novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0';
 
     // Persistência no vetor principal
-    // Incrementamos primeiro, porque o usuário 0 será o admin.
-    (*qtdUsuarios)++; 
     lista[*qtdUsuarios] = novoUsuario;
+    (*qtdUsuarios)++; 
 
     limparTela(); 
     printf("============================================================\n");
@@ -136,6 +135,7 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
 
     if(contErros==3){
         limparTela();
+        while (getchar() != '\n');
         printf("==================================================================\n");
         printf("  Número máximo de tentativas atingidas! [Enter] para continuar...\n");
         printf("==================================================================\n");
@@ -231,6 +231,7 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
 
     if(contErros==3){
         limparTela();
+        while (getchar() != '\n');
         printf("==================================================================\n");
         printf("  Número máximo de tentativas atingidas! [Enter] para continuar...\n");
         printf("==================================================================\n");
@@ -369,6 +370,7 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
 
             if(contErros==3){
                 limparTela();
+                while (getchar() != '\n');
                 printf("==================================================================\n");
                 printf("  Número máximo de tentativas atingidas! [Enter] para continuar...\n");
                 printf("==================================================================\n");
@@ -436,7 +438,7 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
         // Passamos o endereço de novoUsuario.cpf para salvar se for validado
         int resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
 
-        if (resultado_validacao == 0) {
+        if (resultado_validacao == -2) {
              // 0: CPF em formato incorreto
             puts("\nVocê digitou o CPF incorretamente.");
             puts("Digite o seu CPF neste formato XXX.XXX.XXX-XX");
@@ -454,6 +456,7 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
 
     if(contErros==3){
         limparTela();
+        while (getchar() != '\n');
         printf("==================================================================\n");
         printf("  Número máximo de tentativas atingidas! [Enter] para continuar...\n");
         printf("==================================================================\n");
@@ -461,6 +464,7 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
     } else {
 
         limparTela();
+        printf("%d", resultado_validacao);
         printf("==========================================================\n");
         printf("           Usuário: %s\n", lista[resultado_validacao].nome);
         printf("==========================================================\n");
@@ -468,7 +472,8 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
         printf("CPF: %s.\n", lista[resultado_validacao].cpf);
         printf("Senha: %s.\n", lista[resultado_validacao].senha);
         printf("Saldo: %.2f.\n", lista[resultado_validacao].saldo);
-
+        
+        while (getchar() != '\n');
         printf("\n[Enter] para continuar...\n");
         getchar();
 
@@ -478,22 +483,23 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
 void visualizar_todos_usuarios(Usuarios *lista, int qtdUsuario){
 
     limparTela();
-    printf("================================================\n");
+    printf("==========================================================\n");
     printf("            Consulta geral dos usuários\n");
-    printf("------------------------------------------------\n");
+    printf("----------------------------------------------------------\n");
     
     for(int i=0; i<qtdUsuario; i++){ //Considerando o admin!!;
 
         printf("==========================================================\n");
-        printf("           Usuário: %s\n", lista[i].nome);
+        printf("               Usuário: %s\n", lista[i].nome);
         printf("==========================================================\n");
-        printf("Idade: %d\n.", lista[i].idade);
-        printf("CPF: %s.\n", lista[i].cpf);
-        printf("Senha: %s.\n", lista[i].senha);
-        printf("Saldo: %.2f.\n\n", lista[i].saldo);
+        printf("Idade: %d\n", lista[i].idade);
+        printf("CPF: %s\n", lista[i].cpf);
+        printf("Senha: %s\n", lista[i].senha);
+        printf("Saldo: R$ %.2f\n", lista[i].saldo);
 
     }
 
+    while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)    
     printf("\n[Enter] para continuar...\n");
     getchar();
 

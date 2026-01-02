@@ -24,6 +24,7 @@ int main()
     Reservas listaReservas[MAX_RESERVAS];
 
     // Sistema temporário para acessar o admin
+    listaUsuarios[0].idade = 0;
     strcpy(listaUsuarios[0].nome, "Admin");
     strcpy(listaUsuarios[0].cpf, "000.000.000-00");
     strcpy(listaUsuarios[0].senha, "123senha");
