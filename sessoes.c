@@ -24,7 +24,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
     limparTela();
     while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
     printf("===============================================================\n");
-    printf("                       SESSOES DISPONÍVEIS:");
+    printf("                      SESSOES DISPONÍVEIS:");
     printf("\n===============================================================\n");
 
     if(quantidadeSessoes==0){
