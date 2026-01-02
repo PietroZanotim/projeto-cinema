@@ -6,8 +6,6 @@
 #include "reservas.h"
 #include "utils.h"
 
-
-
 int menu_CRUD_reservas() //codar as funções previamente declaradas em CRUD_reservas.h
 {
     int opcao;

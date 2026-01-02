@@ -5,7 +5,9 @@
 #include "utils.h"
 #include "usuarios.h"
 #include "sessoes.h"
+#include "reservas.h"
 #include "admin.h"
+#include "persistencia.h"
 #include "CRUD_sessoes.h"
 #include "CRUD_usuarios.h"
 #include "CRUD_reservas.h"
@@ -86,19 +88,19 @@ int main()
                             switch(opcao_2)
                             {
                             case 1:
-                                //adicionar_usuario();
+                                adicionar_usuario(listaUsuarios, &qtdUsuarios, MAX_USUARIOS);
                                 break;
                             case 2:
-                                excluir_usuario();
+                                excluir_usuario(listaUsuarios, &qtdUsuarios); // Verificar o controle de memória...
                                 break;
                             case 3:
-                                modificar_usuario();
+                                modificar_usuario(listaUsuarios, &qtdUsuarios);
                                 break;
                             case 4:
-                                visualizar_usuario_cpf();
+                                visualizar_usuario_cpf(listaUsuarios, &qtdUsuarios);
                                 break;
                             case 5:
-                                visualizar_todos_usuarios();
+                                visualizar_todos_usuarios(listaUsuarios, qtdUsuarios);
                                 break;
                             }
                             if (opcao_2 == 6)
@@ -199,7 +201,7 @@ int main()
 
         case 4:
             if (confirmarSaida() == 1){
-                finalizar_sistema();
+                finalizar_sistema(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
                 return 0;
             }
             break;

@@ -6,6 +6,7 @@
 #define CRUD_RESERVAS_H
 
 #include "structs.h" // Precisa conhecer a struct Reserva e Usuarios
+#include "reservas.h"
 
 // --- CRUD RESERVA (Estrutura 3 - Relacional) ---
 int menu_CRUD_reservas();

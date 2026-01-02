@@ -7,10 +7,10 @@
 #include <ctype.h>
 #include "reservas.h"
 
-int buscar_indice_reserva(Reservas *reservas, int qtdReservas, int idProcurado){ //codar as funções previamente declaradas em reserva.h
+int buscar_indice_reserva(Reservas *reservas, int qtdReservas, int idProcurado){ //codar as funï¿½ï¿½es previamente declaradas em reserva.h
     int i;
     for(i=0; i<qtdReservas; i++){
-        if(reservas[i].id == idProcurado){
+        if(reservas[i].id_sessao == idProcurado){
             return i; //indice da reserva
         }
     }
