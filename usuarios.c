@@ -88,7 +88,7 @@ int login(Usuarios *lista, int qtdUsuarios){
             puts("\nVocê digitou o CPF incorretamente.");
             puts("Digite o seu CPF neste formato XXX.XXX.XXX-XX");
             printf("CPF: ");
-        } else if (indiceUsuario == -1) { // -1: CPF já está cadastrado
+        } else if (indiceUsuario == -1) { // -1: CPF não cadastrado
             puts("\nEsse CPF não foi encontrado.");
             puts("Digite um outro CPF ou retorne ao menu.");
             printf("CPF: ");
@@ -230,6 +230,7 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
 int menuLogin(Usuarios *usuario, int indiceUsuario) {
 
     int opcao = 0; // Inicializa com um valor inválido
+    int tamanhoMenu = 6; // Quantidade de opções do menu. Para usar na função validarInput()
 
         do {
 
@@ -247,19 +248,7 @@ int menuLogin(Usuarios *usuario, int indiceUsuario) {
             printf("Digite a opcao desejada: ");
 
             // Validação de tipo de input
-            if (scanf("%d", &opcao) != 1) {
-                // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
-                // limpamos o buffer de entrada para evitar um loop infinito.
-                opcao = 0; // Reseta para um valor inválido
-                while (getchar() != '\n'); // Limpa o buffer
-            }
-
-            // Validação de intervalo numérico        
-            if (opcao < 1 || opcao > 6) {
-                printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
-                while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-                getchar(); // Aguarda o usuário pressionar Enter
-            }
+            opcao = validarInput(tamanhoMenu);
 
         } while (opcao < 1 || opcao > 6); // Repete o menu se a opção for inválida
         

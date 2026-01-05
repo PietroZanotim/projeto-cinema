@@ -9,6 +9,7 @@
 int menu_CRUD_reservas() //codar as funções previamente declaradas em CRUD_reservas.h
 {
     int opcao;
+    int tamanhoMenu = 6; // Quantidade de opções do menu. Para usar na função validarInput()
     do
     {
         limparTela();
@@ -26,21 +27,8 @@ int menu_CRUD_reservas() //codar as funções previamente declaradas em CRUD_res
         printf("Digite a opcao desejada: ");
 
         // Validação de tipo de input
-        if (scanf("%d", &opcao) != 1)
-        {
-            // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
-            // limpamos o buffer de entrada para evitar um loop infinito.
-            opcao = 0; // Reseta para um valor inválido
-            while (getchar() != '\n'); // Limpa o buffer
-        }
-
-        // Validação de intervalo numérico
-        if (opcao < 1 || opcao > 6)
-        {
-            printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
-            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-            getchar(); // Aguarda o usuário pressionar Enter
-        }
+        opcao = validarInput(tamanhoMenu);
+        
     }
     while(opcao < 1 || opcao > 6);
 
@@ -97,7 +85,7 @@ void visualizar_todas_reservas(Reservas *reservas, int qtdReservas, Usuarios *us
 
 void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
     int idProcurado, opcao, resultado_validacao;
-
+    int tamanhoMenu = 5; // Quantidade de opções do menu. Para usar na função validarInput()
     limparTela();
     printf("================================================\n");
     printf("              Modificação de reserva\n");
@@ -128,6 +116,7 @@ void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
     limparTela();
     imprimir_dados_reserva(reservas, qtdReservas, usuarios, resultado_validacao);
 
+
     do{
         printf("===============================================================\n");
         printf("                       Selecione uma Opção\n");
@@ -141,21 +130,8 @@ void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
         printf("Digite a opcao desejada: ");
 
         // Validação de tipo de input
-        if (scanf("%d", &opcao) != 1)
-        {
-            // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
-            // limpamos o buffer de entrada para evitar um loop infinito.
-            opcao = 0; // Reseta para um valor inválido
-            while (getchar() != '\n'); // Limpa o buffer
-        }
-
-        // Validação de intervalo numérico
-        if (opcao < 1 || opcao > 5)
-        {
-            printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
-            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-            getchar(); // Aguarda a opção pressionar Enter
-        }
+        opcao = validarInput(tamanhoMenu);
+        
     }
     while(opcao < 1 || opcao > 5);
     printf("\n\n");

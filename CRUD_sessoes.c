@@ -8,6 +8,7 @@
 
 int menu_CRUD_sessoes(){
     int opcao;
+    int tamanhoMenu = 6; //Quantidade de opções do menu. Para usar na função validarInput()
     do{
         limparTela(); 
 
@@ -23,20 +24,10 @@ int menu_CRUD_sessoes(){
         printf("---------------------------------------------------------------\n");
         printf("Digite a opcao desejada: ");
 
-        // Validação de tipo de input
-        if (scanf("%d", &opcao) != 1) {
-            // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
-            // limpamos o buffer de entrada para evitar um loop infinito.
-            opcao = 0; // Reseta para um valor inválido
-            while (getchar() != '\n'); // Limpa o buffer
-        }
 
-        // Validação de intervalo numérico        
-        if (opcao < 1 || opcao > 6) {
-            printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
-            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-            getchar(); // Aguarda o usuário pressionar Enter
-        }
+        // Validação do tipo de input
+        opcao = validarInput(tamanhoMenu);
+
     } while(opcao < 1 || opcao > 6);
 
     return opcao;

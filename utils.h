@@ -15,6 +15,7 @@ int confirmarRetorno();
 int voltar();
 int saberFuncionalidade();
 int saberMais();
+int validarInput(int tamanhoMenu);
 
 // Adicionar
 int buscar_indice_sessao(int id_sessao);
