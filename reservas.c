@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 #include <ctype.h>
 #include "reservas.h"
 
@@ -26,4 +27,56 @@ void imprimir_dados_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuar
     printf("ID: %d.\n", reservas[indice].id);
     printf("ID Sessão: %d.\n", reservas[indice].id_sessao);
     printf("Assento: %s.\n", reservas[indice].assento);
+}
+
+void modificarNome(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
+    Usuarios temp;
+
+    printf("\n==============================================\n");
+    printf("              Modificar Nome\n");
+    printf("\n==============================================\n");
+    printf("              Insira o novo Nome\n");
+    printf("\n----------------------------------------------\n");
+    printf("Nome: ");
+
+    while (getchar() != '\n');
+    fgets(temp.nome, sizeof(temp.nome), stdin);
+    temp.nome[strcspn(temp.nome, "\n")] = '\0'; // Boa prática limpar o \n
+
+    printf("\n----------------------------------------------\n");
+    printf("              Nome Modificado com Sucesso!\n");
+    printf("             Pressione ENTER para continuar.\n");
+    printf("\n----------------------------------------------\n");
+    getchar();
+}
+
+void modificarCPF(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
+    Usuarios temp;
+
+    printf("\n==============================================\n");
+    printf("                Modificar CPF\n");
+    printf("\n==============================================\n");
+    printf(" Digite o novo CPF neste formato XXX.XXX.XXX-XX\n");
+    printf("\n-----------------------------------------------\n");
+    printf("CPF: ");
+
+
+}
+
+void modificarID(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
+    printf("\n----------------------------------------------\n");
+    printf("              Modificar ID\n");
+    printf("\n----------------------------------------------\n");
+}
+
+void modificarIDsessao(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
+    printf("\n----------------------------------------------\n");
+    printf("              Modificar ID Sessão\n");
+    printf("\n----------------------------------------------\n");
+}
+
+void modificarAssento(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
+    printf("\n----------------------------------------------\n");
+    printf("              Modificar Assento\n");
+    printf("\n----------------------------------------------\n");
 }
