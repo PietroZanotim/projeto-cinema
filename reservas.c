@@ -17,14 +17,13 @@ int buscar_indice_reserva(Reservas *reservas, int qtdReservas, int idProcurado){
     return -1;
 }
 
-void imprimir_dados_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int resultado_validacao){
-    limparTela();
+void imprimir_dados_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
     printf("==========================================================\n");
     printf("           Reserva:\n");
     printf("==========================================================\n");
-    printf("Nome: %s.\n", usuarios[resultado_validacao].nome);
-    printf("CPF: %s.\n", reservas[resultado_validacao].cpf_usuario);
-    printf("ID: %d.\n", reservas[resultado_validacao].id);
-    printf("ID Sessão: %d.\n", reservas[resultado_validacao].id_sessao);
-    printf("Assento: %s.\n", reservas[resultado_validacao].assento);
+    printf("Nome: %s.\n", usuarios[indice].nome);
+    printf("CPF: %s.\n", reservas[indice].cpf_usuario);
+    printf("ID: %d.\n", reservas[indice].id);
+    printf("ID Sessão: %d.\n", reservas[indice].id_sessao);
+    printf("Assento: %s.\n", reservas[indice].assento);
 }

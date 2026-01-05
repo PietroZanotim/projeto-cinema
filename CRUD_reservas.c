@@ -79,7 +79,7 @@ void visualizar_reserva_id(Reservas *reservas, int qtdReservas, Usuarios *usuari
             break;
         }
     }
-
+    limparTela();
     imprimir_dados_reserva(reservas, qtdReservas, usuarios, resultado_validacao);
 
     printf("\n[Enter] para continuar...\n");
@@ -91,11 +91,6 @@ void visualizar_todas_reservas(Reservas *reservas, int qtdReservas, Usuarios *us
 
     limparTela();
     for(i=0; i<qtdReservas; i++){
-        printf("Nome: %s.\n", usuarios[i].nome);
-        printf("CPF: %s.\n", reservas[i].cpf_usuario);
-        printf("ID: %d.\n", reservas[i].id);
-        printf("ID Sessão: %d.\n", reservas[i].id_sessao);
-        printf("Assento: %s.\n", reservas[i].assento);
-        printf("-------------------------------------------------------\n");
+        imprimir_dados_reserva(reservas, qtdReservas, usuarios, i);
     }
 }
