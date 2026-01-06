@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include "utils.h"
+#include "cons_rel.h"
+#include "structs.h"
 
 void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
    
     char nome_do_filme[50];
+    int flag=0;
     do{
         limparTela(); 
 
@@ -16,13 +19,11 @@ void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Res
         printf("---------------------------------------------------------------\n");
         printf("Digite o nome do filme (ou digite 'q' para sair): ");
 
-        int flag = 0;
-
         scanf(" %[^\n]", nome_do_filme);
 
         if(nome_do_filme[0] == 'q') confirmarRetorno();
         for(int i = 0; i < qtdSessoes; i++){
-            if(strcmp(nome_do_filme, Sessoes[i].nome_do_filme) == 1){
+            if(strcmp(nome_do_filme, listaSessoes[i].nome_filme) == 1){
                 flag = 1;
                 break;
             }
@@ -39,7 +40,7 @@ void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Res
     // Encontra todos os indices e seus respectivos IDs 
     // (linha 0 -> indice | linha 1 -> ID)
     for(int i = 0, j = 0; i < qtdSessoes; i++){
-        if(strcmp(nome_do_filme, listaSessoes[i].nome_do_filme) == 1){
+        if(strcmp(nome_do_filme, listaSessoes[i].nome_filme) == 1){
             indice_sessoes[j] == i;
             j++;
         }
@@ -48,7 +49,7 @@ void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Res
         if(listaReservas[i].id_sessao == listaSessoes[indice_sessoes[j]].id){
             j++;
             printf("\n==========================================================\n");
-            printf("             Reserva de ID %d\n", i);
+            printf("                  Reserva de ID %d\n", i);
             printf("==========================================================\n");
             printf("CPF: %s.\n", reservas[resultado_validacao].cpf_usuario);
             printf("ID: %d.\n", reservas[resultado_validacao].id);
