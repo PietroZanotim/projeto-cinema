@@ -22,7 +22,6 @@ int buscaSessao(Sessoes *sessao,int id, int qtdSessoes){
 void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, int indiceUsuario, Reservas *reserva, int *qtdReservas){
 
     limparTela();
-    while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
     printf("===============================================================\n");
     printf("                      SESSOES DISPONÍVEIS:");
     printf("\n===============================================================\n");

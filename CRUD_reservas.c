@@ -50,8 +50,6 @@ void visualizar_reserva_id(Reservas *reservas, int qtdReservas, Usuarios *usuari
 
     while (1)
     {
-        // Limpa o buffer sempre antes de ler
-        while (getchar() != '\n');
         scanf("%d", &idProcurado);
 
         resultado_validacao =  buscar_indice_reserva(reservas, qtdReservas, idProcurado); //se achar o id, retorna posicao
@@ -95,8 +93,6 @@ void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
     printf("ID: ");
     while (1)
     {
-        // Limpa o buffer sempre antes de ler
-        while (getchar() != '\n');
         scanf("%d", &idProcurado);
 
         resultado_validacao =  buscar_indice_reserva(reservas, qtdReservas, idProcurado); //se achar o id, retorna posicao

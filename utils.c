@@ -179,79 +179,84 @@ int saberFuncionalidades(){
     printf("2- REALIZAR LOGIN:\n");
     printf("No menu principal, digite 1 para realizar o login, é necessário \njá ter criado uma conta em nosso sistema para isso.\nÉ necessário realizar o login sempre que você reiniciar nosso sistema.\n\n");
     //printf("3 - RESERVAR UMA SESSÃO:\n");
-
-    printf("Aperte Enter para voltar: ");
-
-    // Chama a função voltar, se retornar 1 a função saberFuncionalidade se encerra
-    if(voltar() == 1){
-        return 0;
-    }
 }
 
 
 
 int saberMais(){
 
-    int escolha = 0; // Inicializa como opção inválida
-    int tamanhoMenu = 4; // Quantidade de opções do menu. Para usar na função validarInput()
+    int opcao = 0; 
+    int tamanhoMenu = 4; 
 
-    limparTela();
     do{
-        printf("==============================================\n");
-        printf("                 SAIBA MAIS\n");
+        limparTela();
+        
+        printf("\n==============================================\n");
+        printf("               SAIBA MAIS\n");
         printf("==============================================\n\n");
         printf("   [1] - Funcionalidades\n");
-        printf("   [2] - Sessão e Horários\n");
+        printf("   [2] - Sessao e Horarios\n");
         printf("   [3] - Filmes\n");
         printf("   [4] - Voltar\n");
         printf("\n--------------------------------------------\n");
         printf("Digite a opcao desejada: ");
 
-        // Validação do input
-        do {
-            escolha = validarInput(tamanhoMenu);
+        // Validação do tipo de input
+        opcao = validarInput(tamanhoMenu);
 
-        } while (escolha < 1 || escolha > 4); // Repete o menu do saber mais se a opção for inválida
-
-        //Condições para selecionar a função escolhida pelo usuário
-        if(escolha == 1){
+        // Condições
+        if(opcao == 1){
+            printf("\n--- Voce escolheu Funcionalidades ---\n");
             saberFuncionalidades();
+
+            // Pausa para o usuário ler antes do menu voltar
+            printf("Pressione Enter para voltar...");
+            getchar(); 
         }
-        else if(escolha == 2){
-            
+        else if(opcao == 2){
+            printf("\n--- Voce escolheu Sessao ---\n");
+             // Pausa
+            printf("Pressione Enter para voltar...");
+            getchar();
         }
-        else if(escolha == 3){
-           
+        else if(opcao == 3){
+            printf("\n--- Voce escolheu Filmes ---\n");
+             // Pausa
+            printf("Pressione Enter para voltar...");
+            getchar();
         }
-        else{
-            limparTela();
-            break;
+        else if(opcao == 4){
+            printf("\nVoltando...\n");
         }
-    } while(escolha != 4);
+
+    } while(opcao != 4);
+    
+    return 0;
 }
 
+
 int validarInput(int tamanhoMenu){
+    char input[50]; // Buffer para guardar o texto digitado
     int opcao;
 
-    // Tenta ler o input
-    if (scanf("%d", &opcao) != 1) {
-        // Caso digite letra:
-        opcao = 0; // Define como inválido
-        
-        // Limpa tudo o que foi digitado (a letra e o enter)
-        while (getchar() != '\n'); 
-    } 
-    else {
-        // Caso digite número:
-        // Limpar o 'Enter' do buffer
-        while (getchar() != '\n');
+    // 1. Lê TUDO o que foi digitado até o Enter.
+    // Isso garante que o buffer fique limpo, sem precisar de loops while.
+    fgets(input, 50, stdin);
+
+    // 2. Tenta converter o texto para número usando sscanf
+    // sscanf funciona igual scanf, mas lê da variável 'input' em vez do teclado
+    if (sscanf(input, "%d", &opcao) != 1) {
+        // Entra aqui se o usuário digitou letras ou símbolos
+        printf("\nOpcao invalida! (Nao e numero). Pressione Enter para tentar novamente.");
+        getchar(); // Pausa esperando APENAS um Enter
+        return 0; 
     }
 
-    // Validação de intervalo numérico
+    // 3. Validação de intervalo numérico (ex: 1 a 4)
     if (opcao < 1 || opcao > tamanhoMenu) {
-        printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
-        // Espera o 'Enter'
-        getchar();
+        printf("\nOpcao invalida! (Numero inexistente). Pressione Enter para tentar novamente.");
+        getchar(); // Pausa esperando APENAS um Enter
+        return 0;
     }
 
     return opcao;

@@ -39,7 +39,6 @@ void modificarNome(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int 
     printf("\n----------------------------------------------\n");
     printf("Nome: ");
 
-    while (getchar() != '\n');
     fgets(temp.nome, sizeof(temp.nome), stdin);
     temp.nome[strcspn(temp.nome, "\n")] = '\0'; // Boa prática limpar o \n
 

@@ -80,7 +80,6 @@ int login(Usuarios *lista, int qtdUsuarios){
     printf("CPF: ");
 
     while (1) {
-        while (getchar() != '\n');
         // Passamos NULL no destCpf pois no login não vamos salvar o CPF em lugar nenhum por enquanto
         indiceUsuario = validarCPF(lista, qtdUsuarios, NULL, 0); 
 
@@ -148,7 +147,6 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     printf("\n----------------------------------------------\n");
     printf("Nome: ");
     
-    while (getchar() != '\n'); 
     fgets(novoUsuario.nome, sizeof(novoUsuario.nome), stdin);
     novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; // Boa prática limpar o \n
 
@@ -178,9 +176,6 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     printf("CPF: ");
 
     while (1) {
-        // Limpa o buffer sempre antes de ler
-        while (getchar() != '\n');
-
         // Passamos o endereço de novoUsuario.cpf para salvar se for validado
         int resultado_validacao = validarCPF(lista, *qtdUsuarios, novoUsuario.cpf, 1);
 
@@ -328,7 +323,6 @@ void verSaldo(Usuarios *usuario, int indiceUsuario){
 
 void modificarSenha(Usuarios *lista, int indiceUsuario) {
 
-    while (getchar() != '\n');
     limparTela();
     printf("==========================================================\n");
     printf("                 Usuário: %s\n", lista[indiceUsuario].nome);

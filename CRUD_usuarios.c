@@ -24,7 +24,6 @@ void adicionar_usuario(Usuarios *lista, int *qtdUsuarios, int max){
     printf("\n----------------------------------------------\n");
     printf("Nome: ");
     
-    while (getchar() != '\n'); 
     fgets(novoUsuario.nome, sizeof(novoUsuario.nome), stdin);
     novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; // Boa prática limpar o \n
 
@@ -111,8 +110,6 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
         if(contErros==3){
             break;
         }
-        // Limpa o buffer sempre antes de ler
-        while (getchar() != '\n');
 
         // Passamos o endereço de novoUsuario.cpf para salvar se for validado
         int resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
@@ -273,7 +270,6 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
             printf("           Usuário: %s\n", lista[resultado_validacao].nome);
             printf("==========================================================\n");
             printf("Nome atualizado: ");
-            getchar();
 
             char nome[70];
             fgets(nome,70,stdin);
@@ -335,8 +331,7 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
                 if(contErros==3){
                 break;
                 }
-                // Limpa o buffer sempre antes de ler
-                while (getchar() != '\n');
+                
                 
                 int resultado_validacaoLocal = validarCPF(lista, *qtdUsuarios, cpfTemp, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
 
@@ -378,7 +373,6 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
 
             case 4:
             
-            while (getchar() != '\n');
             limparTela();
             printf("==========================================================\n");
             printf("             Usuário: %s\n", lista[resultado_validacao].nome);
@@ -422,8 +416,6 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
         if(contErros==3){
             break;
         }
-        // Limpa o buffer sempre antes de ler
-        while (getchar() != '\n');
 
         // Passamos o endereço de novoUsuario.cpf para salvar se for validado
         int resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
