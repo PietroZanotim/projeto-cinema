@@ -153,7 +153,7 @@ int saberFuncionalidades(){
     printf("1- CRIAR CONTA:\n");
     printf("No menu principal, digite 2 para registrar-se e poder utilizar \no sistema de reserva de filmes e acessar seu saldo de dinheiro.\n(*Importante* - Lembre-se de seus dados do cadastro para realizar o login.)\n\n");
     printf("2- REALIZAR LOGIN:\n");
-    printf("No menu principal, digite 1 para realizar o login, é necessário \njá ter criado uma conta em nosso sistema para isso.\nÉ necessário realizar o login sempre que você reiniciar nosso sistema.\n\n");
+    printf("No menu principal, digite 1 para realizar o login, eh necessário \nja ter criado uma conta em nosso sistema para isso.\nEh necessário realizar o login sempre que você reiniciar nosso sistema.\n\n");
     //printf("3 - RESERVAR UMA SESSÃO:\n");
 }
 
@@ -223,14 +223,14 @@ int validarInput(int tamanhoMenu){
     // sscanf funciona igual scanf, mas lê da variável 'input' em vez do teclado
     if (sscanf(input, "%d", &opcao) != 1) {
         // Entra aqui se o usuário digitou letras ou símbolos
-        printf("\nOpcao invalida! (Digite um número). Pressione Enter para tentar novamente.");
+        printf("\nOpcao invalida! (Digite um numero). Pressione Enter para tentar novamente.");
         getchar(); // Pausa esperando um Enter
         return 0; 
     }
 
     // Validação de intervalo numérico (ex: 1 a 4)
     if (opcao < 1 || opcao > tamanhoMenu) {
-        printf("\nOpcao invalida! (Numero um número válido). Pressione Enter para tentar novamente.");
+        printf("\nOpcao invalida! (Numero um numero valido). Pressione Enter para tentar novamente.");
         getchar(); // Pausa esperando um Enter
         return 0;
     }
