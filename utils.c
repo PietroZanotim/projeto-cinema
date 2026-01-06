@@ -139,30 +139,6 @@ int confirmarRetorno() {
 //-----------------------------{ SABER MAIS }----------------------------------
 //-----------------------------------------------------------------------------
 
-int voltar(){
-    char vazio;
-
-    // Validação para voltar ao menu
-    int valid = 0;
-
-    do{
-        // Consumir o buffer antes de ler a próxima tecla
-        while (getchar() != '\n');
-        // Lê o caracter do buffer de entrada
-        vazio = getchar();
-
-        // Se o usuário digitar Enter, a função retorna 1
-        if(vazio == '\n'){
-            return 1;
-        }
-        // Se a condição anterior for falsa, altera o valor da validação para 1
-        else{
-            valid = 1;
-            printf("Digito inválido, aperte Enter para voltar: ");
-        }
-    }while (valid == 1);
-}
-
 
 //Função para mostrar as funcionalidades do sistema
 int saberFuncionalidades(){
