@@ -232,18 +232,26 @@ int saberMais(){
 
 int validarInput(int tamanhoMenu){
     int opcao;
+
+    // Tenta ler o input
     if (scanf("%d", &opcao) != 1) {
-        // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
-        // limpamos o buffer de entrada para evitar um loop infinito.
-        opcao = 0; // Reseta para um valor inválido
-        while (getchar() != '\n'); // Limpa o buffer
+        // Caso digite letra:
+        opcao = 0; // Define como inválido
+        
+        // Limpa tudo o que foi digitado (a letra e o enter)
+        while (getchar() != '\n'); 
+    } 
+    else {
+        // Caso digite número:
+        // Limpar o 'Enter' do buffer
+        while (getchar() != '\n');
     }
 
-        // Validação de intervalo numérico        
-        if (opcao < 1 || opcao > tamanhoMenu) {
+    // Validação de intervalo numérico
+    if (opcao < 1 || opcao > tamanhoMenu) {
         printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
-        while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-        getchar(); // Aguarda o usuário pressionar Enter
+        // Espera o 'Enter'
+        getchar();
     }
 
     return opcao;
