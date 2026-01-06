@@ -6,6 +6,8 @@
 
 void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
    
+    int resultado_validacao; // Criação temporária da variável
+    Reservas reservas[100]; // Declaração temporária da struct Reservas
     char nome_do_filme[50];
     int flag=0;
     do{
