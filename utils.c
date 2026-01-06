@@ -239,23 +239,23 @@ int validarInput(int tamanhoMenu){
     char input[50]; // Buffer para guardar o texto digitado
     int opcao;
 
-    // 1. Lê TUDO o que foi digitado até o Enter.
+    // Ler tudo o que foi digitado até o Enter.
     // Isso garante que o buffer fique limpo, sem precisar de loops while.
     fgets(input, 50, stdin);
 
-    // 2. Tenta converter o texto para número usando sscanf
+    // Converter o texto para número usando sscanf
     // sscanf funciona igual scanf, mas lê da variável 'input' em vez do teclado
     if (sscanf(input, "%d", &opcao) != 1) {
         // Entra aqui se o usuário digitou letras ou símbolos
-        printf("\nOpcao invalida! (Nao e numero). Pressione Enter para tentar novamente.");
-        getchar(); // Pausa esperando APENAS um Enter
+        printf("\nOpcao invalida! (Digite um número). Pressione Enter para tentar novamente.");
+        getchar(); // Pausa esperando um Enter
         return 0; 
     }
 
-    // 3. Validação de intervalo numérico (ex: 1 a 4)
+    // Validação de intervalo numérico (ex: 1 a 4)
     if (opcao < 1 || opcao > tamanhoMenu) {
-        printf("\nOpcao invalida! (Numero inexistente). Pressione Enter para tentar novamente.");
-        getchar(); // Pausa esperando APENAS um Enter
+        printf("\nOpcao invalida! (Numero um número válido). Pressione Enter para tentar novamente.");
+        getchar(); // Pausa esperando um Enter
         return 0;
     }
 
