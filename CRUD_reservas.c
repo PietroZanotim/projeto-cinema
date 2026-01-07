@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "usuarios.h"
 #include "reservas.h"
+#include "sessoes.h"
 #include "utils.h"
 
 int menu_CRUD_reservas() //codar as funções previamente declaradas em CRUD_reservas.h
@@ -28,7 +29,7 @@ int menu_CRUD_reservas() //codar as funções previamente declaradas em CRUD_res
 
         // Validação de tipo de input
         opcao = validarInput(tamanhoMenu);
-        
+
     }
     while(opcao < 1 || opcao > 6);
 
@@ -81,7 +82,7 @@ void visualizar_todas_reservas(Reservas *reservas, int qtdReservas, Usuarios *us
     }
 }
 
-void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
+void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, Sessoes *sessoes, int qtdSessoes){
     int idProcurado, opcao, resultado_validacao;
     int tamanhoMenu = 5; // Quantidade de opções do menu. Para usar na função validarInput()
     limparTela();
@@ -127,7 +128,7 @@ void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
 
         // Validação de tipo de input
         opcao = validarInput(tamanhoMenu);
-        
+
     }
     while(opcao < 1 || opcao > 5);
     printf("\n\n");
@@ -136,6 +137,6 @@ void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
         case 2: modificarCPF(reservas, qtdReservas, usuarios, resultado_validacao); break;
         case 3: modificarID(reservas, qtdReservas, usuarios, resultado_validacao); break;
         case 4: modificarIDsessao(reservas, qtdReservas, usuarios, resultado_validacao); break;
-        case 5: modificarAssento(reservas, qtdReservas, usuarios, resultado_validacao); break;
+        case 5: modificarAssento(reservas, qtdReservas, usuarios, resultado_validacao, sessoes, qtdSessoes); break;
     }
 }

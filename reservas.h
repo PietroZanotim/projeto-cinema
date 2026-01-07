@@ -11,4 +11,4 @@ void modificarNome(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int 
 void modificarCPF(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice);
 void modificarID(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice);
 void modificarIDsessao(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice);
-void modificarAssento(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice);
+void modificarAssento(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice, Sessoes *sessoes, int qtdSessoes);
