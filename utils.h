@@ -15,6 +15,7 @@ int confirmarRetorno();
 int voltar();
 int saberFuncionalidade();
 int saberMais();
+int validarInput(int tamanhoMenu);
 int validar_formato_data(char* data);
 
 // Adicionar
