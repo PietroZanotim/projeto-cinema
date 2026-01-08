@@ -24,6 +24,7 @@ void limparTela() {
 //-----------------------------------------------------------------------------
 int menuPrincipal() {
     int opcao = 0; // Inicializa com um valor inválido
+    int tamanhoMenu = 4; // Quantidade de opções no menu. Para usar na função validarInput()
 
     do {
         limparTela();
@@ -39,19 +40,7 @@ int menuPrincipal() {
         printf("Digite a opcao desejada: ");
 
         // Validação de tipo de input
-        if (scanf("%d", &opcao) != 1) {
-            // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
-            // limpamos o buffer de entrada para evitar um loop infinito.
-            opcao = 0; // Reseta para um valor inválido
-            while (getchar() != '\n'); // Limpa o buffer
-        }
-
-        // Validação de intervalo numérico
-        if (opcao < 1 || opcao > 4) {
-            printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
-            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-            getchar(); // Aguarda o usuário pressionar Enter
-        }
+        opcao = validarInput(tamanhoMenu);
 
     } while (opcao < 1 || opcao > 4); // Repete o menu se a opção for inválida
 
@@ -203,6 +192,7 @@ int saberFuncionalidades(){
 int saberMais(){
 
     int escolha = 0; // Inicializa como opção inválida
+    int tamanhoMenu = 4; 
 
     limparTela();
     do{
@@ -217,22 +207,7 @@ int saberMais(){
         printf("Digite a opcao desejada: ");
 
         // Validação do input
-        do {
-            if (scanf("%d", &escolha) != 1) {
-                // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
-                // limpamos o buffer de entrada para evitar um loop infinito.
-                escolha = 0; // Reseta para um valor inválido
-                while (getchar() != '\n'); // Limpa o buffer
-            }
-
-            // Validação de intervalo numérico
-            if (escolha < 1 || escolha > 4) {
-                printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
-                while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-                getchar(); // Aguarda o usuário pressionar Enter
-            }
-
-        } while (escolha < 1 || escolha > 4); // Repete o menu do saber mais se a opção for inválida
+        escolha = validarInput(tamanhoMenu);        
 
         //Condições para selecionar a função escolhida pelo usuário
         if(escolha == 1){
@@ -249,6 +224,8 @@ int saberMais(){
             break;
         }
     } while(escolha != 4);
+
+    return 0;
 }
 
 int validar_formato_data(){
@@ -262,4 +239,22 @@ int validar_formato_data(){
         if (!isdigit(cpfTemp[i])) return -3;
     }
     return 0; // Sucesso
+}
+
+int validarInput(int tamanhoMenu){
+    char input[50]; // Buffer para guardar o texto digitado
+    int opcao;
+
+    // Ler tudo o que foi digitado até o Enter.
+    // Isso garante que o buffer fique limpo, sem precisar de loops while.
+    fgets(input, 50, stdin);
+
+    // Converter o texto para número usando sscanf
+    // sscanf funciona igual scanf, mas lê da variável 'input' em vez do teclado
+    if (sscanf(input, "%d", &opcao) != 1) {
+        // Entra aqui se o usuário digitou letras ou símbolos
+        printf("\nOpcao invalida! (Digite um numero). Pressione Enter para tentar novamente.");
+        getchar(); // Pausa esperando um Enter
+        return 0; 
+    }
 }
