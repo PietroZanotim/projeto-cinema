@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 #include "utils.h"
 #include "structs.h" // Precisa conhecer a struct Usuarios
@@ -199,8 +200,6 @@ int saberFuncionalidades(){
     }
 }
 
-
-
 int saberMais(){
 
     int escolha = 0; // Inicializa como opção inválida
@@ -258,7 +257,7 @@ int validar_formato_data(){
     // 2. Verificar formato fixo XX/XX/XX
     if (dataTemp[2] != '/' || dataTemp[5] != '/') return -2;
     // 3. Verificar se os dígitos são numéricos
-    for (i = 0; i < 14; i++) {
+    for (int i = 0; i < 14; i++) {
         if (i == 2 || i == 5) continue;
         if (!isdigit(cpfTemp[i])) return -3;
     }

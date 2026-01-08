@@ -8,6 +8,7 @@
 #include <ctype.h>
 #include "reservas.h"
 #include "sessoes.h"
+#include "usuarios.h"
 
 int buscar_indice_reserva(Reservas *reservas, int qtdReservas, int idProcurado){ //codar as fun��es previamente declaradas em reserva.h
     int i;
@@ -21,7 +22,7 @@ int buscar_indice_reserva(Reservas *reservas, int qtdReservas, int idProcurado){
 
 void imprimir_dados_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
     printf("==========================================================\n");
-    printf("           Reserva:\n");
+    printf("                  Reserva:\n");
     printf("==========================================================\n");
     printf("Nome: %s.\n", usuarios[indice].nome);
     printf("CPF: %s.\n", reservas[indice].cpf_usuario);
@@ -34,7 +35,7 @@ void modificarNome(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int 
     Usuarios temp;
 
     printf("\n==============================================\n");
-    printf("              Modificar Nome\n");
+    printf("                 Modificar Nome\n");
     printf("\n==============================================\n");
     printf("              Insira o novo Nome\n");
     printf("\n----------------------------------------------\n");
@@ -52,7 +53,7 @@ void modificarNome(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int 
     getchar();
 }
 
-void modificarCPF(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
+void modificarCPF(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice, int qtdUsuarios){
 
     printf("\n==============================================\n");
     printf("                Modificar CPF\n");
@@ -61,7 +62,28 @@ void modificarCPF(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int i
     printf("\n-----------------------------------------------\n");
     printf("CPF: ");
 
+    char cpfTemp[15];
 
+    while (1) {
+        int resultado_validacaoLocal = validarCPF(usuarios, qtdUsuarios, cpfTemp, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
+
+        if(resultado_validacaoLocal == 0) {// 0: CPF em formato incorreto
+            puts("\nVocê digitou o CPF incorretamente.");
+            puts("Digite o seu CPF neste formato XXX.XXX.XXX-XX");
+            printf("CPF: ");
+        }else if(resultado_validacaoLocal == -1) {
+            strcpy(usuarios[resultado_validacaoLocal].cpf, cpfTemp); // O cpf digitado não existe... Válido!!!
+            break;
+        }else {
+            puts("\nEsse CPF esta sendo utilizado.");
+            printf("CPF: ");
+        }
+    }
+        printf("\n----------------------------------------------\n");
+        printf("                 CPF atualizado com sucesso!\n");
+        printf("               Pressione ENTER para continuar.\n");
+        printf("\n----------------------------------------------\n");
+        getchar();
 }
 
 void modificarID(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){

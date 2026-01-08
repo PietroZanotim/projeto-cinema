@@ -82,7 +82,7 @@ void visualizar_todas_reservas(Reservas *reservas, int qtdReservas, Usuarios *us
     }
 }
 
-void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, Sessoes *sessoes, int qtdSessoes){
+void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, Sessoes *sessoes, int qtdSessoes, int qtdUsuarios){
     int idProcurado, opcao, resultado_validacao;
     int tamanhoMenu = 5; // Quantidade de opções do menu. Para usar na função validarInput()
     limparTela();
