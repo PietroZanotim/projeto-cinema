@@ -8,13 +8,13 @@
 #include "structs.h" // Precisa conhecer a struct Usuarios
 
 // --- CONSULTAS NA TELA (Requisito 5f - Output Terminal) ---
-// Deve mostrar dados da Reserva + Nome do Filme + Nome do Usuário 
+// Deve mostrar dados da Reserva + Nome do Filme + Nome do Usuário
 void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
-void CONS_reservas_por_data();
-void CONS_reservas_por_cpf();
+void CONS_reservas_por_data(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
+void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
 
 // --- RELATÓRIOS EM TXT (Requisito 5g - Output Arquivo) ---
-// Gera arquivo .txt formatado com as mesmas lógicas acima 
+// Gera arquivo .txt formatado com as mesmas lógicas acima
 void REL_reservas_por_filme();
 void REL_reservas_por_data();
 void REL_reservas_por_cpf();

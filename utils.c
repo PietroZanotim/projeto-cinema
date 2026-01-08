@@ -23,10 +23,9 @@ void limparTela() {
 //-----------------------------------------------------------------------------
 int menuPrincipal() {
     int opcao = 0; // Inicializa com um valor inválido
-    int tamanhoMenu = 4; // Quantidade de opções no menu. Para usar na função validarInput()
 
     do {
-        limparTela(); 
+        limparTela();
 
         printf("==============================================\n");
         printf("       SISTEMA DE GERENCIAMENTO DE CINEMA\n");
@@ -39,7 +38,19 @@ int menuPrincipal() {
         printf("Digite a opcao desejada: ");
 
         // Validação de tipo de input
-        opcao = validarInput(tamanhoMenu);
+        if (scanf("%d", &opcao) != 1) {
+            // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
+            // limpamos o buffer de entrada para evitar um loop infinito.
+            opcao = 0; // Reseta para um valor inválido
+            while (getchar() != '\n'); // Limpa o buffer
+        }
+
+        // Validação de intervalo numérico
+        if (opcao < 1 || opcao > 4) {
+            printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
+            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            getchar(); // Aguarda o usuário pressionar Enter
+        }
 
     } while (opcao < 1 || opcao > 4); // Repete o menu se a opção for inválida
 
@@ -53,7 +64,7 @@ int menuPrincipal() {
 int confirmarSaida() {
     char resposta;
 
-    limparTela(); 
+    limparTela();
 
     do {
         printf("=========================================\n");
@@ -71,7 +82,7 @@ int confirmarSaida() {
         }
 
         // Limpa o buffer de entrada para a próxima iteração
-        while (getchar() != '\n'); 
+        while (getchar() != '\n');
 
         resposta = toupper(resposta); // Converte para maiúsculo
 
@@ -97,7 +108,7 @@ int confirmarSaida() {
 int confirmarRetorno() {
     char resposta;
 
-    limparTela(); 
+    limparTela();
 
     do {
         printf("=========================================\n");
@@ -115,7 +126,7 @@ int confirmarRetorno() {
         }
 
         // Limpa o buffer de entrada para a próxima iteração
-        while (getchar() != '\n'); 
+        while (getchar() != '\n');
 
         resposta = toupper(resposta); // Converte para maiúsculo
 
@@ -139,6 +150,30 @@ int confirmarRetorno() {
 //-----------------------------{ SABER MAIS }----------------------------------
 //-----------------------------------------------------------------------------
 
+int voltar(){
+    char vazio;
+
+    // Validação para voltar ao menu
+    int valid = 0;
+
+    do{
+        // Consumir o buffer antes de ler a próxima tecla
+        while (getchar() != '\n');
+        // Lê o caracter do buffer de entrada
+        vazio = getchar();
+
+        // Se o usuário digitar Enter, a função retorna 1
+        if(vazio == '\n'){
+            return 1;
+        }
+        // Se a condição anterior for falsa, altera o valor da validação para 1
+        else{
+            valid = 1;
+            printf("Digito inválido, aperte Enter para voltar: ");
+        }
+    }while (valid == 1);
+}
+
 
 //Função para mostrar as funcionalidades do sistema
 int saberFuncionalidades(){
@@ -153,87 +188,79 @@ int saberFuncionalidades(){
     printf("1- CRIAR CONTA:\n");
     printf("No menu principal, digite 2 para registrar-se e poder utilizar \no sistema de reserva de filmes e acessar seu saldo de dinheiro.\n(*Importante* - Lembre-se de seus dados do cadastro para realizar o login.)\n\n");
     printf("2- REALIZAR LOGIN:\n");
-    printf("No menu principal, digite 1 para realizar o login, eh necessário \nja ter criado uma conta em nosso sistema para isso.\nEh necessário realizar o login sempre que você reiniciar nosso sistema.\n\n");
+    printf("No menu principal, digite 1 para realizar o login, é necessário \njá ter criado uma conta em nosso sistema para isso.\nÉ necessário realizar o login sempre que você reiniciar nosso sistema.\n\n");
     //printf("3 - RESERVAR UMA SESSÃO:\n");
+
+    printf("Aperte Enter para voltar: ");
+
+    // Chama a função voltar, se retornar 1 a função saberFuncionalidade se encerra
+    if(voltar() == 1){
+        return 0;
+    }
 }
 
 
 
 int saberMais(){
 
-    int opcao = 0; 
-    int tamanhoMenu = 4; 
+    int escolha = 0; // Inicializa como opção inválida
 
+    limparTela();
     do{
-        limparTela();
-        
-        printf("\n==============================================\n");
-        printf("               SAIBA MAIS\n");
+        printf("==============================================\n");
+        printf("                 SAIBA MAIS\n");
         printf("==============================================\n\n");
         printf("   [1] - Funcionalidades\n");
-        printf("   [2] - Sessao e Horarios\n");
+        printf("   [2] - Sessão e Horários\n");
         printf("   [3] - Filmes\n");
         printf("   [4] - Voltar\n");
         printf("\n--------------------------------------------\n");
         printf("Digite a opcao desejada: ");
 
-        // Validação do tipo de input
-        opcao = validarInput(tamanhoMenu);
+        // Validação do input
+        do {
+            if (scanf("%d", &escolha) != 1) {
+                // Se o scanf falhar (ex: usuário digitou 'a' em vez de '1'),
+                // limpamos o buffer de entrada para evitar um loop infinito.
+                escolha = 0; // Reseta para um valor inválido
+                while (getchar() != '\n'); // Limpa o buffer
+            }
 
-        // Condições
-        if(opcao == 1){
-            printf("\n--- Voce escolheu Funcionalidades ---\n");
+            // Validação de intervalo numérico
+            if (escolha < 1 || escolha > 4) {
+                printf("\nOpcao invalida! Pressione Enter para tentar novamente.");
+                while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+                getchar(); // Aguarda o usuário pressionar Enter
+            }
+
+        } while (escolha < 1 || escolha > 4); // Repete o menu do saber mais se a opção for inválida
+
+        //Condições para selecionar a função escolhida pelo usuário
+        if(escolha == 1){
             saberFuncionalidades();
+        }
+        else if(escolha == 2){
 
-            // Pausa para o usuário ler antes do menu voltar
-            printf("Pressione Enter para voltar...");
-            getchar(); 
         }
-        else if(opcao == 2){
-            printf("\n--- Voce escolheu Sessao ---\n");
-             // Pausa
-            printf("Pressione Enter para voltar...");
-            getchar();
-        }
-        else if(opcao == 3){
-            printf("\n--- Voce escolheu Filmes ---\n");
-             // Pausa
-            printf("Pressione Enter para voltar...");
-            getchar();
-        }
-        else if(opcao == 4){
-            printf("\nVoltando...\n");
-        }
+        else if(escolha == 3){
 
-    } while(opcao != 4);
-    
-    return 0;
+        }
+        else{
+            limparTela();
+            break;
+        }
+    } while(escolha != 4);
 }
 
-
-int validarInput(int tamanhoMenu){
-    char input[50]; // Buffer para guardar o texto digitado
-    int opcao;
-
-    // Ler tudo o que foi digitado até o Enter.
-    // Isso garante que o buffer fique limpo, sem precisar de loops while.
-    fgets(input, 50, stdin);
-
-    // Converter o texto para número usando sscanf
-    // sscanf funciona igual scanf, mas lê da variável 'input' em vez do teclado
-    if (sscanf(input, "%d", &opcao) != 1) {
-        // Entra aqui se o usuário digitou letras ou símbolos
-        printf("\nOpcao invalida! (Digite um numero). Pressione Enter para tentar novamente.");
-        getchar(); // Pausa esperando um Enter
-        return 0; 
+int validar_formato_data(){
+    // 1. Verificar tamanho
+    if (strlen(dataTemp) != 9) return -1;
+    // 2. Verificar formato fixo XX/XX/XX
+    if (dataTemp[2] != '/' || dataTemp[5] != '/') return -2;
+    // 3. Verificar se os dígitos são numéricos
+    for (i = 0; i < 14; i++) {
+        if (i == 2 || i == 5) continue;
+        if (!isdigit(cpfTemp[i])) return -3;
     }
-
-    // Validação de intervalo numérico (ex: 1 a 4)
-    if (opcao < 1 || opcao > tamanhoMenu) {
-        printf("\nOpcao invalida! (Numero um numero valido). Pressione Enter para tentar novamente.");
-        getchar(); // Pausa esperando um Enter
-        return 0;
-    }
-
-    return opcao;
+    return 0; // Sucesso
 }
