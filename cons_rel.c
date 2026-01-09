@@ -202,3 +202,104 @@ void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reser
     while(getchar() != '\n');
     getchar();
 }
+
+// ===============================================
+// ================= RELATÓRIOS ==================
+// ===============================================
+
+void REL_listar_usuarios(Usuarios *listaUsuarios, int qtdUsuarios) {
+    // 1. Abrir o arquivo em modo de escrita texto ("w")
+    FILE *f_relatorio;
+    f_relatorio = fopen("relatorio_clientes.txt", "w");
+
+    if (f_relatorio == NULL) {
+        printf("Erro ao criar o arquivo de relatório!\n");
+        return;
+    }
+
+    // 2. Cabeçalho (Note que usamos fprintf em vez de printf)
+    fprintf(f_relatorio, "=========================================================================\n");
+    fprintf(f_relatorio, "                        RELATORIO GERAL DE USUARIOS                      \n");
+    fprintf(f_relatorio, "=========================================================================\n");
+    // Aqui usamos espaçamento fixo para criar colunas:
+    // %-30s = String alinhada à esquerda com 30 espaços
+    // %-15s = String alinhada à esquerda com 15 espaços
+    fprintf(f_relatorio, " %-30s | %-15s | %-5s | %s\n", "NOME", "CPF", "IDADE", "SALDO");
+    fprintf(f_relatorio, "-------------------------------------------------------------------------\n");
+
+    // 3. Loop de Dados
+    for (int i = 0; i < qtdUsuarios; i++) {
+        fprintf(f_relatorio, " %-30s | %-15s | %-5d | R$ %.2f\n", 
+                listaUsuarios[i].nome, 
+                listaUsuarios[i].cpf, 
+                listaUsuarios[i].idade, 
+                listaUsuarios[i].saldo);
+    }
+
+    // 4. Rodapé (Resumo)
+    fprintf(f_relatorio, "-------------------------------------------------------------------------\n");
+    fprintf(f_relatorio, "Total de Registros: %d\n", qtdUsuarios);
+    fprintf(f_relatorio, "=========================================================================\n");
+
+    // 5. Fechar o arquivo
+    fclose(f_relatorio);
+
+    // Feedback visual para o usuário NA TELA (printf normal)
+    printf("\nSucesso! O arquivo 'relatorio_clientes.txt' foi gerado na pasta do projeto.\n");
+    
+    // Pausa para o usuário ler
+    printf("Pressione ENTER para voltar...");
+    while(getchar() != '\n');
+    getchar();
+}
+
+
+void REL_listar_sessoes(Sessoes *listaSessoes, int qtdSessoes){
+    // Abrir o arquivo em modo de escrita texto ("w")
+    FILE *f_relatorio;
+    f_relatorio = fopen("relatorio_sessoes.txt", "w");
+
+    if (f_relatorio == NULL) {
+        printf("Erro ao criar o arquivo de relatório!\n");
+        return;
+    }
+
+    fprintf(f_relatorio, "======================================================================================================================================\n");
+    fprintf(f_relatorio, "                                                      RELATORIO GERAL DE SESSOES                                                      \n");
+    fprintf(f_relatorio, "======================================================================================================================================\n");
+    
+    fprintf(f_relatorio, " %-4s | %-25s | %-17s | %-23s | %-10s | %-4s | %-17s | %-15s \n", 
+            "ID", "NOME DO FILME", "HORARIO DE INICIO", "HORARIO DE ENCERRAMENTO", "DATA", "SALA", "VALOR DO INGRESSO", "LIMITE DE IDADE");
+            
+    fprintf(f_relatorio, "--------------------------------------------------------------------------------------------------------------------------------------\n");
+
+    // Loop de Dados
+    for (int i = 0; i < qtdSessoes; i++) {
+        // Atenção à ordem dos campos e aos tipos (%d para int, %s para char, %f para float)
+        fprintf(f_relatorio, " %-4d | %-25s | %-17s | %-23s | %-10s | %-4d | R$ %-14.2f | %-15d \n", 
+                listaSessoes[i].id, 
+                listaSessoes[i].nome_filme, 
+                listaSessoes[i].horario_inicio, 
+                listaSessoes[i].horario_final,
+                listaSessoes[i].data,
+                listaSessoes[i].sala,
+                listaSessoes[i].valorIngresso,
+                listaSessoes[i].limIdade);
+    }
+
+    // Rodapé (Resumo)
+    fprintf(f_relatorio, "--------------------------------------------------------------------------------------------------------------------------------------\n");
+    fprintf(f_relatorio, "Total de Registros: %d\n", qtdSessoes);
+    fprintf(f_relatorio, "======================================================================================================================================\n");
+
+    // Fechar o arquivo
+    fclose(f_relatorio);
+
+    // Feedback visual para o usuário NA TELA
+    printf("\nSucesso! O arquivo 'relatorio_sessoes.txt' foi gerado na pasta do projeto.\n");
+    
+    // Pausa para o usuário ler
+    printf("Pressione ENTER para voltar...");
+    while(getchar() != '\n');
+    getchar();
+}

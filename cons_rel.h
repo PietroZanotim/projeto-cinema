@@ -14,8 +14,7 @@ void CONS_reservas_por_data(Usuarios *listaUsuarios, Sessoes *listaSessoes, Rese
 void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
 
 // --- RELATÓRIOS EM TXT (Requisito 5g - Output Arquivo) ---
-// Gera arquivo .txt formatado com as mesmas lógicas acima
-void REL_reservas_por_filme();
+void REL_listar_usuarios(Usuarios *listaUsuarios, int qtdUsuarios);
 void REL_reservas_por_data();
 void REL_reservas_por_cpf();
 
