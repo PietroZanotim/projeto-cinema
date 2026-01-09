@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include "utils.h"
+#include "structs.h"
 
 void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
-    char nome_do_filme[50];
+    char nome_filme[50];
     int sessao_encontrada = 0;
 
     // 1. Loop para pegar o nome do filme válido
@@ -15,15 +16,15 @@ void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Res
         printf("===============================================================\n\n");
         printf("Digite o nome do filme (ou digite 'q' para sair): ");
         
-        scanf(" %[^\n]", nome_do_filme);
+        scanf(" %[^\n]", nome_filme);
 
-        if(strcmp(nome_do_filme, "q") == 0) return; // Retorna para o menu anterior
+        if(strcmp(nome_filme, "q") == 0) return; // Retorna para o menu anterior
 
         // Verifica se existe pelo menos uma sessão com esse filme
         sessao_encontrada = 0;
         for(int i = 0; i < qtdSessoes; i++){
             // strcmp retorna 0 se for IGUAL
-            if(strcmp(nome_do_filme, listaSessoes[i].nome_do_filme) == 0){
+            if(strcmp(nome_filme, listaSessoes[i].nome_filme) == 0){
                 sessao_encontrada = 1;
                 break;
             }
@@ -40,7 +41,7 @@ void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Res
 
     // 2. Exibição das Reservas
     limparTela();
-    printf("!! -- Reservas para o filme: %s -- !!\n\n", nome_do_filme);
+    printf("!! -- Reservas para o filme: %s -- !!\n\n",nome_filme);
     
     int reservas_achadas = 0;
 
@@ -53,12 +54,12 @@ void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Res
             
             // Se achamos a sessão desta reserva E o nome do filme bate
             if(listaReservas[i].id_sessao == listaSessoes[j].id && 
-               strcmp(listaSessoes[j].nome_do_filme, nome_do_filme) == 0) {
+               strcmp(listaSessoes[j].nome_filme, nome_filme) == 0) {
                 
                 printf("----------------------------------------------------------\n");
                 printf("Reserva ID: %d | CPF Cliente: %s\n", listaReservas[i].id, listaReservas[i].cpf_usuario);
                 printf("Sessão ID: %d | Assento: %s\n", listaReservas[i].id_sessao, listaReservas[i].assento);
-                printf("Data: %s | Horário: %s\n", listaSessoes[j].data, listaSessoes[j].horario);
+                printf("Data: %s | Horário de Início: %s |  Horário de Encerramento: %s\n", listaSessoes[j].data, listaSessoes[j].horario_inicio, listaSessoes[j].horario_final);
                 reservas_achadas++;
                 break; // Achou a sessão, pula para a próxima reserva
             }
@@ -76,6 +77,7 @@ void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Res
 
 void CONS_reservas_por_data(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
     char data[11]; 
+    int resultado_validacao;
 
     // 1. Loop para pegar a data válida
     do{
@@ -90,7 +92,7 @@ void CONS_reservas_por_data(Usuarios *listaUsuarios, Sessoes *listaSessoes, Rese
 
         if(strcmp(data, "q") == 0) return;
         
-        int resultado_validacao = validar_formato_data(data); 
+        resultado_validacao = validar_formato_data(data); 
         
         if (resultado_validacao == -1) {
             printf("\nErro: Tamanho incorreto. Digite 8 digitos (Ex: 01/01/24).\n");
@@ -130,9 +132,9 @@ void CONS_reservas_por_data(Usuarios *listaUsuarios, Sessoes *listaSessoes, Rese
                strcmp(listaSessoes[j].data, data) == 0) {
                 
                 printf("----------------------------------------------------------\n");
-                printf("Filme: %s\n", listaSessoes[j].nome_do_filme);
+                printf("Filme: %s\n", listaSessoes[j].nome_filme);
                 printf("Reserva ID: %d | CPF: %s\n", listaReservas[i].id, listaReservas[i].cpf_usuario);
-                printf("Horário: %s | Assento: %s\n", listaSessoes[j].horario, listaReservas[i].assento);
+                printf("Horário de Início: %s | Horários de Encerramento %s | Assento: %s\n", listaSessoes[j].horario_inicio, listaSessoes[j].horario_final, listaReservas[i].assento);
                 reservas_achadas++;
                 break; 
             }
@@ -178,7 +180,7 @@ void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reser
             
             for(int s = 0; s < qtdSessoes; s++){
                 if(listaSessoes[s].id == listaReservas[i].id_sessao){
-                    strcpy(nomeFilme, listaSessoes[s].nome_do_filme);
+                    strcpy(nomeFilme, listaSessoes[s].nome_filme);
                     strcpy(dataSessao, listaSessoes[s].data);
                     break;
                 }
