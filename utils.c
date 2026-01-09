@@ -231,6 +231,8 @@ int saberMais(){
 // Recebe a string da data como parâmetro
 int validar_formato_data(char *data) {
     
+    // --- PARTE 1: VALIDAÇÃO ESTRUTURAL (A que já tínhamos) ---
+
     // 1. Verificar tamanho exato (DD/MM/AA tem 8 caracteres)
     if (strlen(data) != 8) return -1;
     // 2. Verificar as barras nas posições 2 e 5 (01/34/67)
@@ -244,6 +246,23 @@ int validar_formato_data(char *data) {
         if (!isdigit(data[i])) return -3;
     }
     
+    // --- PARTE 2: VALIDAÇÃO LÓGICA (A Nova) ---
+
+    int dia, mes, ano;
+    
+    // O sscanf extrai os números da string "DD/MM/AA" e joga nas variáveis int
+    sscanf(data, "%d/%d/%d", &dia, &mes, &ano);
+
+    // 4. Validação simples de Dia (1 a 31)
+    if (dia < 1 || dia > 31) return -4;
+
+    // 5. Validação de Mês (1 a 12)
+    if (mes < 1 || mes > 12) return -5;
+    
+    // 6. Validacao de Ano
+    if (ano < 26) return -6; 
+
+
     return 0; // Sucesso
 }
 

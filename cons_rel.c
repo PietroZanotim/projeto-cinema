@@ -75,8 +75,7 @@ void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Res
 }
 
 void CONS_reservas_por_data(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
-    char data[11]; // Aumentei para 11 para caber o \0 com segurança (DD/MM/AAAA)
-    int data_valida = 0;
+    char data[11]; 
 
     // 1. Loop para pegar a data válida
     do{
@@ -91,18 +90,31 @@ void CONS_reservas_por_data(Usuarios *listaUsuarios, Sessoes *listaSessoes, Rese
 
         if(strcmp(data, "q") == 0) return;
         
-        int ret = validar_formato_data(data); 
+        int resultado_validacao = validar_formato_data(data); 
         
-        if(ret == 0) {
-            data_valida = 1;
-        } else {
-            printf("\nFormato inválido! Use XX/XX/XXXX.\n");
-            printf("Pressione ENTER para tentar novamente...");
-            while(getchar() != '\n');
-            getchar();
+        if (resultado_validacao == -1) {
+            printf("\nErro: Tamanho incorreto. Digite 8 digitos (Ex: 01/01/24).\n");
+            getchar(); getchar(); 
+        } 
+        else if (resultado_validacao == -2) {
+            printf("\nErro: Faltam as barras. Use o formato XX/XX/XX.\n");
+            getchar(); getchar();
+        } 
+        else if (resultado_validacao == -3) {
+            printf("\nErro: Digite apenas numeros e barras.\n");
+            getchar(); getchar();
+        }
+        // NOVOS TRATAMENTOS DE ERRO
+        else if (resultado_validacao == -4) {
+            printf("\nErro: Dia invalido! Digite entre 01 e 31.\n");
+            getchar(); getchar();
+        }
+        else if (resultado_validacao == -5) {
+            printf("\nErro: Mes invalido! Digite entre 01 e 12.\n");
+            getchar(); getchar();
         }
 
-    } while(data_valida == 0);
+    } while(resultado_validacao != 0);
 
     // 2. Exibição das Reservas
     limparTela();
