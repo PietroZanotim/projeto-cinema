@@ -203,6 +203,29 @@ void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reser
     getchar();
 }
 
+int menu_consulta(){
+    int opcao;
+    do {
+        // limparTela(); 
+        printf("=======================================================\n");
+        printf("                    MENU DE CONSULTAS       \n");
+        printf("=======================================================\n");
+        printf("Escolha o filtro para a consulta:\n");
+        printf("1. Filtrar por Nome do Filme\n");
+        printf("2. Filtrar por Data da Sessao\n");
+        printf("3. Filtrar por CPF do Cliente\n");
+        printf("4. Voltar\n");
+        printf("Opcao: ");
+        scanf("%d", &opcao);
+
+        if (opcao < 1 || opcao > 4) {
+            printf("Opcao invalida!\n");
+        }
+    } while (opcao < 1 || opcao > 4);
+
+    return opcao;
+}
+
 // ===============================================
 // ================= RELATÓRIOS ==================
 // ===============================================

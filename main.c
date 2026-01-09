@@ -11,6 +11,7 @@
 #include "CRUD_sessoes.h"
 #include "CRUD_usuarios.h"
 #include "CRUD_reservas.h"
+#include "cons_rel.h"
 
 #define MAX_USUARIOS 5
 #define MAX_SESSOES 5
@@ -143,6 +144,24 @@ int main()
                         break;
                     case 4:
                         // Consultas
+                        while(1){
+                            int opcao_4 = menu_consulta();
+                            switch(opcao_4){
+                                case 1:
+                                    CONS_reservas_por_filme(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                    break;
+                                case 2:
+                                    CONS_reservas_por_data(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                    break;
+                                case 3:
+                                    CONS_reservas_por_cpf(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                    break;
+                                if (opcao_4 == 4){
+                                    if(confirmarRetorno() == 1) break;
+                                    else continue;
+                                }
+                            }
+                        }
                         break;
                     case 5:
                         // Relatórios

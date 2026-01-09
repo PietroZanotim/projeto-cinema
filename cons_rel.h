@@ -12,6 +12,7 @@
 void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
 void CONS_reservas_por_data(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
 void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas);
+int menu_consulta();
 
 // --- RELATÓRIOS EM TXT (Requisito 5g - Output Arquivo) ---
 void REL_listar_usuarios(Usuarios *listaUsuarios, int qtdUsuarios);
