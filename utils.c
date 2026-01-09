@@ -102,12 +102,12 @@ int confirmarRetorno() {
 
     do {
         printf("=========================================\n");
-        printf("          RETONAR AO MENU PRINCIPAL\n");
+        printf("          RETONAR AO MENU PRINCIPAL      \n");
         printf("=========================================\n\n");
         printf("Voce tem certeza que deseja retornar?\n");
         printf("Todos os dados serao salvos.\n\n");
-        printf("[S] - Sim, desejo sair\n");
-        printf("[N] - Nao, quero voltar ao menu\n");
+        printf("[S] - Sim, desejo voltar\n");
+        printf("[N] - Nao, desejo permancer\n");
         printf("\nDigite sua escolha: ");
 
         // espaço antes do %c para consumir buffer
@@ -266,20 +266,31 @@ int validar_formato_data(char *data) {
     return 0; // Sucesso
 }
 
-int validarInput(int tamanhoMenu){
-    char input[50]; // Buffer para guardar o texto digitado
+int validarInput(int tamanhoMenu) {
+    char input[50];
     int opcao;
+    int entradaValida = 0;
 
-    // Ler tudo o que foi digitado até o Enter.
-    // Isso garante que o buffer fique limpo, sem precisar de loops while.
-    fgets(input, 50, stdin);
+    do {
+        fgets(input, 50, stdin);
 
-    // Converter o texto para número usando sscanf
-    // sscanf funciona igual scanf, mas lê da variável 'input' em vez do teclado
-    if (sscanf(input, "%d", &opcao) != 1) {
-        // Entra aqui se o usuário digitou letras ou símbolos
-        printf("\nOpcao invalida! (Digite um numero). Pressione Enter para tentar novamente.");
-        getchar(); // Pausa esperando um Enter
-        return 0; 
-    }
+        // 1. Verifica se é um número inteiro válido
+        if (sscanf(input, "%d", &opcao) != 1) {
+            printf("Erro: Voce digitou letras ou simbolos.\n");
+            printf("Por favor, digite um numero entre 1 e %d.\n", tamanhoMenu);
+            continue; // Volta para o início do loop
+        }
+
+        // 2. Verifica se o número está dentro do intervalo do menu
+        if (opcao < 1 || opcao > tamanhoMenu) {
+            printf("Opcao invalida! O numero deve ser entre 1 e %d.\n", tamanhoMenu);
+            continue; // Volta para o início do loop
+        }
+
+        // Se passou pelas duas barreiras acima, a entrada é válida
+        entradaValida = 1;
+
+    } while (!entradaValida);
+
+    return opcao;
 }

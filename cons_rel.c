@@ -3,6 +3,30 @@
 #include "utils.h"
 #include "structs.h"
 
+int menu_consulta(){
+    int opcao;
+
+    do {
+        limparTela(); 
+        printf("=======================================================\n");
+        printf("                    MENU DE CONSULTAS       \n");
+        printf("=======================================================\n");
+        printf(" Escolha o filtro para a consulta:\n\n");
+        printf("   [1] - Filtrar por Nome do Filme\n");
+        printf("   [2] - Filtrar por Data da Sessao\n");
+        printf("   [3] - Filtrar por CPF do Cliente\n");
+        printf("   [4] - Voltar\n\n");
+        printf("Opcao: ");
+        scanf("%d", &opcao);
+
+        if (opcao < 1 || opcao > 4) {
+            printf("Opcao invalida!\n");
+        }
+    } while (opcao < 1 || opcao > 4);
+
+    return opcao;
+}
+
 void CONS_reservas_por_filme(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
     char nome_filme[50];
     int sessao_encontrada = 0;
@@ -203,29 +227,6 @@ void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reser
     printf("\n\nPressione ENTER para voltar...");
     while(getchar() != '\n');
     getchar();
-}
-
-int menu_consulta(){
-    int opcao;
-    do {
-        // limparTela(); 
-        printf("=======================================================\n");
-        printf("                    MENU DE CONSULTAS       \n");
-        printf("=======================================================\n");
-        printf("Escolha o filtro para a consulta:\n");
-        printf("1. Filtrar por Nome do Filme\n");
-        printf("2. Filtrar por Data da Sessao\n");
-        printf("3. Filtrar por CPF do Cliente\n");
-        printf("4. Voltar\n");
-        printf("Opcao: ");
-        scanf("%d", &opcao);
-
-        if (opcao < 1 || opcao > 4) {
-            printf("Opcao invalida!\n");
-        }
-    } while (opcao < 1 || opcao > 4);
-
-    return opcao;
 }
 
 // ===============================================

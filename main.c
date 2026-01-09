@@ -119,21 +119,21 @@ int main()
                             int opcao_3 = menu_CRUD_reservas();
                             switch(opcao_3)
                             {
-                            case 1:
-                                //adicionar_reserva();
-                                break;
-                            case 2:
-                                //excluir_reserva();
-                                break;
-                            case 3:
-                                modificar_reserva(listaReservas, qtdReservas, listaUsuarios, listaSessoes, qtdSessoes);
-                                break;
-                            case 4:
-                                visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
-                                break;
-                            case 5:
-                                visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);
-                                break;
+                                case 1:
+                                    //adicionar_reserva();
+                                    break;
+                                case 2:
+                                    //excluir_reserva();
+                                    break;
+                                case 3:
+                                    modificar_reserva(listaReservas, qtdReservas, listaUsuarios, listaSessoes, qtdSessoes);
+                                    break;
+                                case 4:
+                                    visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
+                                    break;
+                                case 5:
+                                    visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);
+                                    break;
                             }
                             if (opcao_3 == 6)
                             {
@@ -156,10 +156,10 @@ int main()
                                 case 3:
                                     CONS_reservas_por_cpf(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
                                     break;
-                                if (opcao_4 == 4){
-                                    if(confirmarRetorno() == 1) break;
-                                    else continue;
-                                }
+                            }
+                            if (opcao_4 == 4){
+                                if(confirmarRetorno() == 1) break;
+                                else continue;
                             }
                         }
                         break;
