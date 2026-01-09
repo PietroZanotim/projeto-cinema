@@ -165,6 +165,24 @@ int main()
                         break;
                     case 5:
                         // Relatórios
+                        while(1){
+                            int opcao_5 = menu_relatorio();
+                            switch(opcao_5){
+                                case 1:
+                                    REL_listar_usuarios(listaUsuarios, qtdUsuarios);
+                                    break;
+                                case 2:
+                                    REL_listar_usuarios(listaUsuarios, qtdUsuarios);
+                                    break;
+                                case 3:
+                                    RELATORIO_reservas_completo(listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, listaReservas, qtdReservas);
+                                    break;
+                            }
+                            if (opcao_5 == 4){
+                                if(confirmarRetorno() == 1) break;
+                                else continue;
+                            }
+                        }
                         break;
                     }
                     if (opcao == 6)

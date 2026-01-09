@@ -233,6 +233,30 @@ void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reser
 // ================= RELATÓRIOS ==================
 // ===============================================
 
+int menu_relatorio(){
+    int opcao;
+
+    do {
+        limparTela(); 
+        printf("=======================================================\n");
+        printf("                    MENU DE CONSULTAS       \n");
+        printf("=======================================================\n");
+        printf("> Escolha o filtro para a consulta:\n\n");
+        printf("   [1] - Listar usuários\n");
+        printf("   [2] - Listar sessões\n");
+        printf("   [3] - Filtrar reservas (com filtro)\n");
+        printf("   [4] - Voltar\n\n");
+        printf("Opcao: ");
+        scanf("%d", &opcao);
+
+        if (opcao < 1 || opcao > 4) {
+            printf("Opcao invalida!\n");
+        }
+    } while (opcao < 1 || opcao > 4);
+
+    return opcao;
+}
+
 void REL_listar_usuarios(Usuarios *listaUsuarios, int qtdUsuarios) {
     // 1. Abrir o arquivo em modo de escrita texto ("w")
     FILE *f_relatorio;
@@ -341,15 +365,15 @@ void RELATORIO_reservas_completo(Usuarios *listaUsuarios, int qtdUsuarios,
 
     // --- MENU DE ESCOLHA DO FILTRO (Requisito: Pelo menos 3 opções) ---
     do {
-        // limparTela(); 
+        limparTela(); 
         printf("=======================================================\n");
         printf("          GERACAO DE RELATORIO DE RESERVAS (TXT)       \n");
         printf("=======================================================\n");
-        printf("Escolha o filtro para o relatorio:\n");
-        printf("1. Filtrar por Nome do Filme\n");
-        printf("2. Filtrar por Data da Sessao\n");
-        printf("3. Filtrar por CPF do Cliente\n");
-        printf("0. Voltar\n");
+        printf("> Escolha o filtro para o relatorio:\n");
+        printf("   [1] - Filtrar por Nome do Filme\n");
+        printf("   [2] - Filtrar por Data da Sessao\n");
+        printf("   [3] - Filtrar por CPF do Cliente\n");
+        printf("   [4] - Voltar\n");
         printf("Opcao: ");
         scanf("%d", &opcao);
 
