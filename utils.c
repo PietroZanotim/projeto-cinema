@@ -228,16 +228,22 @@ int saberMais(){
     return 0;
 }
 
-int validar_formato_data(){
-    // 1. Verificar tamanho
-    if (strlen(dataTemp) != 9) return -1;
-    // 2. Verificar formato fixo XX/XX/XX
-    if (dataTemp[2] != '/' || dataTemp[5] != '/') return -2;
-    // 3. Verificar se os dígitos são numéricos
-    for (int i = 0; i < 14; i++) {
+// Recebe a string da data como parâmetro
+int validar_formato_data(char *data) {
+    
+    // 1. Verificar tamanho exato (DD/MM/AA tem 8 caracteres)
+    if (strlen(data) != 8) return -1;
+    // 2. Verificar as barras nas posições 2 e 5 (01/34/67)
+    if (data[2] != '/' || data[5] != '/') return -2;
+    // 3. Verificar se os outros caracteres são números
+    for (int i = 0; i < 8; i++) {
+        // Pula as posições das barras
         if (i == 2 || i == 5) continue;
-        if (!isdigit(cpfTemp[i])) return -3;
+        
+        // Se não for dígito, erro
+        if (!isdigit(data[i])) return -3;
     }
+    
     return 0; // Sucesso
 }
 
