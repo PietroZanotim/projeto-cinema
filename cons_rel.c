@@ -9,7 +9,7 @@ int menu_consulta(){
     do {
         limparTela(); 
         printf("=======================================================\n");
-        printf("                    MENU DE CONSULTAS       \n");
+        printf("                     MENU DE CONSULTAS                 \n");
         printf("=======================================================\n");
         printf(" Escolha o filtro para a consulta:\n\n");
         printf("   [1] - Filtrar por Nome do Filme\n");
@@ -21,6 +21,8 @@ int menu_consulta(){
 
         if (opcao < 1 || opcao > 4) {
             printf("Opcao invalida!\n");
+            printf("Pressione ENTER para tentar novamente\n");
+            getchar(); getchar();
         }
     } while (opcao < 1 || opcao > 4);
 
@@ -239,7 +241,7 @@ int menu_relatorio(){
     do {
         limparTela(); 
         printf("=======================================================\n");
-        printf("                    MENU DE CONSULTAS       \n");
+        printf("                    MENU DE RELATORIOS                 \n");
         printf("=======================================================\n");
         printf("> Escolha o filtro para a consulta:\n\n");
         printf("   [1] - Listar usuários\n");
@@ -251,6 +253,8 @@ int menu_relatorio(){
 
         if (opcao < 1 || opcao > 4) {
             printf("Opcao invalida!\n");
+            printf("Pressione ENTER para tentar novamente\n");
+            getchar(); getchar();
         }
     } while (opcao < 1 || opcao > 4);
 
@@ -377,11 +381,15 @@ void RELATORIO_reservas_completo(Usuarios *listaUsuarios, int qtdUsuarios,
         printf("Opcao: ");
         scanf("%d", &opcao);
 
-        if (opcao == 0) return;
-        if (opcao < 1 || opcao > 3) {
+        if (opcao < 1 || opcao > 4) {
             printf("Opcao invalida!\n");
+            printf("Pressione ENTER para tentar novamente\n");
+            getchar(); getchar();
         }
-    } while (opcao < 1 || opcao > 3);
+
+        if(opcao == 4) confirmarRetorno();
+
+    } while (opcao < 1 || opcao > 4);
 
     // --- CAPTURA DO DADO DE FILTRO ---
     printf("-------------------------------------------------------\n");
@@ -401,97 +409,100 @@ void RELATORIO_reservas_completo(Usuarios *listaUsuarios, int qtdUsuarios,
         sprintf(titulo_relatorio, "FILTRADO POR CLIENTE: %s", filtro_texto);
     }
 
-    // ABRIR ARQUIVO 
-    FILE *f_rel;
-    f_rel = fopen("relatorio_reservas_detalhado.txt", "w");
+    if(opcao != 4){
+        // ABRIR ARQUIVO 
+        FILE *f_rel;
+        f_rel = fopen("relatorio_reservas_detalhado.txt", "w");
 
-    if (f_rel == NULL) {
-        printf("Erro fatal: Nao foi possivel criar o arquivo no disco.\n");
-        return;
-    }
-
-    fprintf(f_rel, "====================================================================================================================\n");
-    fprintf(f_rel, "                                          RELATORIO DETALHADO DE RESERVAS                                           \n");
-    fprintf(f_rel, "                                      %s\n", titulo_relatorio);
-    fprintf(f_rel, "====================================================================================================================\n");
-    fprintf(f_rel, " %-4s | %-25s | %-25s | %-10s | %-5s | %-7s \n", 
-            "ID", "CLIENTE (S2)", "FILME (S1)", "DATA", "HORA", "ASSENTO");
-    fprintf(f_rel, "--------------------------------------------------------------------------------------------------------------------\n");
-
-    // LOOP DE PROCESSAMENTO E "JOIN"
-    int encontrou_algum = 0;
-    int contador = 0;
-
-    for (int i = 0; i < qtdReservas; i++) {
-        
-        // Variáveis auxiliares para guardar os dados cruzados
-        Usuarios *usuarioEncontrado = NULL;
-        Sessoes *sessaoEncontrada = NULL;
-
-        // BUSCA (JOIN) 1: Achar a Sessão correspondente ao ID guardado na reserva
-        for (int s = 0; s < qtdSessoes; s++) {
-            if (listaSessoes[s].id == listaReservas[i].id_sessao) {
-                sessaoEncontrada = &listaSessoes[s];
-                break;
-            }
+        if (f_rel == NULL) {
+            printf("Erro fatal: Nao foi possivel criar o arquivo no disco.\n");
+            return;
         }
 
-        // BUSCA (JOIN) 2: Achar o Usuário correspondente ao CPF guardado na reserva
-        for (int u = 0; u < qtdUsuarios; u++) {
-            if (strcmp(listaUsuarios[u].cpf, listaReservas[i].cpf_usuario) == 0) {
-                usuarioEncontrado = &listaUsuarios[u];
-                break;
-            }
-        }
+        fprintf(f_rel, "====================================================================================================================\n");
+        fprintf(f_rel, "                                          RELATORIO DETALHADO DE RESERVAS                                           \n");
+        fprintf(f_rel, "                                      %s\n", titulo_relatorio);
+        fprintf(f_rel, "====================================================================================================================\n");
+        fprintf(f_rel, " %-4s | %-25s | %-25s | %-10s | %-5s | %-7s \n", 
+                "ID", "CLIENTE (S2)", "FILME (S1)", "DATA", "HORA", "ASSENTO");
+        fprintf(f_rel, "--------------------------------------------------------------------------------------------------------------------\n");
 
-        // Se por algum motivo o banco estiver inconsistente (excluiu usuario mas manteve reserva), pular
-        if (usuarioEncontrado == NULL || sessaoEncontrada == NULL) continue;
+        // LOOP DE PROCESSAMENTO E "JOIN"
+        int encontrou_algum = 0;
+        int contador = 0;
 
-        // VERIFICAÇÃO DO FILTRO ESCOLHIDO
-        int deve_imprimir = 0;
-
-        switch (opcao) {
-            case 1: // Filtro por Filme (Compara string do filme na struct Sessao)
-                if (strcmp(sessaoEncontrada->nome_filme, filtro_texto) == 0) deve_imprimir = 1;
-                break;
-            case 2: // Filtro por Data (Compara string data na struct Sessao)
-                if (strcmp(sessaoEncontrada->data, filtro_texto) == 0) deve_imprimir = 1;
-                break;
-            case 3: // Filtro por CPF (Compara string cpf na struct Reserva ou Usuario)
-                if (strcmp(listaReservas[i].cpf_usuario, filtro_texto) == 0) deve_imprimir = 1;
-                break;
-        }
-
-        // ESCRITA NO ARQUIVO 
-        if (deve_imprimir) {
-            fprintf(f_rel, " %-4d | %-25s | %-25s | %-10s | %-5s | %-7s \n",
-                    listaReservas[i].id,
-                    usuarioEncontrado->nome,       // Dado vindo de S2 (Usuarios)
-                    sessaoEncontrada->nome_filme,  // Dado vindo de S1 (Sessoes)
-                    sessaoEncontrada->data,
-                    sessaoEncontrada->horario_inicio,
-                    listaReservas[i].assento);     // Dado vindo de S3 (Reservas)
+        for (int i = 0; i < qtdReservas; i++) {
             
-            encontrou_algum = 1;
-            contador++;
+            // Variáveis auxiliares para guardar os dados cruzados
+            Usuarios *usuarioEncontrado = NULL;
+            Sessoes *sessaoEncontrada = NULL;
+
+            // BUSCA (JOIN) 1: Achar a Sessão correspondente ao ID guardado na reserva
+            for (int s = 0; s < qtdSessoes; s++) {
+                if (listaSessoes[s].id == listaReservas[i].id_sessao) {
+                    sessaoEncontrada = &listaSessoes[s];
+                    break;
+                }
+            }
+
+            // BUSCA (JOIN) 2: Achar o Usuário correspondente ao CPF guardado na reserva
+            for (int u = 0; u < qtdUsuarios; u++) {
+                if (strcmp(listaUsuarios[u].cpf, listaReservas[i].cpf_usuario) == 0) {
+                    usuarioEncontrado = &listaUsuarios[u];
+                    break;
+                }
+            }
+
+            // Se por algum motivo o banco estiver inconsistente (excluiu usuario mas manteve reserva), pular
+            if (usuarioEncontrado == NULL || sessaoEncontrada == NULL) continue;
+
+            // VERIFICAÇÃO DO FILTRO ESCOLHIDO
+            int deve_imprimir = 0;
+
+            switch (opcao) {
+                case 1: // Filtro por Filme (Compara string do filme na struct Sessao)
+                    if (strcmp(sessaoEncontrada->nome_filme, filtro_texto) == 0) deve_imprimir = 1;
+                    break;
+                case 2: // Filtro por Data (Compara string data na struct Sessao)
+                    if (strcmp(sessaoEncontrada->data, filtro_texto) == 0) deve_imprimir = 1;
+                    break;
+                case 3: // Filtro por CPF (Compara string cpf na struct Reserva ou Usuario)
+                    if (strcmp(listaReservas[i].cpf_usuario, filtro_texto) == 0) deve_imprimir = 1;
+                    break;
+            }
+
+            // ESCRITA NO ARQUIVO 
+            if (deve_imprimir) {
+                fprintf(f_rel, " %-4d | %-25s | %-25s | %-10s | %-5s | %-7s \n",
+                        listaReservas[i].id,
+                        usuarioEncontrado->nome,       // Dado vindo de S2 (Usuarios)
+                        sessaoEncontrada->nome_filme,  // Dado vindo de S1 (Sessoes)
+                        sessaoEncontrada->data,
+                        sessaoEncontrada->horario_inicio,
+                        listaReservas[i].assento);     // Dado vindo de S3 (Reservas)
+                
+                encontrou_algum = 1;
+                contador++;
+            }
         }
+
+        // RODAPÉ 
+        fprintf(f_rel, "--------------------------------------------------------------------------------------------------------------------\n");
+        fprintf(f_rel, "Total de Reservas listadas: %d\n", contador);
+        fprintf(f_rel, "====================================================================================================================\n");
+
+        fclose(f_rel);
+
+        // Feedback na tela
+        if (encontrou_algum) {
+            printf("\n[SUCESSO] Relatorio gerado! Verifique o arquivo 'relatorio_reservas_detalhado.txt'.\n");
+        } else {
+            printf("\n[AVISO] O relatorio foi gerado, mas nenhum registro foi encontrado com esse filtro.\n");
+        }
+
+        printf("Pressione ENTER para continuar...");
+        while(getchar() != '\n');
+        getchar();
     }
-
-    // RODAPÉ 
-    fprintf(f_rel, "--------------------------------------------------------------------------------------------------------------------\n");
-    fprintf(f_rel, "Total de Reservas listadas: %d\n", contador);
-    fprintf(f_rel, "====================================================================================================================\n");
-
-    fclose(f_rel);
-
-    // Feedback na tela
-    if (encontrou_algum) {
-        printf("\n[SUCESSO] Relatorio gerado! Verifique o arquivo 'relatorio_reservas_detalhado.txt'.\n");
-    } else {
-        printf("\n[AVISO] O relatorio foi gerado, mas nenhum registro foi encontrado com esse filtro.\n");
-    }
-
-    printf("Pressione ENTER para continuar...");
-    while(getchar() != '\n');
-    getchar();
+    
 }
