@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "usuarios.h"
+#include "sessoes.h"
 #include "utils.h"
 
 //-----------------------------------------------------------------------------
@@ -236,8 +237,8 @@ int menuLogin(Usuarios *usuario, int indiceUsuario) {
             printf("   [1] - Visualizar filmes disponíveis.\n");
             printf("   [2] - Visualizar minhas sessões.\n");
             printf("   [3] - Visualizar meu saldo.\n");
-            printf("   [4] - Alterar senha.\n"); // Alteração dos registros.
-            printf("   [5] - Excluir esta conta.\n"); // Remoção dos registros.
+            printf("   [4] - Alterar senha.\n");
+            printf("   [5] - Excluir esta conta.\n"); 
             printf("   [6] - Voltar ao menu inicial\n\n");
             printf("---------------------------------------------------------------\n");
             printf("Digite a opcao desejada: ");
@@ -251,6 +252,55 @@ int menuLogin(Usuarios *usuario, int indiceUsuario) {
 
 }
 
+//-----------------------------------------------------------------------------
+//---------------------{ VISUALIZAR FILMES DISPONIVEIS }-----------------------
+//-----------------------------------------------------------------------------
+// Está no arquivo sessoes.c - listarSessoes();
+
+
+//-----------------------------------------------------------------------------
+//---------------------{ VISUALIZAR MINHAS SESSOES }---------------------------
+//-----------------------------------------------------------------------------
+
+void visualizarReservas(Reservas *reservas, int qtdReservas,  Usuarios *usuarios, int indiceUsuario, Sessoes *sessoes, int qtdSessoes){
+
+    limparTela();
+
+    int contaSessoes=0; //Usado para contabilizar se há reservas do usuario;
+
+    printf("==========================================================\n");
+    printf("                 Usuário: %s\n", usuarios[indiceUsuario].nome);
+    printf("==========================================================\n");
+
+    for(int i = 0; i < qtdReservas; i++){
+
+        if(strcmp(reservas[i].cpf_usuario,usuarios[indiceUsuario].nome)==0){
+
+            contaSessoes++;
+
+            int indiceSessao = buscaSessao(sessoes, reservas[i].id_sessao, qtdSessoes);
+            
+            printf("__________________________________________________________\n");
+            printf("Filme: %s.\n", sessoes[indiceSessao].nome_filme);
+            printf("Data: %s.\n", sessoes[indiceSessao].data);
+            printf("Horário: %s - %s.\n", sessoes[indiceSessao].horario_final, sessoes[indiceSessao].horario_final);
+            printf("Sala: %d.\n", sessoes[indiceSessao].sala);
+            printf("Assento: %s.\n", reservas[i].assento);
+            printf("----------------------------------------------------------\n\n");
+
+        }
+
+    }
+
+    if(contaSessoes==0){
+        printf("Nenhuma reserva realizada para este usuário!\n");
+    } 
+
+    while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+    printf("\n[Enter] para retornar ao menu login...");
+    getchar(); // Aguarda o usuário enviar o enter
+
+}
 
 //-----------------------------------------------------------------------------
 //---------------------{ VISUALIZAR SALDO DO USUARIO }-------------------------
@@ -318,7 +368,7 @@ void verSaldo(Usuarios *usuario, int indiceUsuario){
 }
 
 //-----------------------------------------------------------------------------
-//---------------------{ MODIFICAR SENHA DO USUARIO }-------------------------
+//---------------------{ MODIFICAR SENHA DO USUARIO }--------------------------
 //-----------------------------------------------------------------------------
 
 void modificarSenha(Usuarios *lista, int indiceUsuario) {
