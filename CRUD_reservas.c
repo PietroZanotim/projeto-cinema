@@ -135,8 +135,8 @@ void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, 
     switch(opcao){
         case 1: modificarNome(reservas, qtdReservas, usuarios, resultado_validacao); break;
         case 2: modificarCPF(reservas, qtdReservas, usuarios, resultado_validacao, qtdUsuarios); break;
-        case 3: modificarID(reservas, qtdReservas, usuarios, resultado_validacao); break;
-        case 4: modificarIDsessao(reservas, qtdReservas, usuarios, resultado_validacao); break;
+        case 3: modificarID(reservas, qtdReservas, resultado_validacao); break;
+        case 4: modificarIDsessao(reservas, qtdReservas, resultado_validacao); break;
         case 5: modificarAssento(reservas, qtdReservas, usuarios, resultado_validacao, sessoes, qtdSessoes); break;
     }
 }

@@ -80,22 +80,64 @@ void modificarCPF(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int i
         }
     }
         printf("\n----------------------------------------------\n");
-        printf("                 CPF atualizado com sucesso!\n");
-        printf("               Pressione ENTER para continuar.\n");
+        printf("            CPF atualizado com sucesso!\n");
+        printf("          Pressione ENTER para continuar.\n");
         printf("\n----------------------------------------------\n");
         getchar();
 }
 
-void modificarID(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
-    printf("\n----------------------------------------------\n");
+void modificarID(Reservas *reservas, int qtdReservas, int indice){
+    Reservas temp;
+    int i=0;
+
+    printf("\n==============================================\n");
     printf("              Modificar ID\n");
+    printf("\n==============================================\n");
+    printf("             Insira o novo ID\n");
     printf("\n----------------------------------------------\n");
+    printf("ID: ");
+
+    do{
+        scanf("%d", &temp.id);
+        if(temp.id == reservas[i].id){
+            puts("\nEsse ID esta sendo utilizado.");
+            printf("ID: ");
+            i=0;
+        }
+        i++;
+    }while(i<qtdReservas);
+    printf("\n----------------------------------------------\n");
+    printf("            ID atualizado com sucesso!\n");
+    printf("          Pressione ENTER para continuar.\n");
+    printf("\n----------------------------------------------\n");
+    getchar();
 }
 
-void modificarIDsessao(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice){
-    printf("\n----------------------------------------------\n");
+void modificarIDsessao(Reservas *reservas, int qtdReservas, int indice){
+    Reservas temp;
+    int i=0;
+
+    printf("\n==============================================\n");
     printf("              Modificar ID Sessão\n");
+    printf("\n==============================================\n");
+    printf("             Insira o novo ID Sessão\n");
     printf("\n----------------------------------------------\n");
+    printf("ID Sessão: ");
+
+    do{
+        scanf("%d", &temp.id_sessao);
+        if(temp.id_sessao == reservas[i].id_sessao){
+            puts("\nEsse ID esta sendo utilizado.");
+            printf("ID Sessão: ");
+            i=0;
+        }
+        i++;
+    }while(i<qtdReservas);
+    printf("\n----------------------------------------------\n");
+    printf("            ID Sessão atualizado com sucesso!\n");
+    printf("             Pressione ENTER para continuar.\n");
+    printf("\n----------------------------------------------\n");
+    getchar();
 }
 
 void modificarAssento(Reservas *reservas, int qtdReservas, Usuarios *usuarios, int indice, Sessoes *sessoes, int qtdSessoes){
