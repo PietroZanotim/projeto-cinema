@@ -205,7 +205,7 @@ int main()
                         break;
 
                     case 2:
-
+                        visualizarReservas(listaReservas, qtdReservas, listaUsuarios, indiceUsuario, listaSessoes, qtdSessoes);
                         break;
 
                     case 3:
