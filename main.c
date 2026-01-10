@@ -196,8 +196,11 @@ int main()
             {
                 //Menu dos demais usuarios;
                 while(1)
-                {
+                {      
+                    char exclusaobreak = 'N'; // Adicionei para caso o usuário seja excluido, saia do menu;
+
                     int opcao = menuLogin(listaUsuarios, indiceUsuario);
+
                     switch(opcao)
                     {
                     case 1:
@@ -217,14 +220,20 @@ int main()
                         break;
 
                     case 5:
-
+                        exclusaoUsuario(listaUsuarios, indiceUsuario, &qtdUsuarios, &exclusaobreak);
                         break;
                     }
+
                     if (opcao == 6)
                     {
                         if(confirmarRetorno() == 1) break;
                         else continue;
                     }
+
+                    if(exclusaobreak=='S'){ //Se o usuario excluir esse registro atual, saia do menu;
+                        break;
+                    }
+
                 }
             }
             break;

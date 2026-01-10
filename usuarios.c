@@ -296,7 +296,6 @@ void visualizarReservas(Reservas *reservas, int qtdReservas,  Usuarios *usuarios
         printf("Nenhuma reserva realizada para este usuário!\n");
     } 
 
-    while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
     printf("\n[Enter] para retornar ao menu login...");
     getchar(); // Aguarda o usuário enviar o enter
 
@@ -392,4 +391,57 @@ void modificarSenha(Usuarios *lista, int indiceUsuario) {
     printf("\n[Enter] para retornar ao menu login...");
     getchar(); // Aguarda o usuário enviar o enter
 
+}
+
+//-----------------------------------------------------------------------------
+//------------------------{ EXCLUSAO DO USUARIO }------------------------------
+//-----------------------------------------------------------------------------
+
+void exclusaoUsuario(Usuarios *usuario, int indiceUsuario, int *qtdUsuario, char *exclusaoBreak){
+
+    limparTela();
+
+    limparTela();
+        printf("==========================================================\n");
+        printf("           Usuário: %s\n", usuario[indiceUsuario].nome);
+        printf("==========================================================\n");
+        printf("Idade: %d\n", usuario[indiceUsuario].idade);
+        printf("CPF: %s\n", usuario[indiceUsuario].cpf);
+        printf("Senha: %s\n", usuario[indiceUsuario].senha);
+        printf("Saldo: %.2f\n", usuario[indiceUsuario].saldo);
+        
+
+        do{
+            printf("\nDeseja confirmar a exclusão? (S/N): ");
+            if (scanf(" %c", exclusaoBreak) != 1) {
+            *exclusaoBreak = ' '; // Define como inválido se o scanf falhar
+            }
+
+            // Limpa o buffer de entrada para a próxima iteração
+            while (getchar() != '\n'); 
+
+            *exclusaoBreak = toupper(*exclusaoBreak); // Converte para maiúsculo
+
+            if (*exclusaoBreak != 'S' && *exclusaoBreak != 'N') {
+                printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
+                while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+                getchar(); // Aguarda o usuário pressionar Enter
+            }
+
+        } while (*exclusaoBreak != 'S' && *exclusaoBreak != 'N');
+
+        if(*exclusaoBreak=='S'){
+        
+        //"Exclusão" dos dados do usuário...
+        strcpy(usuario[indiceUsuario].nome,"");
+        usuario[indiceUsuario].idade = 0;
+        strcpy(usuario[indiceUsuario].cpf,"");
+        usuario[indiceUsuario].saldo = 0.00;
+        strcpy(usuario[indiceUsuario].senha,"");
+            
+        *qtdUsuario--;
+        }
+
+        printf("\n[Enter] para continuar...\n");
+        getchar();
 }

@@ -16,6 +16,7 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max);
 int menuLogin(Usuarios *usuario, int indiceUsuario);
 void verSaldo(Usuarios *usuario, int indiceUsuario);
 void modificarSenha(Usuarios *Usuarios, int indiceUsuario);
+void exclusaoUsuario(Usuarios *usuario, int indiceUsuario, int *qtdUsuario, char *exclusaoBreak);
 void visualizarReservas(Reservas *reservas, int qtdReservas,  Usuarios *usuarios, int indiceUsuario, Sessoes *sessoes, int qtdSessoes);
 
 #endif
