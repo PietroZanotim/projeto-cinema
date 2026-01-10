@@ -17,9 +17,9 @@ void CONS_reservas_por_cpf(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reser
 // --- RELATÓRIOS EM TXT (Requisito 5g - Output Arquivo) ---
 int menu_relatorio();
 void REL_listar_usuarios(Usuarios *listaUsuarios, int qtdUsuarios);
-void REL_listar_usuarios(Usuarios *listaUsuarios, int qtdUsuarios);
-void RELATORIO_reservas_completo(Usuarios *listaUsuarios, int qtdUsuarios, 
-                                 Sessoes *listaSessoes, int qtdSessoes, 
+void REL_listar_sessoes(Sessoes *listaSessoes, int qtdSessoes);
+void RELATORIO_reservas_completo(Usuarios *listaUsuarios, int qtdUsuarios,
+                                 Sessoes *listaSessoes, int qtdSessoes,
                                  Reservas *listaReservas, int qtdReservas);
 
 #endif

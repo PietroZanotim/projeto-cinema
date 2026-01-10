@@ -172,7 +172,7 @@ int main()
                                     REL_listar_usuarios(listaUsuarios, qtdUsuarios);
                                     break;
                                 case 2:
-                                    REL_listar_usuarios(listaUsuarios, qtdUsuarios);
+                                    REL_listar_sessoes(listaSessoes, qtdSessoes);
                                     break;
                                 case 3:
                                     RELATORIO_reservas_completo(listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, listaReservas, qtdReservas);
