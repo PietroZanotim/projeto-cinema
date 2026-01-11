@@ -112,7 +112,7 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
         }
 
         // Passamos o endereço de novoUsuario.cpf para salvar se for validado
-        int resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
+        resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
 
         if (resultado_validacao == 0) {
              // 0: CPF em formato incorreto
@@ -129,6 +129,7 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
             break;
         }
     }
+    printf("%d\n", resultado_validacao);
 
     if(contErros==3){
         limparTela();
@@ -143,10 +144,10 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
         printf("==========================================================\n");
         printf("           Usuário: %s\n", lista[resultado_validacao].nome);
         printf("==========================================================\n");
-        printf("Idade: %d\n.", lista[resultado_validacao].idade);
-        printf("CPF: %s.\n", lista[resultado_validacao].cpf);
-        printf("Senha: %s.\n", lista[resultado_validacao].senha);
-        printf("Saldo: %.2f.\n", lista[resultado_validacao].saldo);
+        printf("Idade: %d\n", lista[resultado_validacao].idade);
+        printf("CPF: %s\n", lista[resultado_validacao].cpf);
+        printf("Senha: %s\n", lista[resultado_validacao].senha);
+        printf("Saldo: %.2f\n", lista[resultado_validacao].saldo);
         
         char resposta;
 
@@ -169,16 +170,18 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
 
         } while (resposta != 'S' && resposta != 'N');
 
-            if(resposta=='S'){
-            
-            //"Exclusão" dos dados do usuário...
-            strcpy(lista[resultado_validacao].nome,"");
-            lista[resultado_validacao].idade = 0;
-            strcpy(lista[resultado_validacao].cpf,"");
-            lista[resultado_validacao].saldo = 0.00;
-            strcpy(lista[resultado_validacao].senha,"");
+        if(resposta=='S'){
+        
+        //"Exclusão" dos dados do usuário...
+        strcpy(lista[resultado_validacao].nome,"");
+        lista[resultado_validacao].idade = 0;
+        strcpy(lista[resultado_validacao].cpf,"");
+        lista[resultado_validacao].saldo = 0.00;
+        strcpy(lista[resultado_validacao].senha,"");
+        
+        *qtdUsuarios--;
 
-            }
+        }
 
         printf("\n[Enter] para continuar...\n");
         getchar();
@@ -418,7 +421,7 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
         }
 
         // Passamos o endereço de novoUsuario.cpf para salvar se for validado
-        int resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
+        resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
 
         if (resultado_validacao == -2) {
              // 0: CPF em formato incorreto
@@ -470,15 +473,18 @@ void visualizar_todos_usuarios(Usuarios *lista, int qtdUsuario){
     printf("----------------------------------------------------------\n");
     
     for(int i=0; i<qtdUsuario; i++){ //Considerando o admin!!;
+        
+        if(strcmp(lista[i].nome,"")!=0) { //Adicionei temporariamente, pois quando excluimos o usuario o nome fica vazio;
+             
+            printf("==========================================================\n");
+            printf("               Usuário: %s\n", lista[i].nome);
+            printf("==========================================================\n");
+            printf("Idade: %d\n", lista[i].idade);
+            printf("CPF: %s\n", lista[i].cpf);
+            printf("Senha: %s\n", lista[i].senha);
+            printf("Saldo: R$ %.2f\n", lista[i].saldo);
 
-        printf("==========================================================\n");
-        printf("               Usuário: %s\n", lista[i].nome);
-        printf("==========================================================\n");
-        printf("Idade: %d\n", lista[i].idade);
-        printf("CPF: %s\n", lista[i].cpf);
-        printf("Senha: %s\n", lista[i].senha);
-        printf("Saldo: R$ %.2f\n", lista[i].saldo);
-
+        }
     }
 
     while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)    

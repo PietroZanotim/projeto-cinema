@@ -293,7 +293,7 @@ void visualizarReservas(Reservas *reservas, int qtdReservas,  Usuarios *usuarios
     }
 
     if(contaSessoes==0){
-        printf("Nenhuma reserva realizada para este usuário!\n");
+        printf("\nNenhuma reserva realizada para este usuário!\n");
     } 
 
     printf("\n[Enter] para retornar ao menu login...");

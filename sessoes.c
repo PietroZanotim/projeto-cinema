@@ -28,7 +28,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
     if(quantidadeSessoes==0){
 
-        printf("\nSentimos muito... Nenhum filme disponivel no momento.");
+        printf("\nSentimos muito... Nenhum filme disponivel no momento.\n");
         printf("\n[Enter] para retornar ao menu login...");
         getchar();
         
