@@ -205,6 +205,8 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     fgets(novoUsuario.senha, sizeof(novoUsuario.senha), stdin);
     novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0';
 
+    novoUsuario.saldo = 0.0; // Saldo do usuario deve começar zerado!
+
     // IndiceUsuario do admin é 0, portanto, para os próximos usuários: IndiceUsuario = qtdUsuario
     // Antes de incrementar o qtdUsuario
     lista[*qtdUsuarios] = novoUsuario;

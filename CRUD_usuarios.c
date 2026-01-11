@@ -82,6 +82,8 @@ void adicionar_usuario(Usuarios *lista, int *qtdUsuarios, int max){
     fgets(novoUsuario.senha, sizeof(novoUsuario.senha), stdin);
     novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0';
 
+    novoUsuario.saldo = 0.0; //Saldo do usuario deve começar zerado!
+
     // Persistência no vetor principal
     lista[*qtdUsuarios] = novoUsuario;
     (*qtdUsuarios)++; 
@@ -207,11 +209,9 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
         if(contErros==3){
             break;
         }
-        // Limpa o buffer sempre antes de ler
-        while (getchar() != '\n');
 
         // Passamos o endereço de novoUsuario.cpf para salvar se for validado
-        int resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
+        resultado_validacao = validarCPF(lista, *qtdUsuarios, NULL, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
 
         if (resultado_validacao == 0) {
              // 0: CPF em formato incorreto
@@ -230,8 +230,8 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
     }
 
     if(contErros==3){
-        limparTela();
         while (getchar() != '\n');
+        limparTela();
         printf("==================================================================\n");
         printf("  Número máximo de tentativas atingidas! [Enter] para continuar...\n");
         printf("==================================================================\n");
@@ -254,8 +254,10 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
         printf("---------------------------------------------------------------\n");
         printf("Digite a opcao desejada: ");
 
+        while (getchar() != '\n');
+
         int opcao=0;
-        int tamanhoMenu = 4; // Quantidade das opções do menu. Para usar na função validarInput()
+        int tamanhoMenu = 4; // Quantidade das opções do menu. Para usar na função validarInput();
 
         do{
             // Validação de tipo de input
@@ -450,7 +452,7 @@ void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios){
 
         limparTela();
         printf("==========================================================\n");
-        printf("           Usuário: %s\n", lista[resultado_validacao].nome);
+        printf("                  Usuário: %s\n", lista[resultado_validacao].nome);
         printf("==========================================================\n");
         printf("Idade: %d\n", lista[resultado_validacao].idade);
         printf("CPF: %s\n", lista[resultado_validacao].cpf);
