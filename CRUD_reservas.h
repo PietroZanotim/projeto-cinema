@@ -11,7 +11,7 @@
 // --- CRUD RESERVA (Estrutura 3 - Relacional) ---
 int menu_CRUD_reservas();
 void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios, int qtdUsuarios, Sessoes *sessoes, int qtdSessoes);
-void excluir_reserva();
+void excluir_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios);
 void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, Sessoes *sessoes, int qtdSessoes);
 void visualizar_reserva_id(Reservas *reserva, int qtdReservas, Usuarios *usuarios);
 void visualizar_todas_reservas(Reservas *reserva, int qtdReservas, Usuarios *usuarios); //declarar funções do crud

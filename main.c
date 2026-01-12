@@ -123,7 +123,7 @@ int main()
                                     adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes);
                                     break;
                                 case 2:
-                                    //excluir_reserva();
+                                    excluir_reserva(listaReservas, &qtdReservas, listaUsuarios);
                                     break;
                                 case 3:
                                     modificar_reserva(listaReservas, qtdReservas, listaUsuarios, listaSessoes, qtdSessoes);

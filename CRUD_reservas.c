@@ -54,7 +54,7 @@ void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios,
         printf("Saldo: %f\n", usuarios[i].saldo);
         printf("\n------------------\n");
     }
-    printf("Usuário: ");
+    printf("\nUsuário: ");
 
     while (1){
         scanf("%d", &usuarioProcurado);
@@ -74,6 +74,64 @@ void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios,
     printf("\n------------------\n");
 
     listarSessoes(sessoes, qtdSessoes, usuarios, usuarioProcurado, reservas, qtdReservas);
+}
+
+void excluir_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios){
+    int reservaProcurada;
+    int i;
+    char resposta;
+
+    limparTela();
+    printf("================================================\n");
+    printf("              Excluir reserva\n");
+    printf("================================================\n\n");
+    printf("            Selecione uma reserva\n");
+    printf("\n----------------------------------------------\n");
+
+    for(i=0; i < *qtdReservas; i++){
+        printf("Reserva %d:\n", i+1);
+        imprimir_dados_reserva(reservas, *qtdReservas, usuarios, i);
+        printf("\n------------------\n");
+    }
+    printf("\nReserva: ");
+
+    while (1){
+        scanf("%d", &reservaProcurada);
+        if(reservaProcurada < 1 || reservaProcurada > *qtdReservas){
+            puts("\nEssa reserva não existe.");
+            printf("Reserva: ");
+        }else{
+            break; //tudo certo, para sair do while
+        }
+    }
+    reservaProcurada--; //transformar em indice
+
+    limparTela();
+    imprimir_dados_reserva(reservas, *qtdReservas, usuarios, reservaProcurada);
+
+    do{
+        printf("\nDeseja confirmar a exclusão? (S/N): ");
+        if (scanf(" %c", &resposta) != 1) {
+            resposta = ' '; // Define como inválido se o scanf falhar
+        }
+        while (getchar() != '\n');
+        resposta = toupper(resposta); // Converte para maiúsculo
+        if (resposta != 'S' && resposta != 'N') {
+            printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
+            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            getchar(); // Aguarda o usuário pressionar Enter
+        }
+
+    }while (resposta != 'S' && resposta != 'N');
+
+    if(resposta=='S'){
+        int j;
+        for(j=0; j < *qtdReservas - 1; j++){ // -1 para não acessar memória indevida
+            reservas[j] = reservas[j+1];
+        }
+    }
+
+        (*qtdReservas)--;
 }
 
 void visualizar_reserva_id(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
