@@ -20,7 +20,7 @@ int menu_CRUD_reservas() //codar as funções previamente declaradas em CRUD_res
         printf("===============================================================\n\n");
         printf("   [1] - Adicionar reserva\n");
         printf("   [2] - Excluir reserva\n");
-        printf("   [3] - Modificar resera\n");
+        printf("   [3] - Modificar reserva\n");
         printf("   [4] - Visualizar reserva por id\n");
         printf("   [5] - Visualizar todos as reservas\n");
         printf("   [6] - Voltar ao menu inicial\n\n");
@@ -34,6 +34,47 @@ int menu_CRUD_reservas() //codar as funções previamente declaradas em CRUD_res
     while(opcao < 1 || opcao > 6);
 
     return opcao; //isso retorna para a função main na linha 115 para opcao_3
+}
+
+void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios, int qtdUsuarios, Sessoes *sessoes, int qtdSessoes){
+    int usuarioProcurado;
+    int i;
+
+    limparTela();
+    printf("================================================\n");
+    printf("              Adicionar reserva\n");
+    printf("================================================\n\n");
+    printf("            Selecione um usuário\n");
+    printf("\n----------------------------------------------\n");
+
+    for(i=0; i<qtdUsuarios; i++){
+        printf("Usuário %d:\n", i+1);
+        printf("Nome: %s\n", usuarios[i].nome);
+        printf("CPF: %s\n", usuarios[i].cpf);
+        printf("Idade: %d\n", usuarios[i].idade);
+        printf("Saldo: %f\n", usuarios[i].saldo);
+        printf("\n------------------\n");
+    }
+    printf("Usuário: ");
+
+    while (1){
+        scanf("%d", &usuarioProcurado);
+        if(usuarioProcurado < 1 || usuarioProcurado > qtdUsuarios){
+            puts("\nEsse usuário não existe.");
+            printf("Usuário: ");
+        }else{
+            break; //tudo certo, para sair do while
+        }
+    }
+    usuarioProcurado--; //transformar em indice
+    limparTela();
+    printf("Usuário: %s:\n", usuarios[usuarioProcurado].nome);
+    printf("CPF: %s\n", usuarios[usuarioProcurado].cpf);
+    printf("Idade: %d\n", usuarios[usuarioProcurado].idade);
+    printf("Saldo: %f\n", usuarios[usuarioProcurado].saldo);
+    printf("\n------------------\n");
+
+    listarSessoes(sessoes, qtdSessoes, usuarios, usuarioProcurado, reservas, qtdReservas);
 }
 
 void visualizar_reserva_id(Reservas *reservas, int qtdReservas, Usuarios *usuarios)

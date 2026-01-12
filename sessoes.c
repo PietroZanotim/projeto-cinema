@@ -21,7 +21,6 @@ int buscaSessao(Sessoes *sessao,int id, int qtdSessoes){
 
 void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, int indiceUsuario, Reservas *reserva, int *qtdReservas){
 
-    limparTela();
     printf("===============================================================\n");
     printf("                      SESSOES DISPONÍVEIS:");
     printf("\n===============================================================\n");
@@ -31,7 +30,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
         printf("\nSentimos muito... Nenhum filme disponivel no momento.\n");
         printf("\n[Enter] para retornar ao menu login...");
         getchar();
-        
+
     }
     else {
 
@@ -42,7 +41,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
             printf("Sala: %d\n", sessao[i].sala);
             printf("Valor: %lf\n", sessao[i].valorIngresso);
             printf("Assentos:\n");
-            
+
             char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
             for(int L = 1; L <= 10; L++){
@@ -68,7 +67,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
             }
 
             // Limpa o buffer de entrada para a próxima iteração
-            while (getchar() != '\n'); 
+            while (getchar() != '\n');
 
             resposta = toupper(resposta); // Converte para maiúsculo
 
@@ -87,12 +86,12 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
             int colunaAssento;
 
             printf("\nDigite o id do filme: ");
-            
+
             do{
                 scanf("%d", &id);
 
                 indiceSessao = buscaSessao(sessao, id, quantidadeSessoes);
-            
+
                 if(indiceSessao==-1){
                     printf("\nId não localizado, digite novamente.\nDigite o id do filme: ");
                 } else if(usuario[indiceUsuario].idade < sessao[indiceSessao].limIdade){
@@ -113,7 +112,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 scanf("%d", &colunaAssento);
                 colunaAssento -= 1;
 
-                if(sessao[indiceSessao].assento[linhaAssento][colunaAssento]=='X'){ 
+                if(sessao[indiceSessao].assento[linhaAssento][colunaAssento]=='X'){
                     printf("Sentimos muito, este assento está ocupado...\n");
                 }
                 //Assentos com o char "O" estarão livres, e os com "X", ocupados;
@@ -126,7 +125,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
             strcpy(reserva[*qtdReservas].cpf_usuario,usuario[indiceUsuario].cpf);
 
             //reserva[*qtdReservas].assento = ??? Devemos analisar depois como atribuir...
-            
+
             *qtdReservas++;
 
             limparTela();

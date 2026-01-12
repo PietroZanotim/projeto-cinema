@@ -120,7 +120,7 @@ int main()
                             switch(opcao_3)
                             {
                                 case 1:
-                                    //adicionar_reserva();
+                                    adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes);
                                     break;
                                 case 2:
                                     //excluir_reserva();
@@ -196,7 +196,7 @@ int main()
             {
                 //Menu dos demais usuarios;
                 while(1)
-                {      
+                {
                     char exclusaobreak = 'N'; // Adicionei para caso o usuário seja excluido, saia do menu;
 
                     int opcao = menuLogin(listaUsuarios, indiceUsuario);
@@ -204,6 +204,7 @@ int main()
                     switch(opcao)
                     {
                     case 1:
+                        limparTela();
                         listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, listaReservas, &qtdReservas);
                         break;
 
