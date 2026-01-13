@@ -46,7 +46,7 @@ void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios,
     printf("            Selecione um usuário\n");
     printf("\n----------------------------------------------\n");
 
-    for(i=0; i<qtdUsuarios; i++){
+    for(i=1; i<qtdUsuarios; i++){
         printf("Usuário %d:\n", i+1);
         printf("Nome: %s\n", usuarios[i].nome);
         printf("CPF: %s\n", usuarios[i].cpf);
@@ -65,7 +65,7 @@ void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios,
             break; //tudo certo, para sair do while
         }
     }
-    usuarioProcurado--; //transformar em indice
+
     limparTela();
     printf("Usuário: %s:\n", usuarios[usuarioProcurado].nome);
     printf("CPF: %s\n", usuarios[usuarioProcurado].cpf);

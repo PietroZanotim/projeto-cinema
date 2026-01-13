@@ -39,24 +39,24 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
             printf("Filme: %s - Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
             printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
             printf("Sala: %d\n", sessao[i].sala);
-            printf("Valor: %lf\n", sessao[i].valorIngresso);
+            printf("Valor: %.2lf\n", sessao[i].valorIngresso);
             printf("Assentos:\n");
 
             char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
-            for(int L = 1; L <= 10; L++){
-                for(int C = 1; C <= 10; C++){
+            for(int L = 0; L < 10; L++){
+                for(int C = 0; C < 10; C++){
                     if(C != 9){
-                        if(sessao[i].assento[L][C] == 0) printf("%c%d ",Linha[L],C);
-                        else printf("X ");
+                        if(sessao[i].assento[L][C] == '0') printf("%c%d     ",Linha[L],C);
+                        else printf("X     ");
                     } else {
-                        if(sessao[i].assento[L][C] == 0) printf("%c%d\n",Linha[L],C);
+                        if(sessao[i].assento[L][C] == '0') printf("%c%d\n",Linha[L],C);
                         else printf("X\n");
                     }
                 }
             }
             printf("_________________________________________________________________\n");
-            printf("                             TELA\n");
+            printf("                             TELA\n\n\n");
         }
         char resposta;
 
@@ -112,11 +112,11 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 scanf("%d", &colunaAssento);
                 colunaAssento -= 1;
 
-                if(sessao[indiceSessao].assento[linhaAssento][colunaAssento]=='X'){
+                if(sessao[indiceSessao].assento[linhaAssento][colunaAssento]=='1'){
                     printf("Sentimos muito, este assento está ocupado...\n");
                 }
                 //Assentos com o char "O" estarão livres, e os com "X", ocupados;
-            } while (sessao[indiceSessao].assento[linhaAssento][colunaAssento]=='X');
+            } while (sessao[indiceSessao].assento[linhaAssento][colunaAssento]=='1');
 
             usuario[indiceUsuario].saldo -= sessao[indiceSessao].valorIngresso; // Dando baixa no saldo do usuário;
 
@@ -142,6 +142,3 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
         }
 
     }
-
-
-}

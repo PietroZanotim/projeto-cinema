@@ -24,6 +24,22 @@ int main()
     Sessoes listaSessoes[MAX_SESSOES];
     Reservas listaReservas[MAX_RESERVAS];
 
+    //Sessao temporaria para testarmos
+
+    listaSessoes[0].id = 0;
+    strcpy(listaSessoes[0].nome_filme,"Cinema");
+    listaSessoes[0].limIdade = 18;
+    listaSessoes[0].sala = 1;
+    listaSessoes[0].valorIngresso = 20.00;
+    strcpy(listaSessoes[0].data,"20/02/2026");
+    strcpy(listaSessoes[0].horario_inicio,"14:30");
+    strcpy(listaSessoes[0].horario_final,"16:00");
+    for(int L = 0; L < 10; L++) {
+        for(int C = 0; C < 10; C++) {
+            listaSessoes[0].assento[L][C] = '0';
+        }
+    }
+
     // Sistema temporário para acessar o admin
     listaUsuarios[0].idade = 0;
     strcpy(listaUsuarios[0].nome, "Admin");
@@ -31,7 +47,7 @@ int main()
     strcpy(listaUsuarios[0].senha, "123senha");
 
     int qtdUsuarios = 1; // 1 por causa do Admin
-    int qtdSessoes = 0;
+    int qtdSessoes = 1; // Sessao teste;
     int qtdReservas = 0;
 
     while (1)
