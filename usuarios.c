@@ -434,14 +434,20 @@ void exclusaoUsuario(Usuarios *usuario, int indiceUsuario, int *qtdUsuario, char
 
         if(*exclusaoBreak=='S'){
         
-        //"Exclusão" dos dados do usuário...
-        strcpy(usuario[indiceUsuario].nome,"");
-        usuario[indiceUsuario].idade = 0;
-        strcpy(usuario[indiceUsuario].cpf,"");
-        usuario[indiceUsuario].saldo = 0.00;
-        strcpy(usuario[indiceUsuario].senha,"");
-            
-        *qtdUsuario--;
+        //"Exclusão" dos dados do usuário...    
+        // --- ESTRATÉGIA: ARRASTAR PARA A ESQUERDA ---
+        // Começa onde o usuário está e vai copiando o próximo para o lugar do atual
+        for(int i = indiceUsuario; i < *qtdUsuario - 1; i++){
+            usuario[i] = usuario[i + 1];
+        }
+
+        // --- ATUALIZA A QUANTIDADE ---
+        // Como passamos qtdUsuarios como ponteiro, usamos (*ptr)--
+        (*qtdUsuario)--; 
+
+        // (Opcional) Limpa o último registro que ficou duplicado no final
+        memset(&usuario[*qtdUsuario], 0, sizeof(Usuarios));
+
         }
 
         printf("\n[Enter] para continuar...\n");

@@ -171,14 +171,19 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
 
         if(resposta=='S'){
         
-        //"Exclusão" dos dados do usuário...
-        strcpy(lista[resultado_validacao].nome,"");
-        lista[resultado_validacao].idade = 0;
-        strcpy(lista[resultado_validacao].cpf,"");
-        lista[resultado_validacao].saldo = 0.00;
-        strcpy(lista[resultado_validacao].senha,"");
-        
-        *qtdUsuarios--;
+        //"Exclusão" dos dados do usuário...    
+        // --- ESTRATÉGIA: ARRASTAR PARA A ESQUERDA ---
+        // Começa onde o usuário está e vai copiando o próximo para o lugar do atual
+        for(int i = resultado_validacao; i < *qtdUsuarios - 1; i++){
+            lista[i] = lista[i + 1];
+        }
+
+        // --- ATUALIZA A QUANTIDADE ---
+        // Como passamos qtdUsuarios como ponteiro, usamos (*ptr)--
+        (*qtdUsuarios)--; 
+
+        // (Opcional) Limpa o último registro que ficou duplicado no final
+        memset(&lista[*qtdUsuarios], 0, sizeof(Usuarios));
 
         }
 
