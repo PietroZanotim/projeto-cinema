@@ -35,7 +35,7 @@ int menu_CRUD_reservas(){ //codar as funções previamente declaradas em CRUD_re
     return opcao; //isso retorna para a função main na linha 115 para opcao_3
 }
 
-void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios, int qtdUsuarios, Sessoes *sessoes, int qtdSessoes){
+void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios, int qtdUsuarios, Sessoes *sessoes, int qtdSessoes, int *qtdIdReservas){
     int usuarioProcurado;
     int i;
 
@@ -73,7 +73,7 @@ void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios,
     printf("Saldo: %f\n", usuarios[usuarioProcurado].saldo);
     printf("\n------------------\n");
 
-    listarSessoes(sessoes, qtdSessoes, usuarios, usuarioProcurado, reservas, qtdReservas);
+    listarSessoes(sessoes, qtdSessoes, usuarios, usuarioProcurado, reservas, qtdReservas, qtdIdReservas);
 }
 
 void excluir_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios){

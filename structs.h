@@ -30,7 +30,7 @@ typedef struct Reservas{
     int id;                
     char cpf_usuario[15];   // Aponta para um Usuario (S2). O cpf é único.
     int id_sessao;          // Aponta para S1 
-    char assento[4];        // Informação adicional (ex: "F10")
+    char assento[2];        // Informação adicional (ex: "F10")
 } Reservas;
 
 #endif

@@ -50,6 +50,10 @@ int main()
     int qtdSessoes = 1; // Sessao teste;
     int qtdReservas = 0;
 
+    // Variaveis para marcar o id, pois se usarmos as váriaveis qtd, pode haver duplicidade....
+    int idReservas=0;
+    int idSessoes=0;
+
     while (1)
     {
         int opcao = menuPrincipal();
@@ -136,7 +140,7 @@ int main()
                             switch(opcao_3)
                             {
                                 case 1:
-                                    adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes);
+                                    adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, &idReservas);
                                     break;
                                 case 2:
                                     excluir_reserva(listaReservas, &qtdReservas, listaUsuarios);
@@ -221,7 +225,7 @@ int main()
                     {
                     case 1:
                         limparTela();
-                        listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, listaReservas, &qtdReservas);
+                        listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, listaReservas, &qtdReservas, &idReservas);
                         break;
 
                     case 2:
