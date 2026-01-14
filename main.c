@@ -17,8 +17,7 @@
 #define MAX_SESSOES 5
 #define MAX_RESERVAS 10
 
-int main()
-{
+int main(){
     // Criação das variáveis "Globais" dentro da main
     Usuarios listaUsuarios[MAX_USUARIOS];
     Sessoes listaSessoes[MAX_SESSOES];
@@ -34,8 +33,8 @@ int main()
     strcpy(listaSessoes[0].data,"20/02/2026");
     strcpy(listaSessoes[0].horario_inicio,"14:30");
     strcpy(listaSessoes[0].horario_final,"16:00");
-    for(int L = 0; L < 10; L++) {
-        for(int C = 0; C < 10; C++) {
+    for(int L = 0; L < 10; L++){
+        for(int C = 0; C < 10; C++){
             listaSessoes[0].assento[L][C] = '0';
         }
     }
@@ -54,31 +53,22 @@ int main()
     int idReservas=0;
     int idSessoes=0;
 
-    while (1)
-    {
+    while (1){
         int opcao = menuPrincipal();
 
-        switch (opcao)
-        {
+        switch (opcao){
         case 1: // Login do usuario;
-
             int indiceUsuario = login(listaUsuarios, qtdUsuarios); // Pegamos a posição do usuario;
-
-            if (indiceUsuario == 0)
-            {
+            if (indiceUsuario == 0){
                 // Menu do admin
-                while(1)
-                {
+                while(1){
                     int opcao = menuAdmin();
-                    switch(opcao)
-                    {
+                    switch(opcao){
                     case 1:
                         // CRUD de Sessões
-                        while(1)
-                        {
+                        while(1){
                             int opcao_1 = menu_CRUD_sessoes();
-                            switch(opcao_1)
-                            {
+                            switch(opcao_1){
                             case 1:
                                 //adicionar_sessao();
                                 break;
@@ -95,8 +85,7 @@ int main()
                                 //visualizar_todas_sessoes();
                                 break;
                             }
-                            if (opcao_1 == 6)
-                            {
+                            if (opcao_1 == 6){
                                 if(confirmarRetorno() == 1) break;
                                 else continue;
                             }
@@ -104,11 +93,9 @@ int main()
                         break;
                     case 2:
                         // CRUD de Usuários
-                        while(1)
-                        {
+                        while(1){
                             int opcao_2 = menu_CRUD_usuarios();
-                            switch(opcao_2)
-                            {
+                            switch(opcao_2){
                             case 1:
                                 adicionar_usuario(listaUsuarios, &qtdUsuarios, MAX_USUARIOS);
                                 break;
@@ -125,8 +112,7 @@ int main()
                                 visualizar_todos_usuarios(listaUsuarios, qtdUsuarios);
                                 break;
                             }
-                            if (opcao_2 == 6)
-                            {
+                            if (opcao_2 == 6){
                                 if(confirmarRetorno() == 1) break;
                                 else continue;
                             }
@@ -134,11 +120,9 @@ int main()
                         break;
                     case 3:
                         // CRUD de Reservas
-                        while(1)
-                        {
+                        while(1){
                             int opcao_3 = menu_CRUD_reservas();
-                            switch(opcao_3)
-                            {
+                            switch(opcao_3){
                                 case 1:
                                     adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, &idReservas);
                                     break;
@@ -155,8 +139,7 @@ int main()
                                     visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);
                                     break;
                             }
-                            if (opcao_3 == 6)
-                            {
+                            if (opcao_3 == 6){
                                 if(confirmarRetorno() == 1) break;
                                 else continue;
                             }
@@ -177,7 +160,7 @@ int main()
                                     CONS_reservas_por_cpf(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
                                     break;
                             }
-                            if (opcao_4 == 4){
+                            if(opcao_4 == 4){
                                 if(confirmarRetorno() == 1) break;
                                 else continue;
                             }
@@ -198,78 +181,62 @@ int main()
                                     RELATORIO_reservas_completo(listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, listaReservas, qtdReservas);
                                     break;
                             }
-                            if (opcao_5 == 4){
+                            if(opcao_5 == 4){
                                 if(confirmarRetorno() == 1) break;
                                 else continue;
                             }
                         }
                         break;
                     }
-                    if (opcao == 6)
-                    {
+                    if(opcao == 6){
                         if(confirmarRetorno() == 1) break;
                         else continue;
                     }
                 }
             }
-            else
-            {
+            else{
                 //Menu dos demais usuarios;
-                while(1)
-                {
+                while(1){
                     char exclusaobreak = 'N'; // Adicionei para caso o usuário seja excluido, saia do menu;
-
                     int opcao = menuLogin(listaUsuarios, indiceUsuario);
 
-                    switch(opcao)
-                    {
+                    switch(opcao){
                     case 1:
                         limparTela();
                         listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, listaReservas, &qtdReservas, &idReservas);
                         break;
-
                     case 2:
                         visualizarReservas(listaReservas, qtdReservas, listaUsuarios, indiceUsuario, listaSessoes, qtdSessoes);
                         break;
-
                     case 3:
                         verSaldo(listaUsuarios, indiceUsuario);
                         break;
-
                     case 4:
                         modificarSenha(listaUsuarios, indiceUsuario);
                         break;
-
                     case 5:
                         exclusaoUsuario(listaUsuarios, indiceUsuario, &qtdUsuarios, &exclusaobreak);
                         break;
                     }
-
-                    if (opcao == 6)
-                    {
+                    if (opcao == 6){
                         if(confirmarRetorno() == 1) break;
                         else continue;
                     }
-
                     if(exclusaobreak=='S'){ //Se o usuario excluir esse registro atual, saia do menu;
                         break;
                     }
-
                 }
             }
             break;
-
         case 2:
             // Passamos o endereço de qtdUsuarios (&) para poder alterar o valor original
             cadastro(listaUsuarios, &qtdUsuarios, MAX_USUARIOS);
             break;
-
         case 3:
             saberMais();
             break;
-
         case 4:
-            if (confirmarSaida() == 1){
+            if(confirmarSaida() == 1){
                 finalizar_sistema(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
                 return 0;
             }

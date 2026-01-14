@@ -26,7 +26,6 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
     printf("\n===============================================================\n");
 
     if(quantidadeSessoes==0){
-
         printf("\nSentimos muito... Nenhum filme disponivel no momento.\n");
         printf("\n[Enter] para retornar ao menu login...");
         getchar();
@@ -65,12 +64,12 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
         do{
             printf("\nDeseja comprar um ingresso? (S/N): ");
-            if (scanf(" %c", &resposta) != 1){
+            if(scanf(" %c", &resposta) != 1){
                 resposta = ' '; // Define como inválido se o scanf falhar
             }
 
             // Limpa o buffer de entrada para a próxima iteração
-            while (getchar() != '\n');
+            while(getchar() != '\n');
 
             resposta = toupper(resposta); // Converte para maiúsculo
 
@@ -80,27 +79,26 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 getchar(); // Aguarda o usuário pressionar Enter
             }
 
-        }while (resposta != 'S' && resposta != 'N');
+        }while(resposta != 'S' && resposta != 'N');
 
         char opcao; //Variavel usada para validar a saida do usuario e a leitura do id
-        
+
         if(resposta=='S'){
-            
             int indiceSessao;
             char linhaAssento;
             int linhaAssentoInt; //Usado apenas para preencher a posição da matriz;
             int colunaAssento;
 
             printf("\nDigite o id do filme (Digite 'q', para sair): ");
-            
+
             do{
                 scanf(" %c", &opcao);
 
-                if(opcao=='q' || opcao=='Q') {
+                if(opcao=='q' || opcao=='Q'){
                     opcao = toupper(opcao);
                     break;
                 }
-                else {
+                else{
 
                     int id = opcao - '0';
 
@@ -117,12 +115,10 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                     }
                 }
             }while(indiceSessao==-1);
-            
+
             if(!(opcao=='q' || opcao=='Q')) { //Se o usuario optou por sair já finaliza;
-
-                do{ 
-
-                    do {
+                do{
+                    do{
                         printf("\nDigite a linha do assento desejado (Ex.A): ");
                         scanf(" %c", &linhaAssento);
                         linhaAssento = toupper(linhaAssento);
@@ -130,19 +126,19 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                         if(linhaAssento<'A' || linhaAssento>'J') {
                             printf("Linha de assento inválida!");
                         }
-                    } while(linhaAssento<'A' || linhaAssento>'J');
+                    }while(linhaAssento<'A' || linhaAssento>'J');
 
                     int linhaAssentoInt = converteLinhaAssento(linhaAssento);
-                    
-                    do {
+
+                    do{
                         printf("\nDigite a coluna do assento desejado (Ex.1): ");
                         scanf("%d", &colunaAssento);
-                        
+
                         if(colunaAssento<0 || colunaAssento>9){
                             printf("Coluna de assento inválida!");
                         }
 
-                    } while(colunaAssento<0 || colunaAssento>9);
+                    }while(colunaAssento<0 || colunaAssento>9);
 
                     if(sessao[indiceSessao].assento[linhaAssentoInt][colunaAssento]=='1'){
                         printf("Sentimos muito, este assento está ocupado...\n");
@@ -163,7 +159,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
                 // Logo depois concateno com a colunaAssento transformada em char;
                 reserva[*qtdReservas].assento[1] = (char)colunaAssento;
-                
+
                 //Incremento a qtdReservas cadastradas;
                 (*qtdReservas)++;
 
@@ -174,10 +170,9 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 printf("\n[Enter] para retornar ao menu login...");
                 getchar(); // Aguarda o usuário enviar o enter
             }
+        }
 
-        } 
-        
-        if(resposta=='S' || opcao=='Q') {
+        if(resposta=='S' || opcao=='Q'){
             limparTela();
             while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
             printf("\n[Enter] para retornar ao menu login...");
@@ -186,8 +181,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
     }
 }
 
-int converteLinhaAssento(char linha) {
-
+int converteLinhaAssento(char linha){
     if(linha=='A') {
         return 0;
     }

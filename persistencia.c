@@ -14,17 +14,17 @@ int carregar_usuarios(Usuarios *listaUsuarios){
 
     int qtdUsuarios_bin = 1;
 
-    if(p_usuarios_bin == NULL) {    
+    if(p_usuarios_bin == NULL){
         // Se não tiver um arquivo .bin, crie um (write mode)
         p_usuarios_bin = fopen("usuarios.bin", "wb");
-        
+
         // Sistema temporário para acessar o admin
         strcpy(listaUsuarios[0].nome, "Admin");
         strcpy(listaUsuarios[0].cpf, "000.000.000-00");
         strcpy(listaUsuarios[0].senha, "123senha");
         listaUsuarios[0].saldo = 1000.00;
         listaUsuarios[0].idade = 30;
-        
+
         // Escreva o cabeçalho (a quantidade)
         fwrite(&qtdUsuarios_bin, sizeof(int), 1, p_usuarios_bin);
 
@@ -33,7 +33,7 @@ int carregar_usuarios(Usuarios *listaUsuarios){
 
         fclose(p_usuarios_bin);
     }
-    else {
+    else{
         // Trazer os dados do disco rígido para a RAM
         // Parâmetros: destino, tamanho em bytes, quantidade, ponteiro do arquivo
         fread(&qtdUsuarios_bin, sizeof(int), 1, p_usuarios_bin);
@@ -41,7 +41,6 @@ int carregar_usuarios(Usuarios *listaUsuarios){
 
         fclose(p_usuarios_bin);
     }
-
     return qtdUsuarios_bin;
 }
 
@@ -60,7 +59,6 @@ int carregar_sessoes(Sessoes *listaSessoes){
         fread(listaSessoes, sizeof(Sessoes), qtdSessoes_bin, p_sessoes_bin);
         fclose(p_sessoes_bin);
     }
-
     return qtdSessoes_bin;
 }
 
@@ -79,7 +77,6 @@ int carregar_reservas(Reservas *listaReservas){
         fread(listaReservas, sizeof(Reservas), qtdReservas_bin, p_reservas_bin);
         fclose(p_reservas_bin);
     }
-
     return qtdReservas_bin;
 }
 

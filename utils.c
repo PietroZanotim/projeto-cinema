@@ -7,9 +7,9 @@
 #include <string.h>
 #include <ctype.h>
 #include "utils.h"
-#include "structs.h" // Precisa conhecer a struct Usuarios
+#include "structs.h"
 
-void limparTela() {
+void limparTela(){
     #if defined(_WIN32) || defined(_WIN64)
         system("cls || clear");
     #elif defined(__linux__) || defined(__unix__) || defined(__APPLE__)
@@ -19,16 +19,12 @@ void limparTela() {
     #endif
 }
 
-//-----------------------------------------------------------------------------
-//---------------------------{ MENU PRINCIPAL }--------------------------------
-//-----------------------------------------------------------------------------
-int menuPrincipal() {
+int menuPrincipal(){
     int opcao = 0; // Inicializa com um valor inválido
     int tamanhoMenu = 4; // Quantidade de opções no menu. Para usar na função validarInput()
 
-    do {
+    do{
         limparTela();
-
         printf("==============================================\n");
         printf("       SISTEMA DE GERENCIAMENTO DE CINEMA\n");
         printf("==============================================\n\n");
@@ -38,25 +34,17 @@ int menuPrincipal() {
         printf("   [4] - Sair do Programa\n");
         printf("\n--------------------------------------------\n");
         printf("Digite a opcao desejada: ");
-
         // Validação de tipo de input
         opcao = validarInput(tamanhoMenu);
-
-    } while (opcao < 1 || opcao > 4); // Repete o menu se a opção for inválida
-
+    }while(opcao < 1 || opcao > 4); // Repete o menu se a opção for inválida
     // Retorna a opção válida (1, 2, 3 ou 4)
     return opcao;
 }
 
-//-----------------------------------------------------------------------------
-//-----------------------------{ OPCAO PARA SAIR }-----------------------------
-//-----------------------------------------------------------------------------
-int confirmarSaida() {
+int confirmarSaida(){
     char resposta;
-
     limparTela();
-
-    do {
+    do{
         printf("=========================================\n");
         printf("              SAIR DO PROGRAMA\n");
         printf("=========================================\n\n");
@@ -67,7 +55,7 @@ int confirmarSaida() {
         printf("\nDigite sua escolha: ");
 
         // espaço antes do %c para consumir buffer
-        if (scanf(" %c", &resposta) != 1) {
+        if(scanf(" %c", &resposta) != 1){
             resposta = ' '; // Define como inválido se o scanf falhar
         }
 
@@ -76,31 +64,26 @@ int confirmarSaida() {
 
         resposta = toupper(resposta); // Converte para maiúsculo
 
-        if (resposta != 'S' && resposta != 'N') {
+        if(resposta != 'S' && resposta != 'N'){
             printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
-            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            while(getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
             getchar(); // Aguarda o usuário pressionar Enter
         }
 
-    } while (resposta != 'S' && resposta != 'N');
+    }while(resposta != 'S' && resposta != 'N');
 
-    if (resposta == 'S') {
+    if(resposta == 'S'){
         limparTela();
         return 1; // 1 = Sim, sair
-    } else {
+    }else{
         return 0; // 0 = Não, voltar
     }
 }
 
-//-----------------------------------------------------------------------------
-//-----------------------------{ OPCAO PARA RETORNAR }-------------------------
-//-----------------------------------------------------------------------------
-int confirmarRetorno() {
+int confirmarRetorno(){
     char resposta;
-
     limparTela();
-
-    do {
+    do{
         printf("=========================================\n");
         printf("          RETONAR AO MENU PRINCIPAL      \n");
         printf("=========================================\n\n");
@@ -111,7 +94,7 @@ int confirmarRetorno() {
         printf("\nDigite sua escolha: ");
 
         // espaço antes do %c para consumir buffer
-        if (scanf(" %c", &resposta) != 1) {
+        if(scanf(" %c", &resposta) != 1){
             resposta = ' '; // Define como inválido se o scanf falhar
         }
 
@@ -120,19 +103,18 @@ int confirmarRetorno() {
 
         resposta = toupper(resposta); // Converte para maiúsculo
 
-        if (resposta != 'S' && resposta != 'N') {
+        if(resposta != 'S' && resposta != 'N'){
             printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
-            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-            getchar(); // Aguarda o usuário pressionar Enter
+            while(getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            getchar(); //Aguarda o usuário pressionar Enter
         }
+    }while (resposta != 'S' && resposta != 'N');
 
-    } while (resposta != 'S' && resposta != 'N');
-
-    if (resposta == 'S') {
+    if(resposta == 'S'){
         limparTela();
-        return 1; // 1 = Sim, sair
-    } else {
-        return 0; // 0 = Não, voltar
+        return 1; //Sim, sair
+    }else{
+        return 0; //Não, voltar
     }
 }
 
@@ -148,7 +130,7 @@ int voltar(){
 
     do{
         // Consumir o buffer antes de ler a próxima tecla
-        while (getchar() != '\n');
+        while(getchar() != '\n');
         // Lê o caracter do buffer de entrada
         vazio = getchar();
 
@@ -161,15 +143,11 @@ int voltar(){
             valid = 1;
             printf("Digito inválido, aperte Enter para voltar: ");
         }
-    }while (valid == 1);
+    }while(valid == 1);
 }
 
-
-//Função para mostrar as funcionalidades do sistema
 int saberFuncionalidades(){
-
     limparTela();
-
     printf("\n==============================================\n");
     printf("                 FUNCIONALIDADES\n");
     printf("==============================================\n\n");
@@ -190,10 +168,8 @@ int saberFuncionalidades(){
 }
 
 int saberMais(){
-
     int escolha = 0; // Inicializa como opção inválida
-    int tamanhoMenu = 4; 
-
+    int tamanhoMenu = 4;
     limparTela();
     do{
         printf("==============================================\n");
@@ -207,7 +183,7 @@ int saberMais(){
         printf("Digite a opcao desejada: ");
 
         // Validação do input
-        escolha = validarInput(tamanhoMenu);        
+        escolha = validarInput(tamanhoMenu);
 
         //Condições para selecionar a função escolhida pelo usuário
         if(escolha == 1){
@@ -223,66 +199,64 @@ int saberMais(){
             limparTela();
             break;
         }
-    } while(escolha != 4);
-
+    }while(escolha != 4);
     return 0;
 }
 
 // Recebe a string da data como parâmetro
-int validar_formato_data(char *data) {
-    
+int validar_formato_data(char *data){
+
     // --- PARTE 1: VALIDAÇÃO ESTRUTURAL (A que já tínhamos) ---
 
     // 1. Verificar tamanho exato (DD/MM/AA tem 8 caracteres)
-    if (strlen(data) != 8) return -1;
+    if(strlen(data) != 8) return -1;
     // 2. Verificar as barras nas posições 2 e 5 (01/34/67)
-    if (data[2] != '/' || data[5] != '/') return -2;
+    if(data[2] != '/' || data[5] != '/') return -2;
     // 3. Verificar se os outros caracteres são números
-    for (int i = 0; i < 8; i++) {
+    for(int i = 0; i < 8; i++){
         // Pula as posições das barras
-        if (i == 2 || i == 5) continue;
-        
+        if(i == 2 || i == 5) continue;
+
         // Se não for dígito, erro
-        if (!isdigit(data[i])) return -3;
+        if(!isdigit(data[i])) return -3;
     }
-    
+
     // --- PARTE 2: VALIDAÇÃO LÓGICA (A Nova) ---
 
     int dia, mes, ano;
-    
+
     // O sscanf extrai os números da string "DD/MM/AA" e joga nas variáveis int
     sscanf(data, "%d/%d/%d", &dia, &mes, &ano);
 
     // 4. Validação simples de Dia (1 a 31)
-    if (dia < 1 || dia > 31) return -4;
+    if(dia < 1 || dia > 31) return -4;
 
     // 5. Validação de Mês (1 a 12)
-    if (mes < 1 || mes > 12) return -5;
-    
-    // 6. Validacao de Ano
-    if (ano < 26) return -6; 
+    if(mes < 1 || mes > 12) return -5;
 
+    // 6. Validacao de Ano
+    if(ano < 26) return -6;
 
     return 0; // Sucesso
 }
 
-int validarInput(int tamanhoMenu) {
+int validarInput(int tamanhoMenu){
     char input[50];
     int opcao;
     int entradaValida = 0;
 
-    do {
+    do{
         fgets(input, 50, stdin);
 
         // 1. Verifica se é um número inteiro válido
-        if (sscanf(input, "%d", &opcao) != 1) {
+        if(sscanf(input, "%d", &opcao) != 1){
             printf("Erro: Voce digitou letras ou simbolos.\n");
             printf("Por favor, digite um numero entre 1 e %d.\n", tamanhoMenu);
             continue; // Volta para o início do loop
         }
 
         // 2. Verifica se o número está dentro do intervalo do menu
-        if (opcao < 1 || opcao > tamanhoMenu) {
+        if(opcao < 1 || opcao > tamanhoMenu){
             printf("Opcao invalida! O numero deve ser entre 1 e %d.\n", tamanhoMenu);
             continue; // Volta para o início do loop
         }
@@ -290,7 +264,7 @@ int validarInput(int tamanhoMenu) {
         // Se passou pelas duas barreiras acima, a entrada é válida
         entradaValida = 1;
 
-    } while (!entradaValida);
+    }while(!entradaValida);
 
     return opcao;
 }

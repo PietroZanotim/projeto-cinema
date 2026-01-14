@@ -10,16 +10,12 @@
 #include "sessoes.h"
 #include "utils.h"
 
-//-----------------------------------------------------------------------------
-//-----------------------------{ FUNCÕES DE CPF }------------------------------
-//-----------------------------------------------------------------------------
-
 int buscaCpfCadastro(Usuarios *lista, int qtdUsuarios, char *cpfTemp){
     int i;
     for(i = 0; i < qtdUsuarios; i++){
         if(strcmp(lista[i].cpf,cpfTemp)==0) return i; // CPF já está cadastrado
     }
-    return -1; // CPF não está cadastrado 
+    return -1; // CPF não está cadastrado
 }
 
 
@@ -33,46 +29,42 @@ int validarCPF(Usuarios *lista, int qtd, char *destCpf, int modoCadastro){
     // Remover quebra de linha se existir
     cpfTemp[strcspn(cpfTemp, "\n")] = '\0';
     // 1. Verificar tamanho
-    if (strlen(cpfTemp) != 14) return -2;
+    if(strlen(cpfTemp) != 14) return -2;
     // 2. Verificar formato fixo XXX.XXX.XXX-XX
-    if (cpfTemp[3] != '.' || cpfTemp[7] != '.' || cpfTemp[11] != '-') return -2;
+    if(cpfTemp[3] != '.' || cpfTemp[7] != '.' || cpfTemp[11] != '-') return -2;
     // 3. Verificar se os dígitos são numéricos
-    for (i = 0; i < 14; i++) {
-        if (i == 3 || i == 7 || i == 11) continue;
-        if (!isdigit(cpfTemp[i])) return -2;
+    for(i = 0; i < 14; i++){
+        if(i == 3 || i == 7 || i == 11) continue;
+        if(!isdigit(cpfTemp[i])) return -2;
     }
     // 4. Verifica se o CPF já está cadastrado
     int indiceEncontrado = buscaCpfCadastro(lista, qtd, cpfTemp);
 
-    if (modoCadastro == 1) { // ***MODO CADASTRO****
-        if (indiceEncontrado == -1) {
-            if(destCpf != NULL) strcpy(destCpf, cpfTemp); //Passa o cpf para o destCpf caso tudo estiver correto. 
+    if(modoCadastro == 1){ // ***MODO CADASTRO****
+        if(indiceEncontrado == -1){
+            if(destCpf != NULL) strcpy(destCpf, cpfTemp); //Passa o cpf para o destCpf caso tudo estiver correto.
             return 1; // Sucesso
         }
         else return -1; // Erro: já existe
     }
-    
-    if (modoCadastro == 0) { // ***MODO LOGIN***
-        
+
+    if(modoCadastro == 0){ // ***MODO LOGIN***
+
         if(indiceEncontrado == -1){
             if(destCpf != NULL){
-            strcpy(destCpf, cpfTemp); //If para modificar o CPF no CRUD de usuarios(modificar CPF).
+                strcpy(destCpf, cpfTemp); //If para modificar o CPF no CRUD de usuarios(modificar CPF).
             }
         }
-         
+
         // Queremos logar, então TEM que existir (retorna o indice)
-        if (indiceEncontrado == -1) return -1; 
+        if(indiceEncontrado == -1) return -1;
         else return indiceEncontrado;
     }
 }
 
-//-----------------------------------------------------------------------------
-//---------------------------{ OPCAO 1 - LOGIN }-------------------------------
-//-----------------------------------------------------------------------------
-
 int login(Usuarios *lista, int qtdUsuarios){
     int indiceUsuario;
-    limparTela(); 
+    limparTela();
     printf("================================================\n");
     printf("                      Login\n");
     printf("================================================\n\n");
@@ -80,40 +72,41 @@ int login(Usuarios *lista, int qtdUsuarios){
     printf("\n-----------------------------------------------\n");
     printf("CPF: ");
 
-    while (1) {
+    while(1){
         // Passamos NULL no destCpf pois no login não vamos salvar o CPF em lugar nenhum por enquanto
-        indiceUsuario = validarCPF(lista, qtdUsuarios, NULL, 0); 
+        indiceUsuario = validarCPF(lista, qtdUsuarios, NULL, 0);
 
-        if (indiceUsuario == -2) { // -2: CPF em formato incorreto
+        if(indiceUsuario == -2){ // -2: CPF em formato incorreto
             puts("\nVocê digitou o CPF incorretamente.");
             puts("Digite o seu CPF neste formato XXX.XXX.XXX-XX");
             printf("CPF: ");
-        } else if (indiceUsuario == -1) { // -1: CPF não cadastrado
+        }else if (indiceUsuario == -1){ // -1: CPF não cadastrado
             puts("\nEsse CPF não foi encontrado.");
             puts("Digite um outro CPF ou retorne ao menu.");
             printf("CPF: ");
-        } else {
+        }else{
             break; // CPF achado, indiceUsuario tem a posição dele no vetor
-        }     
+        }
     }
 
-    limparTela(); 
+    limparTela();
     printf("=========================================\n");
     printf("                  Login\n");
     printf("=========================================\n\n");
     printf("           Digite a sua senha\n");
     printf("\n-----------------------------------------\n");
     printf("Senha: ");
-    
-    while (getchar() != '\n');
+
+    while(getchar() != '\n');
 
     char senhaTemp[15];
     while(1){
         fgets(senhaTemp, sizeof(senhaTemp), stdin);
         senhaTemp[strcspn(senhaTemp, "\n")] = '\0'; // Remove o \n
 
-        if(strcmp(senhaTemp, lista[indiceUsuario].senha) == 0) break;   
-        else {
+        if(strcmp(senhaTemp, lista[indiceUsuario].senha) == 0){
+            break;
+        }else{
             printf("\nSenha invalida.\nDigite novamente: ");
         }
     }
@@ -127,12 +120,9 @@ int login(Usuarios *lista, int qtdUsuarios){
     return indiceUsuario; // Alteração para retornar o indice do usuario, de modo a acessá-lo no painel do login.
 }
 
-//-----------------------------------------------------------------------------
-//---------------------------{ OPCAO 2 - CADASTRO }----------------------------
-//-----------------------------------------------------------------------------
 void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     // Verifica capacidade antes de começar
-    if (*qtdUsuarios >= max) {
+    if(*qtdUsuarios >= max){
         printf("Erro: Banco de dados cheio.\n");
         getchar();
         return;
@@ -140,18 +130,18 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
 
     Usuarios novoUsuario; // Variável local temporária (substitui a global usuarios_temp)
 
-    limparTela(); 
+    limparTela();
     printf("================================================\n");
     printf("                    Cadastro\n");
     printf("================================================\n\n");
     printf("            Digite o seu nome completo         \n");
     printf("\n----------------------------------------------\n");
     printf("Nome: ");
-    
+
     fgets(novoUsuario.nome, sizeof(novoUsuario.nome), stdin);
     novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; // Boa prática limpar o \n
 
-    limparTela(); 
+    limparTela();
     printf("================================================\n");
     printf("                   Cadastro\n");
     printf("================================================\n\n");
@@ -159,16 +149,16 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     printf("\n-----------------------------------------------\n");
     printf("Idade: ");
     scanf(" %d", &novoUsuario.idade);
-    while(novoUsuario.idade < 1 || novoUsuario.idade > 200) {
+    while(novoUsuario.idade < 1 || novoUsuario.idade > 200){
         while (getchar() != '\n');
         puts("\n\nVocê digitou incorretamente. Por favor, digite um número");
         printf("Idade: ");
         scanf(" %d", &novoUsuario.idade);
     }
-    
-    
 
-    limparTela(); 
+
+
+    limparTela();
     printf("================================================\n");
     printf("                  Cadastro\n");
     printf("================================================\n\n");
@@ -176,32 +166,32 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     printf("\n-----------------------------------------------\n");
     printf("CPF: ");
 
-    while (1) {
+    while(1){
         // Passamos o endereço de novoUsuario.cpf para salvar se for validado
         int resultado_validacao = validarCPF(lista, *qtdUsuarios, novoUsuario.cpf, 1);
 
-        if (resultado_validacao == 1) { // 1: Tudo correto, CPF validado e não cadastrado
+        if(resultado_validacao == 1){ // 1: Tudo correto, CPF validado e não cadastrado
             break;
-        } else if (resultado_validacao == -2) { // -2: CPF em formato incorreto
+        }else if(resultado_validacao == -2){ // -2: CPF em formato incorreto
             puts("\nVocê digitou o CPF incorretamente.");
             puts("Digite o seu CPF neste fomato XXX.XXX.XXX-XX");
             printf("CPF: ");
-        } else if (resultado_validacao == -1) { // -1: CPF já está cadastrado
+        }else if(resultado_validacao == -1){ // -1: CPF já está cadastrado
             puts("\nEsse CPF já está cadastrado.");
             puts("Digite um outro CPF ou retorne ao menu.");
             printf("CPF: ");
         }
     }
 
-    limparTela(); 
+    limparTela();
     printf("=========================================\n");
     printf("                Cadastro\n");
     printf("=========================================\n\n");
     printf("           Digite a sua senha\n");
     printf("\n-----------------------------------------\n");
     printf("Senha: ");
-    
-    while (getchar() != '\n'); 
+
+    while(getchar() != '\n');
     fgets(novoUsuario.senha, sizeof(novoUsuario.senha), stdin);
     novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0';
 
@@ -211,77 +201,51 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     // Antes de incrementar o qtdUsuario
     lista[*qtdUsuarios] = novoUsuario;
     // Incrementamos a quantidade de usuários
-    (*qtdUsuarios)++; 
+    (*qtdUsuarios)++;
 
     limparTela();
-    
     printf("============================================================\n");
     printf("  Usuario cadastrado com sucesso! [Enter] para continuar...\n");
     printf("============================================================\n");
     getchar();
 }
 
-
-//-----------------------------------------------------------------------------
-//---------------------------{ MENU DE LOGIN }---------------------------------
-//-----------------------------------------------------------------------------
-int menuLogin(Usuarios *usuario, int indiceUsuario) {
-
+int menuLogin(Usuarios *usuario, int indiceUsuario){
     int opcao = 0; // Inicializa com um valor inválido
     int tamanhoMenu = 6; // Quantidade de opções do menu. Para usar na função validarInput()
-
-        do {
-
-            limparTela(); 
-            printf("===============================================================\n");
-            printf("             TELA PRINCIPAL - Olá: %s\n", usuario[indiceUsuario].nome);
-            printf("===============================================================\n\n");
-            printf("   [1] - Visualizar filmes disponíveis.\n");
-            printf("   [2] - Visualizar minhas sessões.\n");
-            printf("   [3] - Visualizar meu saldo.\n");
-            printf("   [4] - Alterar senha.\n");
-            printf("   [5] - Excluir esta conta.\n"); 
-            printf("   [6] - Voltar ao menu inicial\n\n");
-            printf("---------------------------------------------------------------\n");
-            printf("Digite a opcao desejada: ");
-
-            // Validação de tipo de input
-            opcao = validarInput(tamanhoMenu);
-
-        } while (opcao < 1 || opcao > 6); // Repete o menu se a opção for inválida
-        
-        return opcao;
-
+    do{
+        limparTela();
+        printf("===============================================================\n");
+        printf("             TELA PRINCIPAL - Olá: %s\n", usuario[indiceUsuario].nome);
+        printf("===============================================================\n\n");
+        printf("   [1] - Visualizar filmes disponíveis.\n");
+        printf("   [2] - Visualizar minhas sessões.\n");
+        printf("   [3] - Visualizar meu saldo.\n");
+        printf("   [4] - Alterar senha.\n");
+        printf("   [5] - Excluir esta conta.\n");
+        printf("   [6] - Voltar ao menu inicial\n\n");
+        printf("---------------------------------------------------------------\n");
+        printf("Digite a opcao desejada: ");
+        // Validação de tipo de input
+        opcao = validarInput(tamanhoMenu);
+    }while(opcao < 1 || opcao > 6); // Repete o menu se a opção for inválida
+    return opcao;
 }
-
-//-----------------------------------------------------------------------------
-//---------------------{ VISUALIZAR FILMES DISPONIVEIS }-----------------------
-//-----------------------------------------------------------------------------
-// Está no arquivo sessoes.c - listarSessoes();
-
 
 //-----------------------------------------------------------------------------
 //---------------------{ VISUALIZAR MINHAS SESSOES }---------------------------
 //-----------------------------------------------------------------------------
 
 void visualizarReservas(Reservas *reservas, int qtdReservas,  Usuarios *usuarios, int indiceUsuario, Sessoes *sessoes, int qtdSessoes){
-
     limparTela();
-
     int contaSessoes=0; //Usado para contabilizar se há reservas do usuario;
-
     printf("==========================================================\n");
     printf("                 Usuário: %s\n", usuarios[indiceUsuario].nome);
     printf("==========================================================\n");
-
     for(int i = 0; i < qtdReservas; i++){
-
         if(strcmp(reservas[i].cpf_usuario,usuarios[indiceUsuario].nome)==0){
-
             contaSessoes++;
-
             int indiceSessao = buscaSessao(sessoes, reservas[i].id_sessao, qtdSessoes);
-            
             printf("__________________________________________________________\n");
             printf("Filme: %s.\n", sessoes[indiceSessao].nome_filme);
             printf("Data: %s.\n", sessoes[indiceSessao].data);
@@ -289,53 +253,40 @@ void visualizarReservas(Reservas *reservas, int qtdReservas,  Usuarios *usuarios
             printf("Sala: %d.\n", sessoes[indiceSessao].sala);
             printf("Assento: %s.\n", reservas[i].assento);
             printf("----------------------------------------------------------\n\n");
-
         }
-
     }
-
     if(contaSessoes==0){
         printf("\nNenhuma reserva realizada para este usuário!\n");
-    } 
-
+    }
     printf("\n[Enter] para retornar ao menu login...");
     getchar(); // Aguarda o usuário enviar o enter
-
 }
 
-//-----------------------------------------------------------------------------
-//---------------------{ VISUALIZAR SALDO DO USUARIO }-------------------------
-//-----------------------------------------------------------------------------
-
 void verSaldo(Usuarios *usuario, int indiceUsuario){
-
     limparTela();
-
     printf("===============================================================\n");
     printf("              Saldo de: %s\n", usuario[indiceUsuario].nome);
     printf("===============================================================\n\n");
     printf("\nSeu saldo atual: R$%.2f\n", usuario[indiceUsuario].saldo);
 
     char resposta;
-    
+
     do{
         printf("\nDeseja realizar um depósito? (S/N): ");
-        if (scanf(" %c", &resposta) != 1) {
+        if(scanf(" %c", &resposta) != 1){
             resposta = ' '; // Define como inválido se o scanf falhar
         }
-
         // Limpa o buffer de entrada para a próxima iteração
-        while (getchar() != '\n'); 
+        while(getchar() != '\n');
 
         resposta = toupper(resposta); // Converte para maiúsculo
 
-        if (resposta != 'S' && resposta != 'N') {
+        if(resposta != 'S' && resposta != 'N'){
             printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
-            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            while(getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
             getchar(); // Aguarda o usuário pressionar Enter
         }
-
-    } while (resposta != 'S' && resposta != 'N');
+    }while (resposta != 'S' && resposta != 'N');
 
     if(resposta=='S'){
         float valorDeposito;
@@ -360,19 +311,14 @@ void verSaldo(Usuarios *usuario, int indiceUsuario){
         printf("\n[Enter] para retornar ao menu login...");
         while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
         getchar(); // Aguarda o usuário enviar o enter
-
-    } else {
+    }else{
         limparTela();
         printf("\n[Enter] para retornar ao menu login...");
         getchar(); // Aguarda o usuário enviar o enter
     }
 }
 
-//-----------------------------------------------------------------------------
-//---------------------{ MODIFICAR SENHA DO USUARIO }--------------------------
-//-----------------------------------------------------------------------------
-
-void modificarSenha(Usuarios *lista, int indiceUsuario) {
+void modificarSenha(Usuarios *lista, int indiceUsuario){
 
     limparTela();
     printf("==========================================================\n");
@@ -395,61 +341,47 @@ void modificarSenha(Usuarios *lista, int indiceUsuario) {
 
 }
 
-//-----------------------------------------------------------------------------
-//------------------------{ EXCLUSAO DO USUARIO }------------------------------
-//-----------------------------------------------------------------------------
-
 void exclusaoUsuario(Usuarios *usuario, int indiceUsuario, int *qtdUsuario, char *exclusaoBreak){
-
     limparTela();
+    printf("==========================================================\n");
+    printf("           Usuário: %s\n", usuario[indiceUsuario].nome);
+    printf("==========================================================\n");
+    printf("Idade: %d\n", usuario[indiceUsuario].idade);
+    printf("CPF: %s\n", usuario[indiceUsuario].cpf);
+    printf("Senha: %s\n", usuario[indiceUsuario].senha);
+    printf("Saldo: %.2f\n", usuario[indiceUsuario].saldo);
 
-    limparTela();
-        printf("==========================================================\n");
-        printf("           Usuário: %s\n", usuario[indiceUsuario].nome);
-        printf("==========================================================\n");
-        printf("Idade: %d\n", usuario[indiceUsuario].idade);
-        printf("CPF: %s\n", usuario[indiceUsuario].cpf);
-        printf("Senha: %s\n", usuario[indiceUsuario].senha);
-        printf("Saldo: %.2f\n", usuario[indiceUsuario].saldo);
-        
-
-        do{
-            printf("\nDeseja confirmar a exclusão? (S/N): ");
-            if (scanf(" %c", exclusaoBreak) != 1) {
+    do{
+        printf("\nDeseja confirmar a exclusão? (S/N): ");
+        if(scanf(" %c", exclusaoBreak) != 1){
             *exclusaoBreak = ' '; // Define como inválido se o scanf falhar
-            }
+        }
+        // Limpa o buffer de entrada para a próxima iteração
+        while (getchar() != '\n');
+        *exclusaoBreak = toupper(*exclusaoBreak); // Converte para maiúsculo
+        if (*exclusaoBreak != 'S' && *exclusaoBreak != 'N') {
+            printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
+            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
+            getchar(); // Aguarda o usuário pressionar Enter
+        }
 
-            // Limpa o buffer de entrada para a próxima iteração
-            while (getchar() != '\n'); 
+    }while(*exclusaoBreak != 'S' && *exclusaoBreak != 'N');
 
-            *exclusaoBreak = toupper(*exclusaoBreak); // Converte para maiúsculo
-
-            if (*exclusaoBreak != 'S' && *exclusaoBreak != 'N') {
-                printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
-                while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-                getchar(); // Aguarda o usuário pressionar Enter
-            }
-
-        } while (*exclusaoBreak != 'S' && *exclusaoBreak != 'N');
-
-        if(*exclusaoBreak=='S'){
-        
-        //"Exclusão" dos dados do usuário...    
-        // --- ESTRATÉGIA: ARRASTAR PARA A ESQUERDA ---
-        // Começa onde o usuário está e vai copiando o próximo para o lugar do atual
+    if(*exclusaoBreak=='S'){
+    //"Exclusão" dos dados do usuário...
+    // --- ESTRATÉGIA: ARRASTAR PARA A ESQUERDA ---
+    // Começa onde o usuário está e vai copiando o próximo para o lugar do atual
         for(int i = indiceUsuario; i < *qtdUsuario - 1; i++){
             usuario[i] = usuario[i + 1];
         }
-
         // --- ATUALIZA A QUANTIDADE ---
         // Como passamos qtdUsuarios como ponteiro, usamos (*ptr)--
-        (*qtdUsuario)--; 
+        (*qtdUsuario)--;
 
         // (Opcional) Limpa o último registro que ficou duplicado no final
         memset(&usuario[*qtdUsuario], 0, sizeof(Usuarios));
 
-        }
-
-        printf("\n[Enter] para continuar...\n");
-        getchar();
+    }
+    printf("\n[Enter] para continuar...\n");
+    getchar();
 }

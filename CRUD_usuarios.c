@@ -479,7 +479,6 @@ int menu_CRUD_usuarios(){
     int tamanhoMenu = 6; // Quantidade de opções no menu. Para usar na função validarInput()
     do{
         limparTela();
-
         printf("===============================================================\n");
         printf("                       CRUD de Usuários\n");
         printf("===============================================================\n\n");
@@ -495,7 +494,7 @@ int menu_CRUD_usuarios(){
         // Validação de tipo de input
         opcao = validarInput(tamanhoMenu);
 
-    } while(opcao < 1 || opcao > 6);
+    }while(opcao < 1 || opcao > 6);
 
     return opcao;
 }
