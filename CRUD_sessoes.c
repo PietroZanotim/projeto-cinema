@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "usuarios.h"
+#include "sessoes.h"
 #include "utils.h"
 
 
@@ -57,7 +58,7 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *maxSessoes){
 
     if(buscaSessao(*lista, idTemp, *qtdSessoes) != -1){
         printf("Erro: Ja existe uma sessao com o ID %d\n", idTemp);
-        while (getchar() != '\n'); 
+        while (getchar() != '\n');
         getchar();
         return;
     }
@@ -73,7 +74,7 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *maxSessoes){
         printf("           Digite o nome do filme:\n");
         printf("\n---------------------------------------------\n");
         printf("Nome do filme: ");
-        
+
         fgets(nova.nome_filme, sizeof(nova.nome_filme), stdin);
         nova.nome_filme[strcspn(nova.nome_filme, "\n")] = '\0'; // Limpar o \n
 
@@ -162,7 +163,7 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *maxSessoes){
     (*lista)[*qtdSessoes] = nova;
     (*qtdSessoes)++;
 
-    limparTela(); 
+    limparTela();
     printf("============================================================\n");
     printf("  Sessao adicionada com sucesso! [Enter] para continuar...\n");
     printf("============================================================\n");
@@ -281,7 +282,7 @@ void modificar_sessao(Sessoes *lista, int qtdSessoes){
         printf("[2] - Data:         %s\n", lista[indice].data);
         printf("[3] - Horario:      %s\n", lista[indice].horario_inicio);
         printf("[4] - valor:        R$ %.2f\n", lista[indice].valorIngresso);
-        printf("[5] - Idade Minima: %d anos\n", lista[indice].limIdade); 
+        printf("[5] - Idade Minima: %d anos\n", lista[indice].limIdade);
         printf("[6] - Sair/Concluir\n");
         printf("---------------------------------------------------------------\n");
         printf("Digite a opcao desejada: ");
@@ -443,7 +444,7 @@ void visualizar_todas_sessoes(Sessoes *lista, int qtdSessoes){
             printf("valor:        R$ %.2f\n", lista[i].valorIngresso);
             printf("Idade Minima: %d anos\n", lista[i].limIdade);
             printf("Sala:         %d\n", lista[i].sala);
-            printf("===============================================\n"); 
+            printf("===============================================\n");
         }
     }
     printf("\nPressione [Enter] para retornar ao menu...\n");
