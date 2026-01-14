@@ -182,34 +182,16 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 }
 
 int converteLinhaAssento(char linha){
-    if(linha=='A') {
-        return 0;
-    }
-    else if(linha=='B'){
-        return 1;
-    }
-    else if(linha=='C'){
-        return 2;
-    }
-    else if(linha=='D'){
-        return 3;
-    }
-    else if(linha=='E'){
-        return 4;
-    }
-    else if(linha=='F'){
-        return 5;
-    }
-    else if(linha=='G'){
-        return 6;
-    }
-    else if(linha=='H'){
-        return 7;
-    }
-    else if(linha=='I'){
-        return 8;
-    }
-    else if(linha=='J'){
-        return 9;
+    switch(linha){
+        case 'A': return 0; break;
+        case 'B': return 1; break;
+        case 'C': return 2; break;
+        case 'D': return 3; break;
+        case 'E': return 4; break;
+        case 'F': return 5; break;
+        case 'G': return 6; break;
+        case 'H': return 7; break;
+        case 'I': return 8; break;
+        case 'J': return 9; break;
     }
 }
