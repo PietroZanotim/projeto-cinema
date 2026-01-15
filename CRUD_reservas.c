@@ -39,6 +39,14 @@ void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios,
     int usuarioProcurado;
     int i;
 
+    if(qtdUsuarios == 1){//1 por causa do admin
+        limparTela();
+        printf("Não existem usuários cadastrados!\n");
+        printf("\n[Enter] para retornar ao menu...\n");
+        getchar();
+        return;
+    }
+
     limparTela();
     printf("================================================\n");
     printf("              Adicionar reserva\n");
@@ -47,7 +55,7 @@ void adicionar_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios,
     printf("\n----------------------------------------------\n");
 
     for(i=1; i<qtdUsuarios; i++){
-        printf("Usuário %d:\n", i+1);
+        printf("Usuário %d:\n", i);
         printf("Nome: %s\n", usuarios[i].nome);
         printf("CPF: %s\n", usuarios[i].cpf);
         printf("Idade: %d\n", usuarios[i].idade);
@@ -80,6 +88,14 @@ void excluir_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios){
     int reservaProcurada;
     int i;
     char resposta;
+
+    if(*qtdReservas == 0){
+        limparTela();
+        printf("Não existem reservas feitas!\n");
+        printf("\n[Enter] para retornar ao menu...\n");
+        getchar();
+        return;
+    }
 
     limparTela();
     printf("================================================\n");
@@ -137,6 +153,14 @@ void excluir_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios){
 void visualizar_reserva_id(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
     int idProcurado;
 
+    if(qtdReservas == 0){
+        limparTela();
+        printf("Não existem reservas feitas!\n");
+        printf("\n[Enter] para retornar ao menu...\n");
+        getchar();
+        return;
+    }
+
     limparTela();
     printf("================================================\n");
     printf("             Visualizar reservas por ID\n");
@@ -176,6 +200,14 @@ void visualizar_reserva_id(Reservas *reservas, int qtdReservas, Usuarios *usuari
 void visualizar_todas_reservas(Reservas *reservas, int qtdReservas, Usuarios *usuarios){
     int i;
 
+    if(qtdReservas == 0){
+        limparTela();
+        printf("Não existem reservas feitas!\n");
+        printf("\n[Enter] para retornar ao menu...\n");
+        getchar();
+        return;
+    }
+
     limparTela();
     for(i=0; i<qtdReservas; i++){
         printf("==========================================================\n");
@@ -188,6 +220,15 @@ void visualizar_todas_reservas(Reservas *reservas, int qtdReservas, Usuarios *us
 void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, Sessoes *sessoes, int qtdSessoes, int qtdUsuarios){
     int idProcurado, opcao, resultado_validacao;
     int tamanhoMenu = 5; // Quantidade de opções do menu. Para usar na função validarInput()
+
+    if(qtdReservas == 0){
+        limparTela();
+        printf("Não existem reservas feitas!\n");
+        printf("\n[Enter] para retornar ao menu...\n");
+        getchar();
+        return;
+    }
+
     limparTela();
     printf("================================================\n");
     printf("              Modificação de reserva\n");
@@ -195,19 +236,15 @@ void modificar_reserva(Reservas *reservas, int qtdReservas, Usuarios *usuarios, 
     printf("              Digite o ID da reserva\n");
     printf("\n----------------------------------------------\n");
     printf("ID: ");
-    while (1)
-    {
+    while(1){
         scanf("%d", &idProcurado);
 
         resultado_validacao =  buscar_indice_reserva(reservas, qtdReservas, idProcurado); //se achar o id, retorna posicao
 
-        if(resultado_validacao == -1)
-        {
+        if(resultado_validacao == -1){
             puts("\nEsse ID não existe.");
             printf("ID: ");
-        }
-        else
-        {
+        }else{
             // Aqui ele retorna apenas o indice do usuario... Tudo ok, basta imprimir os dados.
             break;
         }

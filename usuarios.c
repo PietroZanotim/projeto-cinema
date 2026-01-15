@@ -220,7 +220,7 @@ int menuLogin(Usuarios *usuario, int indiceUsuario){
         printf("===============================================================\n\n");
         printf("   [1] - Visualizar filmes disponíveis.\n");
         printf("   [2] - Visualizar minhas sessões.\n");
-        printf("   [3] - Visualizar meu saldo.\n");
+        printf("   [3] - Adicionar saldo.\n");
         printf("   [4] - Alterar senha.\n");
         printf("   [5] - Excluir esta conta.\n");
         printf("   [6] - Voltar ao menu inicial\n\n");
