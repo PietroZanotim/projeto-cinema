@@ -10,6 +10,22 @@
 #include "sessoes.h"
 #include "structs.h" // Precisa conhecer a struct Sessoes
 
+int converteLinhaAssento(char linha){
+    switch(linha){
+        case 'A': return 0;
+        case 'B': return 1;
+        case 'C': return 2;
+        case 'D': return 3;
+        case 'E': return 4;
+        case 'F': return 5;
+        case 'G': return 6;
+        case 'H': return 7;
+        case 'I': return 8;
+        case 'J': return 9;
+    }
+    return 0; //return para satisfazer o compilador, essa linha nunca sera executada
+}
+
 int buscaSessao(Sessoes *sessao,int id, int qtdSessoes){
     for(int i=0; i<qtdSessoes; i++){
         if(sessao[i].id==id){
@@ -44,9 +60,9 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 for(int C = 0; C < 10; C++){
                     if(C != 9){
                         if(sessao[i].assento[L][C] == '0'){
-                            printf("%c%d     ",Linha[L],C);
+                            printf("%c%d ",Linha[L],C);
                         }else{
-                            printf("X     ");
+                            printf(" XX "); //ocupado
                         }
                     }else{
                         if(sessao[i].assento[L][C] == '0'){
@@ -81,56 +97,56 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
         }while(resposta != 'S' && resposta != 'N');
 
-        char opcao; //Variavel usada para validar a saida do usuario e a leitura do id
-
         if(resposta=='S'){
-            int indiceSessao;
-            char linhaAssento;
-            int linhaAssentoInt; //Usado apenas para preencher a posição da matriz;
-            int colunaAssento;
+            int indiceSessao = -1; // Inicializa com -1 para entrar no loop
+            char input[20]; // Buffer para ler ID (número) ou 'q' (letra)
+            int idBusca;
+            int saiu = 0; //flag para controlar saida
 
-            printf("\nDigite o id do filme (Digite 'q', para sair): ");
+            while(1){
+                printf("\nDigite o id do filme (Digite 'q', para sair): ");
+                scanf("%s", input);
 
-            do{
-                scanf(" %c", &opcao);
-
-                if(opcao=='q' || opcao=='Q'){
-                    opcao = toupper(opcao);
-                    break;
+                if(input[0] == 'q' || input[0] == 'Q'){
+                    saiu = 1;
+                    break; // Volta para o menu anterior
                 }
-                else{
 
-                    int id = opcao - '0';
+                idBusca = atoi(input); // Função para converter a string para número inteiro
 
-                    indiceSessao = buscaSessao(sessao, opcao, quantidadeSessoes);
+                indiceSessao = buscaSessao(sessao, idBusca, quantidadeSessoes);
 
-                    if(indiceSessao==-1){
-                        printf("\nId não localizado, digite novamente.\nDigite o id do filme: ");
-                    }else if(usuario[indiceUsuario].idade < sessao[indiceSessao].limIdade){
-                        printf("\nIdade não permitida para este filme, tente novamente.\nDigite o id do filme: ");
-                        indiceSessao=-1;
-                    }else if(usuario[indiceUsuario].saldo < sessao[indiceSessao].valorIngresso){
-                        printf("\nNão foi possível adquirir o ingresso, valor insuficiente. Tente novamente.\nDigite o id do filme: ");
-                        indiceSessao=-1;
-                    }
+                if(indiceSessao==-1){
+                    printf("\nId não localizado, tente novamente.\nDigite o id do filme: ");
+                }else if(usuario[indiceUsuario].idade < sessao[indiceSessao].limIdade){
+                    printf("\nIdade não permitida para este filme, tente novamente.\nDigite o id do filme: ");
+                    indiceSessao=-1;
+                }else if(usuario[indiceUsuario].saldo < sessao[indiceSessao].valorIngresso){
+                    printf("\nNão foi possível adquirir o ingresso, valor insuficiente. Tente novamente.\nDigite o id do filme: ");
+                }else{
+                    break; // ID existe, idade ok, saldo ok
                 }
-            }while(indiceSessao==-1);
+            }
 
-            if(!(opcao=='q' || opcao=='Q')) { //Se o usuario optou por sair já finaliza;
-                do{
-                    do{
+            if(!saiu && indiceSessao != -1){
+                char linhaAssento;
+                int colunaAssento;
+                int linhaAssentoInt;
+
+                do{ //escolher assento
+                    do{ //escolher linha
                         printf("\nDigite a linha do assento desejado (Ex.A): ");
                         scanf(" %c", &linhaAssento);
                         linhaAssento = toupper(linhaAssento);
 
-                        if(linhaAssento<'A' || linhaAssento>'J') {
+                        if(linhaAssento<'A' || linhaAssento>'J'){
                             printf("Linha de assento inválida!");
                         }
                     }while(linhaAssento<'A' || linhaAssento>'J');
 
                     int linhaAssentoInt = converteLinhaAssento(linhaAssento);
 
-                    do{
+                    do{ //escolher coluna
                         printf("\nDigite a coluna do assento desejado (Ex.1): ");
                         scanf("%d", &colunaAssento);
 
@@ -145,9 +161,10 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                     }
 
                     //Assentos com o char "O" estarão livres, e os com "1", ocupados;
-                }while (sessao[indiceSessao].assento[linhaAssentoInt][colunaAssento]=='1');
+                }while(sessao[indiceSessao].assento[linhaAssentoInt][colunaAssento]=='1');
 
-                usuario[indiceUsuario].saldo -= sessao[indiceSessao].valorIngresso; // Dando baixa no saldo do usuário;
+                usuario[indiceUsuario].saldo -= sessao[indiceSessao].valorIngresso; // Dando baixa no saldo do usuário
+                sessao[indiceSessao].assento[linhaAssentoInt][colunaAssento] = '1'; // Ocupando o assento
 
                 reserva[*qtdReservas].id = *qtdIdReservas; // Adiciona o id à reserva;
                 (*qtdIdReservas)++;
@@ -158,7 +175,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 reserva[*qtdReservas].assento[0] = linhaAssento; // Primeiro copio a linha, (Ex.A);
 
                 // Logo depois concateno com a colunaAssento transformada em char;
-                reserva[*qtdReservas].assento[1] = (char)colunaAssento;
+                reserva[*qtdReservas].assento[1] = colunaAssento + '0';
 
                 //Incremento a qtdReservas cadastradas;
                 (*qtdReservas)++;
@@ -172,26 +189,11 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
             }
         }
 
-        if(resposta=='S' || opcao=='Q'){
+        if(resposta != 'S'){
             limparTela();
             while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
             printf("\n[Enter] para retornar ao menu login...");
             getchar(); // Aguarda o usuário enviar o enter
         }
-    }
-}
-
-int converteLinhaAssento(char linha){
-    switch(linha){
-        case 'A': return 0; break;
-        case 'B': return 1; break;
-        case 'C': return 2; break;
-        case 'D': return 3; break;
-        case 'E': return 4; break;
-        case 'F': return 5; break;
-        case 'G': return 6; break;
-        case 'H': return 7; break;
-        case 'I': return 8; break;
-        case 'J': return 9; break;
     }
 }
