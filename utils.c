@@ -30,7 +30,7 @@ int menuPrincipal(){
         printf("==============================================\n\n");
         printf("   [1] - Fazer Login\n");
         printf("   [2] - Cadastrar Novo Usuario\n");
-        printf("   [3] - Saber Mais (Sobre o Projeto)\n");
+        printf("   [3] - Saber Mais\n");
         printf("   [4] - Sair do Programa\n");
         printf("\n--------------------------------------------\n");
         printf("Digite a opcao desejada: ");
@@ -146,20 +146,91 @@ int voltar(){
     }while(valid == 1);
 }
 
-int saberFuncionalidades(){
+//Função informacional do projeto
+int saberFuncionalidades(int modo){
     limparTela();
-    printf("\n==============================================\n");
-    printf("                 FUNCIONALIDADES\n");
-    printf("==============================================\n\n");
 
-    //Explicações das funcionalidades do programa
-    printf("1- CRIAR CONTA:\n");
-    printf("No menu principal, digite 2 para registrar-se e poder utilizar \no sistema de reserva de filmes e acessar seu saldo de dinheiro.\n(*Importante* - Lembre-se de seus dados do cadastro para realizar o login.)\n\n");
-    printf("2- REALIZAR LOGIN:\n");
-    printf("No menu principal, digite 1 para realizar o login, é necessário \njá ter criado uma conta em nosso sistema para isso.\nÉ necessário realizar o login sempre que você reiniciar nosso sistema.\n\n");
-    //printf("3 - RESERVAR UMA SESSÃO:\n");
+    // Se o modo for 1, mostrar apenas as informações para o usuário
+    if(modo == 1){
 
-    printf("Aperte Enter para voltar: ");
+        printf("==================================================================\n");
+        printf("                    FUNCIONALIDADES - USUÁRIO                     \n");
+        printf("==================================================================\n\n");
+
+        // 1 - CRIAR CONTA
+        printf(" 1 - CRIAR CONTA:\n");
+        printf("     No menu principal, digite 2 para registrar-se e poder utilizar \n");
+        printf("     o sistema de reserva de filmes e acessar seu saldo de dinheiro.\n");
+        printf("     (*Importante*: Lembre-se dos dados de cadastro para o login.)\n\n");
+
+        // 2 - REALIZAR LOGIN
+        printf(" 2 - REALIZAR LOGIN:\n");
+        printf("     No menu principal, digite 1 para realizar o login. E necessario\n");
+        printf("     ja ter uma conta criada. Realize o login sempre que iniciar.\n\n");
+
+        // 3 - VISUALIZAR FILMES
+        printf(" 3 - VISUALIZAR FILMES:\n");
+        printf("     Logado, digite 1 para ver filmes, programacoes, idades minimas,\n");
+        printf("     datas, horarios, salas, assentos e valores. Apos visualizar,\n");
+        printf("     voce podera comprar seu ingresso.\n\n");
+
+        // 4 - VISUALIZAR SESSÕES
+        printf(" 4 - VISUALIZAR SESSOES:\n");
+        printf("     Logado, digite 2 para conferir suas reservas: nome do filme,\n");
+        printf("     data, horario, numero da sala e o assento escolhido.\n\n");
+
+        // 5 - VISUALIZAR E ADICIONAR SALDO
+        printf(" 5 - VISUALIZAR E ADICIONAR SALDO:\n");
+        printf("     Logado, digite 3 para gerenciar seu saldo. Voce pode visualizar seu saldo atual e realizar\n");
+        printf("     depositos, sendo R$100.00 o valor maximo permitido.\n\n");
+
+        // 6 - ALTERAR SUA SENHA
+        printf(" 6 - ALTERAR SUA SENHA:\n");
+        printf("     Logado, digite 4 para atualizar sua senha de acesso atual.\n\n");
+
+        // 7 - EXCLUIR CONTA
+        printf(" 7 - EXCLUIR CONTA:\n");
+        printf("     Logado, digite 5 para excluir sua conta. Seus dados serao\n");
+        printf("     exibidos antes da confirmacao. (*ATENCAO*: Acao permanente!)\n\n");
+
+        printf("==================================================================\n");
+        printf(" >> Aperte [Enter] para voltar: ");
+    }
+    // Se o modo for 2, mostar apenas as informações do admin
+    else{
+        printf("==================================================================\n");
+        printf("|                    FUNCIONALIDADES - ADMIN                     |\n");
+        printf("==================================================================\n\n");
+
+        // 1 - CRUD SESSÕES
+        printf(" [1] CRUD SESSOES:\n");
+        printf("     No menu do admin, digite 1 para gerenciar as sessoes.\n");
+        printf("     Permite: adicionar, remover, editar e visualizar sessoes.\n\n");
+
+        // 2 - CRUD USUÁRIOS
+        printf(" [2] CRUD USUARIOS:\n");
+        printf("     No menu do admin, digite 2 para gerenciar os usuarios.\n");
+        printf("     Permite: adicionar, remover, editar e visualizar usuarios.\n\n");
+
+        // 3 - CRUD RESERVAS
+        printf(" [3] CRUD RESERVAS:\n");
+        printf("     No menu do admin, digite 3 para gerenciar as reservas.\n");
+        printf("     Permite: adicionar, remover, editar e visualizar reservas.\n\n");
+
+        // 4 - CONSULTAS
+        printf(" [4] CONSULTAS:\n");
+        printf("     No menu do admin, digite 4 para consultar informacoes.\n");
+        printf("     Filtros disponiveis: nome do filme, data e CPF do cliente.\n\n");
+
+        // 5 - RELATÓRIO
+        printf(" [5] RELATORIO:\n");
+        printf("     No menu do admin, digite 5 para gerar arquivos (.txt).\n");
+        printf("     Exporta reservas detalhadas com base no filtro escolhido.\n\n");
+
+        printf("==================================================================\n");
+        printf(" >> Aperte [Enter] para voltar: ");
+    }
+    
 
     // Chama a função voltar, se retornar 1 a função saberFuncionalidade se encerra
     if(voltar() == 1){
@@ -167,18 +238,29 @@ int saberFuncionalidades(){
     }
 }
 
+int saberSessao(){
+    limparTela();
+    //Adicionar informação sobre as sessões
+}
+
+int saberFilmes(){
+    limparTela();
+    //Adicionar informação sobre os filmes
+}
+
 int saberMais(){
     int escolha = 0; // Inicializa como opção inválida
-    int tamanhoMenu = 4;
+    int tamanhoMenu = 5;
     limparTela();
     do{
         printf("==============================================\n");
         printf("                 SAIBA MAIS\n");
         printf("==============================================\n\n");
-        printf("   [1] - Funcionalidades\n");
-        printf("   [2] - Sessão e Horários\n");
-        printf("   [3] - Filmes\n");
-        printf("   [4] - Voltar\n");
+        printf("   [1] - Funcionalidades - Usuário\n");
+        printf("   [2] - Funcionalidades - Admin\n");
+        printf("   [3] - Sessão e Horários\n");
+        printf("   [4] - Filmes\n");
+        printf("   [5] - Voltar\n");
         printf("\n--------------------------------------------\n");
         printf("Digite a opcao desejada: ");
 
@@ -186,20 +268,23 @@ int saberMais(){
         escolha = validarInput(tamanhoMenu);
 
         //Condições para selecionar a função escolhida pelo usuário
-        if(escolha == 1){
-            saberFuncionalidades();
+        if(escolha == 1 && escolha == 2){
+            saberFuncionalidades(escolha);
         }
-        else if(escolha == 2){
-
-        }
+        
         else if(escolha == 3){
-
+            saberSessao();
         }
+
+        else if(escolha == 4){
+            saberFilmes();
+        }
+
         else{
             limparTela();
             break;
         }
-    }while(escolha != 4);
+    }while(escolha != 5);
     return 0;
 }
 
