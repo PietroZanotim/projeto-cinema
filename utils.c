@@ -238,15 +238,23 @@ int saberFuncionalidades(int modo){
     }
 }
 
-int saberSessao(){
+/*int saberSessao(){
     limparTela();
     //Adicionar informação sobre as sessões
+
+    if(voltar() == 1){
+        return 0;
+    }
 }
 
-int saberFilmes(){
+/int saberFilmes(){
     limparTela();
     //Adicionar informação sobre os filmes
-}
+
+    if(voltar() == 1){
+        return 0;
+    }
+}*/
 
 int saberMais(){
     int escolha = 0; // Inicializa como opção inválida
@@ -273,11 +281,11 @@ int saberMais(){
         }
         
         else if(escolha == 3){
-            saberSessao();
+           // saberSessao();
         }
 
         else if(escolha == 4){
-            saberFilmes();
+            //saberFilmes();
         }
 
         else{
