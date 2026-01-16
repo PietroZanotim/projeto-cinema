@@ -122,28 +122,25 @@ int confirmarRetorno(){
 //-----------------------------{ SABER MAIS }----------------------------------
 //-----------------------------------------------------------------------------
 
-int voltar(){
-    char vazio;
+int voltar() {
+    int c;
 
-    // Validação para voltar ao menu
-    int valid = 0;
+    // Lê o primeiro caractere que o usuário digitar.
+    c = getchar();
 
-    do{
-        // Consumir o buffer antes de ler a próxima tecla
-        while(getchar() != '\n');
-        // Lê o caracter do buffer de entrada
-        vazio = getchar();
-
-        // Se o usuário digitar Enter, a função retorna 1
-        if(vazio == '\n'){
-            return 1;
-        }
-        // Se a condição anterior for falsa, altera o valor da validação para 1
-        else{
-            valid = 1;
-            printf("Digito inválido, aperte Enter para voltar: ");
-        }
-    }while(valid == 1);
+    // Se o usuário apenas apertou Enter (o caractere lido é '\n')
+    if (c == '\n' || c == EOF) {
+        return 1;
+    } 
+    
+    // Se ele digitou algo antes de apertar Enter (ex: "abc" + Enter)
+    else {
+        // Limpa o resto da sujeira que ele digitou até o próximo '\n'
+        while (getchar() != '\n');
+        
+        printf("Digito invalido! Aperte apenas [Enter] para voltar: ");
+        return voltar(); // Chamada recursiva para tentar novamente
+    }
 }
 
 //Função informacional do projeto
@@ -192,11 +189,8 @@ int saberFuncionalidades(int modo){
         printf(" 7 - EXCLUIR CONTA:\n");
         printf("     Logado, digite 5 para excluir sua conta. Seus dados serao\n");
         printf("     exibidos antes da confirmacao. (*ATENCAO*: Acao permanente!)\n\n");
-
-        printf("==================================================================\n");
-        printf(" >> Aperte [Enter] para voltar: ");
     }
-    // Se o modo for 2, mostar apenas as informações do admin
+    // Se o modo for 2, mostrar apenas as informações do admin
     else{
         printf("==================================================================\n");
         printf("|                    FUNCIONALIDADES - ADMIN                     |\n");
@@ -226,41 +220,30 @@ int saberFuncionalidades(int modo){
         printf(" [5] RELATORIO:\n");
         printf("     No menu do admin, digite 5 para gerar arquivos (.txt).\n");
         printf("     Exporta reservas detalhadas com base no filtro escolhido.\n\n");
-
-        printf("==================================================================\n");
-        printf(" >> Aperte [Enter] para voltar: ");
     }
     
-
-    // Chama a função voltar, se retornar 1 a função saberFuncionalidade se encerra
-    if(voltar() == 1){
-        return 0;
-    }
+    printf("==================================================================\n");
+    printf(" >> Aperte [Enter] para voltar: ");
+    voltar();
+    return 0;
 }
 
 /*int saberSessao(){
     limparTela();
     //Adicionar informação sobre as sessões
-
-    if(voltar() == 1){
-        return 0;
-    }
 }
 
 /int saberFilmes(){
     limparTela();
     //Adicionar informação sobre os filmes
-
-    if(voltar() == 1){
-        return 0;
-    }
 }*/
 
 int saberMais(){
     int escolha = 0; // Inicializa como opção inválida
     int tamanhoMenu = 5;
-    limparTela();
+
     do{
+        limparTela();
         printf("==============================================\n");
         printf("                 SAIBA MAIS\n");
         printf("==============================================\n\n");
@@ -276,23 +259,23 @@ int saberMais(){
         escolha = validarInput(tamanhoMenu);
 
         //Condições para selecionar a função escolhida pelo usuário
-        if(escolha == 1 || escolha == 2){
-            saberFuncionalidades(escolha);
+        switch(escolha) {
+            case 1:
+            case 2:
+                saberFuncionalidades(escolha);
+                break;
+            case 3:
+                // saberSessao();
+                break;
+            case 4:
+                // saberFilmes();
+                break;
+            case 5:
+                printf("\nVoltando ao menu principal...\n");
+                break;
         }
-        
-        else if(escolha == 3){
-           // saberSessao();
-        }
+    } while(escolha != 5);
 
-        else if(escolha == 4){
-            //saberFilmes();
-        }
-
-        else{
-            limparTela();
-            break;
-        }
-    }while(escolha != 5);
     return 0;
 }
 
