@@ -276,7 +276,7 @@ int saberMais(){
         escolha = validarInput(tamanhoMenu);
 
         //Condições para selecionar a função escolhida pelo usuário
-        if(escolha == 1 && escolha == 2){
+        if(escolha == 1 || escolha == 2){
             saberFuncionalidades(escolha);
         }
         
