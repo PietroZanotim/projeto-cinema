@@ -97,6 +97,14 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
         }while(resposta != 'S' && resposta != 'N');
 
+        if(resposta == 'N'){
+            limparTela();
+            printf("Você cancelou a compra.\n");
+            printf("\n[Enter] para retornar ao menu login...");
+            while(getchar() != '\n');
+            getchar();
+        }
+
         if(resposta=='S'){
             int indiceSessao = -1; // Inicializa com -1 para entrar no loop
             char input[20]; // Buffer para ler ID (número) ou 'q' (letra)
