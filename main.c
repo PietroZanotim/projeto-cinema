@@ -75,18 +75,23 @@ int main(){
                                 int opcao_1 = menu_CRUD_sessoes();
                                 switch(opcao_1){
                                 case 1:
+                                    adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, &idReservas);
                                     //adicionar_sessao();
                                     break;
                                 case 2:
+                                    excluir_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, &idReservas);
                                     //excluir_sessao();
                                     break;
                                 case 3:
+                                    modificar_reserva(listaReservas, qtdReservas, listaUsuarios, listaSessoes, qtdSessoes);
                                     //modificar_sessao();
                                     break;
                                 case 4:
+                                    visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
                                     //visualizar_sessao_id();
                                     break;
                                 case 5:
+                                    visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);
                                     //visualizar_todas_sessoes();
                                     break;
                                 }
@@ -96,6 +101,7 @@ int main(){
                                 }
                             }
                             break;
+
                         case 2:
                             // CRUD de Usuários
                             while(1){
@@ -123,6 +129,7 @@ int main(){
                                 }
                             }
                             break;
+
                         case 3:
                             // CRUD de Reservas
                             while(1){
@@ -150,6 +157,7 @@ int main(){
                                 }
                             }
                             break;
+
                         case 4:
                             // Consultas
                             while(1){
@@ -171,6 +179,7 @@ int main(){
                                 }
                             }
                             break;
+                            
                         case 5:
                             // Relatórios
                             while(1){
