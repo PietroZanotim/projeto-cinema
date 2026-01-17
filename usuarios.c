@@ -261,15 +261,15 @@ void visualizarReservas(Reservas *reservas, int qtdReservas,  Usuarios *usuarios
     printf("                 Usuário: %s\n", usuarios[indiceUsuario].nome);
     printf("==========================================================\n");
     for(int i = 0; i < qtdReservas; i++){
-        if(strcmp(reservas[i].cpf_usuario,usuarios[indiceUsuario].nome)==0){
+        if(strcmp(reservas[i].cpf_usuario,usuarios[indiceUsuario].cpf)==0){
             contaSessoes++;
             int indiceSessao = buscaSessao(sessoes, reservas[i].id_sessao, qtdSessoes);
             printf("__________________________________________________________\n");
             printf("Filme: %s.\n", sessoes[indiceSessao].nome_filme);
             printf("Data: %s.\n", sessoes[indiceSessao].data);
-            printf("Horário: %s - %s.\n", sessoes[indiceSessao].horario_final, sessoes[indiceSessao].horario_final);
+            printf("Horário: %s - %s.\n", sessoes[indiceSessao].horario_inicio, sessoes[indiceSessao].horario_final);
             printf("Sala: %d.\n", sessoes[indiceSessao].sala);
-            printf("Assento: %s.\n", reservas[i].assento);
+            printf("Assento: %c%c.\n", reservas[i].assento[0], reservas[i].assento[1]);
             printf("----------------------------------------------------------\n\n");
         }
     }
