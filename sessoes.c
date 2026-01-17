@@ -62,7 +62,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                         if(sessao[i].assento[L][C] == '0'){
                             printf("%c%d ",Linha[L],C);
                         }else{
-                            printf(" XX "); //ocupado
+                            printf("XX "); //Ocupado;
                         }
                     }else{
                         if(sessao[i].assento[L][C] == '0'){
@@ -120,17 +120,21 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                     break; // Volta para o menu anterior
                 }
 
-                idBusca = atoi(input); // Função para converter a string para número inteiro
+                idBusca = input[0] - '0'; // Função para converter a string para número inteiro
 
                 indiceSessao = buscaSessao(sessao, idBusca, quantidadeSessoes);
 
+                printf("idBusca: %d\n", idBusca);
+
+                printf("indiceSessao: %d\n", indiceSessao);
+
                 if(indiceSessao==-1){
-                    printf("\nId não localizado, tente novamente.\nDigite o id do filme: ");
+                    printf("\nId não localizado, tente novamente.\n");
                 }else if(usuario[indiceUsuario].idade < sessao[indiceSessao].limIdade){
-                    printf("\nIdade não permitida para este filme, tente novamente.\nDigite o id do filme: ");
+                    printf("\nIdade não permitida para este filme, tente novamente.\n");
                     indiceSessao=-1;
                 }else if(usuario[indiceUsuario].saldo < sessao[indiceSessao].valorIngresso){
-                    printf("\nNão foi possível adquirir o ingresso, valor insuficiente. Tente novamente.\nDigite o id do filme: ");
+                    printf("\nNão foi possível adquirir o ingresso, valor insuficiente.\n");
                 }else{
                     break; // ID existe, idade ok, saldo ok
                 }
@@ -148,7 +152,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                         linhaAssento = toupper(linhaAssento);
 
                         if(linhaAssento<'A' || linhaAssento>'J'){
-                            printf("Linha de assento inválida!");
+                            printf("Linha de assento inválida!\n");
                         }
                     }while(linhaAssento<'A' || linhaAssento>'J');
 
@@ -159,7 +163,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                         scanf("%d", &colunaAssento);
 
                         if(colunaAssento<0 || colunaAssento>9){
-                            printf("Coluna de assento inválida!");
+                            printf("Coluna de assento inválida!\n");
                         }
 
                     }while(colunaAssento<0 || colunaAssento>9);
@@ -188,12 +192,20 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 //Incremento a qtdReservas cadastradas;
                 (*qtdReservas)++;
 
+                limparTela();
                 printf("\n==============================================\n");
                 printf("         Ingresso adquirido com sucesso!");
                 printf("\n==============================================\n");
                 printf("\n[Enter] para retornar ao menu login...");
                 while(getchar() != '\n');
                 getchar(); // Aguarda o usuário enviar o enter
+            }
+            else {
+                limparTela();
+                printf("Você cancelou a compra.\n");
+                printf("\n[Enter] para retornar ao menu login...");
+                while(getchar() != '\n');
+                getchar(); 
             }
         }
     }

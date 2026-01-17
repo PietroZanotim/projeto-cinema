@@ -179,7 +179,7 @@ int main(){
                                 }
                             }
                             break;
-                            
+
                         case 5:
                             // Relatórios
                             while(1){
