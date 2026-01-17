@@ -196,12 +196,5 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 getchar(); // Aguarda o usuário enviar o enter
             }
         }
-
-        if(resposta != 'S'){
-            limparTela();
-            while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-            printf("\n[Enter] para retornar ao menu login...");
-            getchar(); // Aguarda o usuário enviar o enter
-        }
     }
 }
