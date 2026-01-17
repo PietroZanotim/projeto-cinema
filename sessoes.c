@@ -124,10 +124,6 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
                 indiceSessao = buscaSessao(sessao, idBusca, quantidadeSessoes);
 
-                printf("idBusca: %d\n", idBusca);
-
-                printf("indiceSessao: %d\n", indiceSessao);
-
                 if(indiceSessao==-1){
                     printf("\nId não localizado, tente novamente.\n");
                 }else if(usuario[indiceUsuario].idade < sessao[indiceSessao].limIdade){
