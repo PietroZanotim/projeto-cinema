@@ -144,7 +144,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                         }
                     }while(linhaAssento<'A' || linhaAssento>'J');
 
-                    int linhaAssentoInt = converteLinhaAssento(linhaAssento);
+                    linhaAssentoInt = converteLinhaAssento(linhaAssento);
 
                     do{ //escolher coluna
                         printf("\nDigite a coluna do assento desejado (Ex.1): ");
@@ -180,11 +180,11 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 //Incremento a qtdReservas cadastradas;
                 (*qtdReservas)++;
 
-                limparTela();
-                printf("==============================================\n");
-                printf("      Ingresso adquirido com sucesso!");
+                printf("\n==============================================\n");
+                printf("         Ingresso adquirido com sucesso!");
                 printf("\n==============================================\n");
                 printf("\n[Enter] para retornar ao menu login...");
+                while(getchar() != '\n');
                 getchar(); // Aguarda o usuário enviar o enter
             }
         }
