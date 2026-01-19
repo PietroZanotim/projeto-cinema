@@ -155,38 +155,38 @@ int saberFuncionalidades(int modo){
         printf("==================================================================\n\n");
 
         // 1 - CRIAR CONTA
-        printf(" 1 - CRIAR CONTA:\n");
+        printf(" [1] CRIAR CONTA:\n");
         printf("     No menu principal, digite 2 para registrar-se e poder utilizar \n");
         printf("     o sistema de reserva de filmes e acessar seu saldo de dinheiro.\n");
         printf("     (*Importante*: Lembre-se dos dados de cadastro para o login.)\n\n");
 
         // 2 - REALIZAR LOGIN
-        printf(" 2 - REALIZAR LOGIN:\n");
+        printf(" [2] REALIZAR LOGIN:\n");
         printf("     No menu principal, digite 1 para realizar o login. E necessario\n");
         printf("     ja ter uma conta criada. Realize o login sempre que iniciar.\n\n");
 
         // 3 - VISUALIZAR FILMES
-        printf(" 3 - VISUALIZAR FILMES:\n");
+        printf(" [3] VISUALIZAR FILMES:\n");
         printf("     Logado, digite 1 para ver filmes, programacoes, idades minimas,\n");
         printf("     datas, horarios, salas, assentos e valores. Apos visualizar,\n");
         printf("     voce podera comprar seu ingresso.\n\n");
 
         // 4 - VISUALIZAR SESSÕES
-        printf(" 4 - VISUALIZAR SESSOES:\n");
+        printf(" [4] VISUALIZAR SESSOES:\n");
         printf("     Logado, digite 2 para conferir suas reservas: nome do filme,\n");
         printf("     data, horario, numero da sala e o assento escolhido.\n\n");
 
         // 5 - VISUALIZAR E ADICIONAR SALDO
-        printf(" 5 - VISUALIZAR E ADICIONAR SALDO:\n");
+        printf(" [5] VISUALIZAR E ADICIONAR SALDO:\n");
         printf("     Logado, digite 3 para gerenciar seu saldo. Voce pode visualizar seu saldo atual e realizar\n");
         printf("     depositos, sendo R$100.00 o valor maximo permitido.\n\n");
 
         // 6 - ALTERAR SUA SENHA
-        printf(" 6 - ALTERAR SUA SENHA:\n");
+        printf(" [6] ALTERAR SUA SENHA:\n");
         printf("     Logado, digite 4 para atualizar sua senha de acesso atual.\n\n");
 
         // 7 - EXCLUIR CONTA
-        printf(" 7 - EXCLUIR CONTA:\n");
+        printf(" [7] EXCLUIR CONTA:\n");
         printf("     Logado, digite 5 para excluir sua conta. Seus dados serao\n");
         printf("     exibidos antes da confirmacao. (*ATENCAO*: Acao permanente!)\n\n");
     }
@@ -228,19 +228,59 @@ int saberFuncionalidades(int modo){
     return 0;
 }
 
-/*int saberSessao(){
+int cmComprarIngresso(){
     limparTela();
-    //Adicionar informação sobre as sessões
-}
+    printf("==================================================================\n");
+    printf("|                    COMO COMPRAR UM INGRESSO                    |\n");
+    printf("==================================================================\n\n");
 
-/int saberFilmes(){
-    limparTela();
-    //Adicionar informação sobre os filmes
-}*/
+    printf(" 1. No menu principal, crie uma conta ou realize o login:\n");
+    printf("    --------------------------------------------\n");
+    printf("       SISTEMA DE GERENCIAMENTO DE CINEMA\n");
+    printf("    --------------------------------------------\n");
+    printf("     [1] - Fazer Login             <-- SELECIONE\n");
+    printf("     [2] - Cadastrar Novo Usuario  <-- OU ESTE\n");
+    printf("     [3] - Saber Mais\n");
+    printf("     [4] - Sair do Programa\n");
+    printf("    --------------------------------------------\n\n");
+
+    printf(" 2. Apos entrar, escolha a opcao para adicionar saldo:\n");
+    printf("    -----------------------------------------------------------\n");
+    printf("       MENU DO USUARIO\n");
+    printf("    -----------------------------------------------------------\n");
+    printf("     [1] - Visualizar filmes disponiveis.\n");
+    printf("     [2] - Visualizar minhas sessoes.\n");
+    printf("     [3] - Adicionar saldo.        <-- SELECIONE AQUI!\n");
+    printf("     [4] - Alterar senha.\n");
+    printf("     [5] - Excluir esta conta.\n");
+    printf("     [6] - Voltar ao menu inicial\n");
+    printf("    -----------------------------------------------------------\n\n");
+
+    printf(" 3. Realize um deposito (minimo R$ 20.00, valor do ingresso).\n");
+    printf(" 4. Com saldo em conta, volte ao menu e veja os filmes:\n");
+    printf("    -----------------------------------------------------------\n");
+    printf("       MENU DO USUARIO\n");
+    printf("    -----------------------------------------------------------\n");
+    printf("     [1] - Visualizar filmes disponiveis. <-- SELECIONE AQUI!\n");
+    printf("     [2] - Visualizar minhas sessoes.\n");
+    printf("     [3] - Adicionar saldo.\n");
+    printf("     [4] - Alterar senha.\n");
+    printf("     [5] - Excluir esta conta.\n");
+    printf("    -----------------------------------------------------------\n\n");
+
+    printf(" FINALIZANDO:\n");
+    printf(" Escolha o filme e a sessao desejada e confirme a compra.\n");
+    printf(" PRONTO! Voce ja pode garantir seu lugar sem sair de casa.\n\n");
+
+    printf("==================================================================\n");
+    printf(" >> Aperte [Enter] para voltar: ");
+    voltar();
+    return 0;
+}
 
 int saberMais(){
     int escolha = 0; // Inicializa como opção inválida
-    int tamanhoMenu = 5;
+    int tamanhoMenu = 4;
 
     do{
         limparTela();
@@ -249,9 +289,8 @@ int saberMais(){
         printf("==============================================\n\n");
         printf("   [1] - Funcionalidades - Usuário\n");
         printf("   [2] - Funcionalidades - Admin\n");
-        printf("   [3] - Sessão e Horários\n");
-        printf("   [4] - Filmes\n");
-        printf("   [5] - Voltar\n");
+        printf("   [3] - Como comprar um ingresso\n");
+        printf("   [4] - Voltar\n");
         printf("\n--------------------------------------------\n");
         printf("Digite a opcao desejada: ");
 
@@ -265,12 +304,9 @@ int saberMais(){
                 saberFuncionalidades(escolha);
                 break;
             case 3:
-                // saberSessao();
-                break;
+                cmComprarIngresso();
+
             case 4:
-                // saberFilmes();
-                break;
-            case 5:
                 printf("\nVoltando ao menu principal...\n");
                 break;
         }
