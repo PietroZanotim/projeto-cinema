@@ -72,52 +72,70 @@ int login(Usuarios *lista, int qtdUsuarios){
     printf("\n-----------------------------------------------\n");
     printf("CPF: ");
 
+    int contErros=0;
+
     while(1){
         // Passamos NULL no destCpf pois no login não vamos salvar o CPF em lugar nenhum por enquanto
         indiceUsuario = validarCPF(lista, qtdUsuarios, NULL, 0);
 
         if(indiceUsuario == -2){ // -2: CPF em formato incorreto
+            contErros++;
             puts("\nVocê digitou o CPF incorretamente.");
             puts("Digite o seu CPF neste formato XXX.XXX.XXX-XX");
-            printf("CPF: ");
         }else if (indiceUsuario == -1){ // -1: CPF não cadastrado
+            contErros++;
             puts("\nEsse CPF não foi encontrado.");
-            puts("Digite um outro CPF ou retorne ao menu.");
-            printf("CPF: ");
+            puts("Digite um outro CPF.");
         }else{
             break; // CPF achado, indiceUsuario tem a posição dele no vetor
         }
+
+        if(contErros==3) break;
+
+        printf("CPF: ");
     }
 
-    limparTela();
-    printf("=========================================\n");
-    printf("                  Login\n");
-    printf("=========================================\n\n");
-    printf("           Digite a sua senha\n");
-    printf("\n-----------------------------------------\n");
-    printf("Senha: ");
+    if(contErros==3){
+        while (getchar() != '\n');
+        limparTela();
+        printf("==================================================================\n");
+        printf("  Número máximo de tentativas atingidas! [Enter] para continuar...\n");
+        printf("==================================================================\n");
+        getchar();
+        return -1;
 
-    while(getchar() != '\n');
+    } else {
 
-    char senhaTemp[15];
-    while(1){
-        fgets(senhaTemp, sizeof(senhaTemp), stdin);
-        senhaTemp[strcspn(senhaTemp, "\n")] = '\0'; // Remove o \n
+        limparTela();
+        printf("=========================================\n");
+        printf("                  Login\n");
+        printf("=========================================\n\n");
+        printf("           Digite a sua senha\n");
+        printf("\n-----------------------------------------\n");
+        printf("Senha: ");
 
-        if(strcmp(senhaTemp, lista[indiceUsuario].senha) == 0){
-            break;
-        }else{
-            printf("\nSenha invalida.\nDigite novamente: ");
+        while(getchar() != '\n');
+
+        char senhaTemp[15];
+        while(1){
+            fgets(senhaTemp, sizeof(senhaTemp), stdin);
+            senhaTemp[strcspn(senhaTemp, "\n")] = '\0'; // Remove o \n
+
+            if(strcmp(senhaTemp, lista[indiceUsuario].senha) == 0){
+                break;
+            }else{
+                printf("\nSenha invalida.\nDigite novamente: ");
+            }
         }
+
+        limparTela();
+        printf("=========================================================\n");
+        printf("  Login realizado com sucesso! [Enter] para continuar...\n");
+        printf("=========================================================\n");
+        getchar();
+
+        return indiceUsuario; // Alteração para retornar o indice do usuario, de modo a acessá-lo no painel do login.
     }
-
-    limparTela();
-    printf("=========================================================\n");
-    printf("  Login realizado com sucesso! [Enter] para continuar...\n");
-    printf("=========================================================\n");
-    getchar();
-
-    return indiceUsuario; // Alteração para retornar o indice do usuario, de modo a acessá-lo no painel do login.
 }
 
 void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
@@ -243,15 +261,15 @@ void visualizarReservas(Reservas *reservas, int qtdReservas,  Usuarios *usuarios
     printf("                 Usuário: %s\n", usuarios[indiceUsuario].nome);
     printf("==========================================================\n");
     for(int i = 0; i < qtdReservas; i++){
-        if(strcmp(reservas[i].cpf_usuario,usuarios[indiceUsuario].nome)==0){
+        if(strcmp(reservas[i].cpf_usuario,usuarios[indiceUsuario].cpf)==0){
             contaSessoes++;
             int indiceSessao = buscaSessao(sessoes, reservas[i].id_sessao, qtdSessoes);
             printf("__________________________________________________________\n");
             printf("Filme: %s.\n", sessoes[indiceSessao].nome_filme);
             printf("Data: %s.\n", sessoes[indiceSessao].data);
-            printf("Horário: %s - %s.\n", sessoes[indiceSessao].horario_final, sessoes[indiceSessao].horario_final);
+            printf("Horário: %s - %s.\n", sessoes[indiceSessao].horario_inicio, sessoes[indiceSessao].horario_final);
             printf("Sala: %d.\n", sessoes[indiceSessao].sala);
-            printf("Assento: %s.\n", reservas[i].assento);
+            printf("Assento: %c%c.\n", reservas[i].assento[0], reservas[i].assento[1]);
             printf("----------------------------------------------------------\n\n");
         }
     }
