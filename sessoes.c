@@ -78,7 +78,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                         if(sessao[i].assento[L][C] == '0'){
                             printf("%c%d\n",Linha[L],C);
                         }else{
-                            printf("X\n");
+                            printf("XX\n");
                         }
                     }
                 }

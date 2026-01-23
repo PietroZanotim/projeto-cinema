@@ -149,8 +149,16 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         }
     }
 
+    // Estabelece todos os assentos como disponíveis
+    for(int L = 0; L < 10; L++){
+        for(int C = 0; C < 10; C++){
+            nova.assento[L][C] = '0'; 
+        }
+    }
+
     // Atribui os valores para a Struct e incrementa qtdSessoes
-    *lista = nova;
+    // Incrementa depois porque o índice começa no zero
+    lista[*qtdSessoes] = nova;
     (*qtdSessoes)++;
 
     limparTela();
