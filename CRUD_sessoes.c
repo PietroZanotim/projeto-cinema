@@ -125,6 +125,7 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
 
     }while(!horaValida);
 
+    limparTela();
     printf("===============================================\n");
     printf("           Novo cadastro de sessao\n");
     printf("===============================================\n\n");
@@ -133,6 +134,7 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
     printf("Valor: R$ ");
     scanf("%f", &nova.valorIngresso);
 
+    limparTela();
     printf("===============================================\n");
     printf("           Novo cadastro de sessao\n");
     printf("===============================================\n\n");
@@ -155,7 +157,7 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
     printf("============================================================\n");
     printf("  Sessao adicionada com sucesso! [Enter] para continuar...\n");
     printf("============================================================\n");
-    getchar();
+    getchar(); getchar();
 }
 
 void excluir_sessao(Sessoes *lista, int *qtdSessoes, Reservas *listaReservas, int qtdReservas){
