@@ -58,7 +58,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
     }
     else{
         for(int i=0; i<quantidadeSessoes; i++){
-            printf("Filme: %s - Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
+            printf("Filme: %s | Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
             printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
             printf("Sala: %d\n", sessao[i].sala);
             printf("Valor: %.2lf\n", sessao[i].valorIngresso);

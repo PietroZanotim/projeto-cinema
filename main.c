@@ -24,7 +24,10 @@ int main(){
     Reservas listaReservas[MAX_RESERVAS];
 
     // Loop para atribuir os IDs como zero (ID = 0 representa um slot vazio no array)
-    for(int i = 0; i < MAX_SESSOES; i++){listaSessoes[i].id = 0;}
+    for(int i = 0; i < MAX_SESSOES; i++){
+        // Apenas faz a atribuição para os slots com lixo de memória, ou seja, ainda não utilizados
+        if(listaSessoes[i].id < 0 || listaSessoes[i].id > MAX_SESSOES || !isdigit(listaSessoes[i].id)) listaSessoes[i].id = 0;
+    }
 
     //Sessao temporaria para testarmos
     listaSessoes[0].id = 0;

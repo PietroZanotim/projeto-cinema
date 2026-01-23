@@ -104,7 +104,7 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         printf("===============================================\n\n");
         printf(" Digite o horário de inicio no formato (HH:MM):\n");
         printf("\n---------------------------------------------\n");
-        printf("Horario: ");
+        printf("Horário de início: ");
         scanf("%5s", nova.horario_inicio);
         while(getchar() != '\n');
 
@@ -112,6 +112,34 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         //sscanf: lê dados de uma string que já existe na memória
         if(sscanf(nova.horario_inicio, "%d:%d", &h, &m) == 2){
             if(h >= 0 && h <= 23 && m >= 0 && m <= 59 && nova.horario_inicio[2] == ':'){
+                horaValida = 1;
+            }
+        }
+
+        if(!horaValida){
+            printf("\nERRO: Horario invalido ou formato incorreto!.");
+            printf("\nCertifique-se de usar HH:MM (ex: 09:30 ou 22:00).");
+            printf("\nPressione [ENTER] para tentar novamente...");
+            getchar();
+        }
+
+    }while(!horaValida);
+
+    do{
+        limparTela();
+        printf("===============================================\n");
+        printf("           Novo cadastro de sessao\n");
+        printf("===============================================\n\n");
+        printf(" Digite o horário de término no formato (HH:MM):\n");
+        printf("\n---------------------------------------------\n");
+        printf("Horário de término: ");
+        scanf("%5s", nova.horario_final);
+        while(getchar() != '\n');
+
+        int h, m;
+        //sscanf: lê dados de uma string que já existe na memória
+        if(sscanf(nova.horario_final, "%d:%d", &h, &m) == 2){
+            if(h >= 0 && h <= 23 && m >= 0 && m <= 59 && nova.horario_final[2] == ':'){
                 horaValida = 1;
             }
         }
@@ -143,11 +171,14 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
     printf("Idade: ");
     scanf("%d", &nova.limIdade);
 
-    for(int i = 0; i < 15; i++){
-        for(int j = 0; j < 15; j++){
-            nova.assento[i][j] = 0;
-        }
-    }
+    limparTela();
+    printf("===============================================\n");
+    printf("           Novo cadastro de sessao\n");
+    printf("===============================================\n\n");
+    printf("           Digite a sala da sessão:\n");
+    printf("\n---------------------------------------------\n");
+    printf("Sala: ");
+    scanf("%d", &nova.sala);
 
     // Estabelece todos os assentos como disponíveis
     for(int L = 0; L < 10; L++){
