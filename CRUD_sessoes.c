@@ -66,7 +66,7 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         fgets(nova.nome_filme, sizeof(nova.nome_filme), stdin);
         nova.nome_filme[strcspn(nova.nome_filme, "\n")] = '\0'; // Limpar o \n
 
-         //Caso o não preencha o nome
+        //Caso não preencha o nome
         if(strlen(nova.nome_filme) == 0){
             printf("\nERRO: O nome do filme nao pode ser vazio!");
             printf("\nPressione [ENTER] para tentar novamente...");
@@ -147,8 +147,8 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         }
     }
 
-    //"Desferencia' o ponteiro duplo para obter o endereço real
-    (*lista)[*qtdSessoes] = nova;
+    // Atribui os valores para a Struct e incrementa qtdSessoes
+    *lista = nova;
     (*qtdSessoes)++;
 
     limparTela();
