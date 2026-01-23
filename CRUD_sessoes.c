@@ -34,8 +34,8 @@ int menu_CRUD_sessoes(){
     return opcao;
 }
 
-void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *maxSessoes){
-    //Gerenciamento de memória (aumenta 5 posições quando cheio)
+void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
+    /* Futura alocação dinâmica de memória
     if(*qtdSessoes >= *maxSessoes){
         *maxSessoes += 5;
         Sessoes *temp = (Sessoes *) realloc(*lista, (*maxSessoes) * sizeof(Sessoes));
@@ -45,26 +45,14 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *maxSessoes){
         }
         *lista = temp;
     }
+    */
+    
 
-    limparTela();
-    int idTemp;
-    printf("===============================================\n");
-    printf("           Novo cadastro de sessao\n");
-    printf("===============================================\n\n");
-    printf("         Digite o ID da nova sessão:\n");
-    printf("\n---------------------------------------------\n");
-    printf("ID: ");
-    scanf("%d", &idTemp);
-
-    if(buscaSessao(*lista, idTemp, *qtdSessoes) != -1){
-        printf("Erro: Ja existe uma sessao com o ID %d\n", idTemp);
-        while (getchar() != '\n');
-        getchar();
-        return;
-    }
 
     Sessoes nova;
-    nova.id = idTemp;
+    // o ID é atribuido automaticamente utilizando a lógica
+    // de escolher o menor ID disponível
+    nova.id = atribuir_ID(lista, maxSessoes);
 
     do{
         limparTela();

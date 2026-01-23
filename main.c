@@ -23,8 +23,10 @@ int main(){
     Sessoes listaSessoes[MAX_SESSOES];
     Reservas listaReservas[MAX_RESERVAS];
 
-    //Sessao temporaria para testarmos
+    // Loop para atribuir os IDs como zero (ID = 0 representa um slot vazio no array)
+    for(int i = 0; i < MAX_SESSOES; i++){listaSessoes[i].id = 0;}
 
+    //Sessao temporaria para testarmos
     listaSessoes[0].id = 0;
     strcpy(listaSessoes[0].nome_filme,"Cinema");
     listaSessoes[0].limIdade = 18;
@@ -75,8 +77,7 @@ int main(){
                                 int opcao_1 = menu_CRUD_sessoes();
                                 switch(opcao_1){
                                 case 1:
-                                    adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, &idReservas);
-                                    //adicionar_sessao();
+                                    adicionar_sessao(listaSessoes, &qtdSessoes, MAX_SESSOES);
                                     break;
                                 case 2:
                                     excluir_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, &idReservas);

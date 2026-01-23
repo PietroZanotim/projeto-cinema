@@ -9,6 +9,7 @@
 
 void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, int indiceUsuario, Reservas *reserva, int *qtdReservas, int *qtdIdReservas);
 int buscaSessao(Sessoes *sessao,int id, int qtdSessoes);
+int atribuir_ID(Sessoes *sessao, int maxSessoes);
 int converteLinhaAssento(char linha);
 
 #endif

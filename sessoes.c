@@ -26,13 +26,23 @@ int converteLinhaAssento(char linha){
     return 0; //return para satisfazer o compilador, essa linha nunca sera executada
 }
 
-int buscaSessao(Sessoes *sessao,int id, int qtdSessoes){
+int buscaSessao(Sessoes *sessao, int id, int qtdSessoes){
     for(int i=0; i<qtdSessoes; i++){
         if(sessao[i].id==id){
             return i;
         }
     }
-    return -1;
+    return -1; // Não encontrou
+}
+
+int atribuir_ID(Sessoes *sessao, int maxSessoes){
+    for(int id = 1; id < maxSessoes; id++){
+        int flag_break = 0;
+        for(int i = 0; i < maxSessoes; i++){
+            if(sessao[i].id == id) flag_break = 1; break;
+        }
+        if(flag_break = 0) return id; // Se não deu break, então ainda não há esse ID
+    }
 }
 
 void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, int indiceUsuario, Reservas *reserva, int *qtdReservas, int *qtdIdReservas){
