@@ -74,8 +74,7 @@ int main(){
                                         //modificar_sessao();
                                         break;
                                     case 4:
-                                        visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
-                                        //visualizar_sessao_id();
+                                        visualizar_sessao_id(listaSessoes, qtdSessoes);
                                         break;
                                     case 5:
                                         visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);

@@ -445,7 +445,7 @@ void visualizar_sessao_id(Sessoes *lista, int qtdSessoes){
         printf("===============================================\n\n");
         printf("Filme:        %s\n", lista[indice].nome_filme);
         printf("Data:         %s\n", lista[indice].data);
-        printf("Horario:      %s\n", lista[indice].horario_inicio);
+        printf("Horario:      %s - %s\n", lista[indice].horario_inicio, lista[indice].horario_final);
         printf("valor:        R$ %.2f\n", lista[indice].valorIngresso);
         printf("Idade Minima: %d anos\n", lista[indice].limIdade);
         printf("Sala:         %d\n", lista[indice].sala);
@@ -453,7 +453,6 @@ void visualizar_sessao_id(Sessoes *lista, int qtdSessoes){
     }
 
     printf("\n[Enter] para continuar...\n");
-    while(getchar() != '\n');
     getchar();
 }
 
