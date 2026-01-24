@@ -69,8 +69,7 @@ int main(){
                                         adicionar_sessao(listaSessoes, &qtdSessoes, MAX_SESSOES);
                                         break;
                                     case 2:
-                                        excluir_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, &idReservas);
-                                        //excluir_sessao();
+                                        excluir_sessao(listaSessoes, &qtdSessoes, listaReservas, qtdReservas);
                                         break;
                                     case 3:
                                         modificar_reserva(listaReservas, qtdReservas, listaUsuarios, listaSessoes, qtdSessoes);

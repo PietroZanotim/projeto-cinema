@@ -207,10 +207,12 @@ void excluir_sessao(Sessoes *lista, int *qtdSessoes, Reservas *listaReservas, in
     printf("===============================================\n");
     printf("              Exclusao de sessao\n");
     printf("===============================================\n\n");
-    printf("        Digite o ID que deseja excluir:\n");
+    printf("Digite o ID que deseja excluir ou '0' para sair:\n");
     printf("\n---------------------------------------------\n");
     printf("ID: ");
     scanf("%d", &id);
+
+    if(id == 0) return;
 
     //encontra em qual a posição do vetor a sessão está
     indice = buscaSessao(lista, id, *qtdSessoes);
