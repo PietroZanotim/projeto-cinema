@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "structs.h"
 #include "utils.h"
 #include "usuarios.h"
@@ -27,21 +28,6 @@ int main(){
     for(int i = 0; i < MAX_SESSOES; i++){
         // Apenas faz a atribuição para os slots com lixo de memória, ou seja, ainda não utilizados
         if(listaSessoes[i].id < 0 || listaSessoes[i].id > MAX_SESSOES || !isdigit(listaSessoes[i].id)) listaSessoes[i].id = 0;
-    }
-
-    //Sessao temporaria para testarmos
-    listaSessoes[0].id = 0;
-    strcpy(listaSessoes[0].nome_filme,"Cinema");
-    listaSessoes[0].limIdade = 18;
-    listaSessoes[0].sala = 1;
-    listaSessoes[0].valorIngresso = 20.00;
-    strcpy(listaSessoes[0].data,"20/02/2026");
-    strcpy(listaSessoes[0].horario_inicio,"14:30");
-    strcpy(listaSessoes[0].horario_final,"16:00");
-    for(int L = 0; L < 10; L++){
-        for(int C = 0; C < 10; C++){
-            listaSessoes[0].assento[L][C] = '0';
-        }
     }
 
     // Sistema temporário para acessar o admin
@@ -74,137 +60,123 @@ int main(){
                     while(1){
                         int opcao = menuAdmin();
                         switch(opcao){
-                        case 1:
-                            // CRUD de Sessões
-                            while(1){
-                                int opcao_1 = menu_CRUD_sessoes();
-                                switch(opcao_1){
-                                case 1:
-                                    adicionar_sessao(listaSessoes, &qtdSessoes, MAX_SESSOES);
-                                    break;
-                                case 2:
-                                    excluir_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, &idReservas);
-                                    //excluir_sessao();
-                                    break;
-                                case 3:
-                                    modificar_reserva(listaReservas, qtdReservas, listaUsuarios, listaSessoes, qtdSessoes);
-                                    //modificar_sessao();
-                                    break;
-                                case 4:
-                                    visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
-                                    //visualizar_sessao_id();
-                                    break;
-                                case 5:
-                                    visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);
-                                    //visualizar_todas_sessoes();
-                                    break;
-                                }
-                                if (opcao_1 == 6){
-                                    if(confirmarRetorno() == 1) break;
-                                    else continue;
-                                }
-                            }
-                            break;
-
-                        case 2:
-                            // CRUD de Usuários
-                            while(1){
-                                int opcao_2 = menu_CRUD_usuarios();
-                                switch(opcao_2){
-                                case 1:
-                                    adicionar_usuario(listaUsuarios, &qtdUsuarios, MAX_USUARIOS);
-                                    break;
-                                case 2:
-                                    excluir_usuario(listaUsuarios, &qtdUsuarios); // Verificar o controle de memória...
-                                    break;
-                                case 3:
-                                    modificar_usuario(listaUsuarios, &qtdUsuarios);
-                                    break;
-                                case 4:
-                                    visualizar_usuario_cpf(listaUsuarios, &qtdUsuarios);
-                                    break;
-                                case 5:
-                                    visualizar_todos_usuarios(listaUsuarios, qtdUsuarios);
-                                    break;
-                                }
-                                if (opcao_2 == 6){
-                                    if(confirmarRetorno() == 1) break;
-                                    else continue;
-                                }
-                            }
-                            break;
-
-                        case 3:
-                            // CRUD de Reservas
-                            while(1){
-                                int opcao_3 = menu_CRUD_reservas();
-                                switch(opcao_3){
+                            case 1:
+                                // CRUD de Sessões
+                                while(1){
+                                    int opcao_1 = menu_CRUD_sessoes();
+                                    switch(opcao_1){
                                     case 1:
-                                        adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, &idReservas);
+                                        adicionar_sessao(listaSessoes, &qtdSessoes, MAX_SESSOES);
                                         break;
                                     case 2:
                                         excluir_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, &idReservas);
+                                        //excluir_sessao();
                                         break;
                                     case 3:
                                         modificar_reserva(listaReservas, qtdReservas, listaUsuarios, listaSessoes, qtdSessoes);
+                                        //modificar_sessao();
                                         break;
                                     case 4:
                                         visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
+                                        //visualizar_sessao_id();
                                         break;
                                     case 5:
                                         visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);
+                                        //visualizar_todas_sessoes();
                                         break;
+                                    }
+                                    if (opcao_1 == 6)if (opcao_1 == 6){break;}
                                 }
-                                if (opcao_3 == 6){
-                                    if(confirmarRetorno() == 1) break;
-                                    else continue;
-                                }
-                            }
-                            break;
+                                break;
 
-                        case 4:
-                            // Consultas
-                            while(1){
-                                int opcao_4 = menu_consulta();
-                                switch(opcao_4){
+                            case 2:
+                                // CRUD de Usuários
+                                while(1){
+                                    int opcao_2 = menu_CRUD_usuarios();
+                                    switch(opcao_2){
                                     case 1:
-                                        CONS_reservas_por_filme(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                        adicionar_usuario(listaUsuarios, &qtdUsuarios, MAX_USUARIOS);
                                         break;
                                     case 2:
-                                        CONS_reservas_por_data(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                        excluir_usuario(listaUsuarios, &qtdUsuarios); // Verificar o controle de memória...
                                         break;
                                     case 3:
-                                        CONS_reservas_por_cpf(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                        modificar_usuario(listaUsuarios, &qtdUsuarios);
                                         break;
+                                    case 4:
+                                        visualizar_usuario_cpf(listaUsuarios, &qtdUsuarios);
+                                        break;
+                                    case 5:
+                                        visualizar_todos_usuarios(listaUsuarios, qtdUsuarios);
+                                        break;
+                                    }
+                                    if (opcao_2 == 6){break;}
                                 }
-                                if(opcao_4 == 4){
-                                    if(confirmarRetorno() == 1) break;
-                                    else continue;
-                                }
-                            }
-                            break;
+                                break;
 
-                        case 5:
-                            // Relatórios
-                            while(1){
-                                int opcao_5 = menu_relatorio();
-                                switch(opcao_5){
-                                case 1:
-                                    REL_listar_usuarios(listaUsuarios, qtdUsuarios);
-                                    break;
-                                case 2:
-                                    REL_listar_sessoes(listaSessoes, qtdSessoes);
-                                    break;
-                                case 3:
-                                    RELATORIO_reservas_completo(listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, listaReservas, qtdReservas);
-                                    break;
+                            case 3:
+                                // CRUD de Reservas
+                                while(1){
+                                    int opcao_3 = menu_CRUD_reservas();
+                                    switch(opcao_3){
+                                        case 1:
+                                            adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, &idReservas);
+                                            break;
+                                        case 2:
+                                            excluir_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, &idReservas);
+                                            break;
+                                        case 3:
+                                            modificar_reserva(listaReservas, qtdReservas, listaUsuarios, listaSessoes, qtdSessoes);
+                                            break;
+                                        case 4:
+                                            visualizar_reserva_id(listaReservas, qtdReservas, listaUsuarios);
+                                            break;
+                                        case 5:
+                                            visualizar_todas_reservas(listaReservas, qtdReservas, listaUsuarios);
+                                            break;
+                                    }
+                                    if (opcao_3 == 6){break;}
+                                    }
+                                break;
+
+                            case 4:
+                                // Consultas
+                                while(1){
+                                    int opcao_4 = menu_consulta();
+                                    switch(opcao_4){
+                                        case 1:
+                                            CONS_reservas_por_filme(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                            break;
+                                        case 2:
+                                            CONS_reservas_por_data(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                            break;
+                                        case 3:
+                                            CONS_reservas_por_cpf(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                                            break;
+                                    }
+                                    if(opcao_4 == 4){
+                                        if(confirmarRetorno() == 1){break;}
                                 }
-                                if(opcao_5 == 4){
-                                    if(confirmarRetorno() == 1) break;
-                                    else continue;
+                                break;
+
+                            case 5:
+                                // Relatórios
+                                while(1){
+                                    int opcao_5 = menu_relatorio();
+                                    switch(opcao_5){
+                                    case 1:
+                                        REL_listar_usuarios(listaUsuarios, qtdUsuarios);
+                                        break;
+                                    case 2:
+                                        REL_listar_sessoes(listaSessoes, qtdSessoes);
+                                        break;
+                                    case 3:
+                                        RELATORIO_reservas_completo(listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, listaReservas, qtdReservas);
+                                        break;
+                                    }
+                                    if(opcao_5 == 4){break;}
                                 }
                             }
-                            break;
                         }
                         if(opcao == 6){
                             if(confirmarRetorno() == 1) break;
@@ -219,22 +191,22 @@ int main(){
                         int opcao = menuLogin(listaUsuarios, indiceUsuario);
 
                         switch(opcao){
-                        case 1:
-                            limparTela();
-                            listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, listaReservas, &qtdReservas, &idReservas);
-                            break;
-                        case 2:
-                            visualizarReservas(listaReservas, qtdReservas, listaUsuarios, indiceUsuario, listaSessoes, qtdSessoes);
-                            break;
-                        case 3:
-                            verSaldo(listaUsuarios, indiceUsuario);
-                            break;
-                        case 4:
-                            modificarSenha(listaUsuarios, indiceUsuario);
-                            break;
-                        case 5:
-                            exclusaoUsuario(listaUsuarios, indiceUsuario, &qtdUsuarios, &exclusaobreak);
-                            break;
+                            case 1:
+                                limparTela();
+                                listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, listaReservas, &qtdReservas, &idReservas);
+                                break;
+                            case 2:
+                                visualizarReservas(listaReservas, qtdReservas, listaUsuarios, indiceUsuario, listaSessoes, qtdSessoes);
+                                break;
+                            case 3:
+                                verSaldo(listaUsuarios, indiceUsuario);
+                                break;
+                            case 4:
+                                modificarSenha(listaUsuarios, indiceUsuario);
+                                break;
+                            case 5:
+                                exclusaoUsuario(listaUsuarios, indiceUsuario, &qtdUsuarios, &exclusaobreak);
+                                break;
                         }
                         if (opcao == 6){
                             if(confirmarRetorno() == 1) break;

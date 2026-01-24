@@ -41,7 +41,7 @@ int atribuir_ID(Sessoes *sessao, int maxSessoes){
         for(int i = 0; i < maxSessoes; i++){
             if(sessao[i].id == id) flag_break = 1; break;
         }
-        if(flag_break = 0) return id; // Se não deu break, então ainda não há esse ID
+        if(flag_break == 0) return id; // Se não deu break, então ainda não há esse ID
     }
 }
 
@@ -58,36 +58,39 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
     }
     else{
         for(int i=0; i<quantidadeSessoes; i++){
-            printf("Filme: %s | Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
-            printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
-            printf("Sala: %d\n", sessao[i].sala);
-            printf("Valor: %.2lf\n", sessao[i].valorIngresso);
-            printf("Assentos:\n");
+            if(sessao[i].id != 0){
+                printf("Filme: %s | Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
+                printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
+                printf("Sala: %d\n", sessao[i].sala);
+                printf("Valor: %.2lf\n", sessao[i].valorIngresso);
+                printf("Assentos:\n");
 
-            char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+                char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
-            for(int L = 0; L < 10; L++){
-                for(int C = 0; C < 10; C++){
-                    if(C != 9){
-                        if(sessao[i].assento[L][C] == '0'){
-                            printf("%c%d ",Linha[L],C);
+                for(int L = 0; L < 10; L++){
+                    for(int C = 0; C < 10; C++){
+                        if(C != 9){
+                            if(sessao[i].assento[L][C] == '0'){
+                                printf("%c%d ",Linha[L],C);
+                            }else{
+                                printf("XX "); //Ocupado;
+                            }
                         }else{
-                            printf("XX "); //Ocupado;
-                        }
-                    }else{
-                        if(sessao[i].assento[L][C] == '0'){
-                            printf("%c%d\n",Linha[L],C);
-                        }else{
-                            printf("XX\n");
+                            if(sessao[i].assento[L][C] == '0'){
+                                printf("%c%d\n",Linha[L],C);
+                            }else{
+                                printf("XX\n");
+                            }
                         }
                     }
                 }
+                printf("_________________________________________________________________\n");
+                printf("                             TELA\n\n\n");
             }
-            printf("_________________________________________________________________\n");
-            printf("                             TELA\n\n\n");
         }
+            
+        
         char resposta;
-
         do{
             printf("\nDeseja comprar um ingresso? (S/N): ");
             if(scanf(" %c", &resposta) != 1){
@@ -111,7 +114,6 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
             limparTela();
             printf("Você cancelou a compra.\n");
             printf("\n[Enter] para retornar ao menu login...");
-            while(getchar() != '\n');
             getchar();
         }
 
