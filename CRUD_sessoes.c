@@ -292,10 +292,13 @@ void modificar_sessao(Sessoes *lista, int qtdSessoes){
     printf("===============================================\n");
     printf("              Alteracao de sessao\n");
     printf("===============================================\n\n");
-    printf("   Digite o ID da sessao que deseja alterar:\n");
+    printf("  Digite o ID da sessao que deseja alterar\n");
+    printf("               ou '0' para sair:\n");
     printf("\n---------------------------------------------\n");
     printf("ID: ");
     scanf("%d", &id);
+
+    if(id == 0) return;
 
     indice = buscaSessao(lista, id, qtdSessoes);
     if(indice == -1){

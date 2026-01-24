@@ -119,8 +119,15 @@ void salvar_reservas(Reservas *lista, int qtd){
     fclose(p_bin);
 }
 
-void finalizar_sistema(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
+// União das funções para chamar na main
+void salvar_dados(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas, int qtdUsuarios, int qtdSessoes, int qtdReservas){
     salvar_usuarios(listaUsuarios, qtdUsuarios);
     salvar_sessoes(listaSessoes, qtdSessoes);
     salvar_reservas(listaReservas, qtdReservas);
+}
+
+void carregar_dados(Usuarios *listaUsuarios, Sessoes *listaSessoes, Reservas *listaReservas){
+    carregar_usuarios(listaUsuarios);
+    carregar_sessoes(listaSessoes);
+    carregar_reservas(listaReservas);
 }
