@@ -473,7 +473,7 @@ void visualizar_todas_sessoes(Sessoes *lista, int qtdSessoes){
             printf("ID:           %03d\n", lista[i].id);
             printf("Filme:        %-20s\n", lista[i].nome_filme);
             printf("Data:         %s\n", lista[i].data);
-            printf("Horario:      %s\n", lista[i].horario_inicio);
+            printf("Horario:      %s - %s\n", lista[i].horario_inicio, lista[i].horario_final);
             printf("valor:        R$ %.2f\n", lista[i].valorIngresso);
             printf("Idade Minima: %d anos\n", lista[i].limIdade);
             printf("Sala:         %d\n", lista[i].sala);
