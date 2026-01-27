@@ -58,30 +58,29 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
         printf("\nSentimos muito... Nenhum filme disponivel no momento.\n");
         printf("\n[Enter] para retornar ao menu login...");
         getchar();
-    }else{
+    }
+    else{
         for(int i=0; i<quantidadeSessoes; i++){
-            if(sessao[i].id != 0){
-                printf("Filme: %s | Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
-                printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
-                printf("Sala: %d\n", sessao[i].sala);
-                printf("Valor: %.2lf\n", sessao[i].valorIngresso);
-                printf("Assentos:\n");
+            printf("Filme: %s - Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
+            printf("Data: %s | Horario: %s - %s\n", sessao[i].data, sessao[i].horario_inicio, sessao[i].horario_final);
+            printf("Sala: %d\n", sessao[i].sala);
+            printf("Valor: %.2lf\n", sessao[i].valorIngresso);
+            printf("Assentos:\n");
 
-                char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+            char Linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
-                for(int L = 0; L < 10; L++){
-                    for(int C = 0; C < 10; C++){
-                        if(sessao[i].assento[L][C] == '0'){
-                            printf("%c%d ", Linha[L],C);
-                        }else{
-                            printf("XX ");
-                        }
+            for(int L = 0; L < 10; L++){
+                for(int C = 0; C < 10; C++){
+                    if(sessao[i].assento[L][C] == '0'){
+                        printf("%4c%d ",Linha[L],C);
+                    }else{
+                        printf(" XX "); //ocupado
                     }
-                    printf("\n");
                 }
-                printf("_________________________________________________________________\n");
-                printf("                             TELA\n\n\n");
+                printf("\n");
             }
+            printf("_________________________________________________________________\n");
+            printf("                             TELA\n\n\n");
         }
 
 
