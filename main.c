@@ -16,7 +16,7 @@
 
 #define MAX_USUARIOS 5
 #define MAX_SESSOES 5
-#define MAX_RESERVAS 10
+#define MAX_RESERVAS 5
 
 int main(){
     // Criação das variáveis "Globais" dentro da main

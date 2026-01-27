@@ -131,13 +131,13 @@ int voltar() {
     // Se o usuário apenas apertou Enter (o caractere lido é '\n')
     if (c == '\n' || c == EOF) {
         return 1;
-    } 
-    
+    }
+
     // Se ele digitou algo antes de apertar Enter (ex: "abc" + Enter)
     else {
         // Limpa o resto da sujeira que ele digitou até o próximo '\n'
         while (getchar() != '\n');
-        
+
         printf("Digito invalido! Aperte apenas [Enter] para voltar: ");
         return voltar(); // Chamada recursiva para tentar novamente
     }
@@ -221,7 +221,7 @@ int saberFuncionalidades(int modo){
         printf("     No menu do admin, digite 5 para gerar arquivos (.txt).\n");
         printf("     Exporta reservas detalhadas com base no filtro escolhido.\n\n");
     }
-    
+
     printf("==================================================================\n");
     printf(" >> Aperte [Enter] para voltar: ");
     voltar();
@@ -298,19 +298,21 @@ int saberMais(){
         escolha = validarInput(tamanhoMenu);
 
         //Condições para selecionar a função escolhida pelo usuário
-        switch(escolha) {
+        switch(escolha){
             case 1:
+                saberFuncionalidades(escolha);
             case 2:
                 saberFuncionalidades(escolha);
                 break;
             case 3:
                 cmComprarIngresso();
-
+                break;
             case 4:
-                printf("\nVoltando ao menu principal...\n");
+                limparTela();
+                printf("\n[Enter] para continuar...\n");
                 break;
         }
-    } while(escolha != 5);
+    } while(escolha != 4);
 
     return 0;
 }

@@ -39,7 +39,10 @@ int atribuir_ID(Sessoes *sessao, int maxSessoes){
     for(int id = 1; id < maxSessoes; id++){
         int flag_break = 0;
         for(int i = 0; i < maxSessoes; i++){
-            if(sessao[i].id == id) flag_break = 1; break;
+            if(sessao[i].id == id){
+                flag_break = 1;
+                break;
+            }
         }
         if(flag_break == 0) return id; // Se não deu break, então ainda não há esse ID
     }
@@ -55,8 +58,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
         printf("\nSentimos muito... Nenhum filme disponivel no momento.\n");
         printf("\n[Enter] para retornar ao menu login...");
         getchar();
-    }
-    else{
+    }else{
         for(int i=0; i<quantidadeSessoes; i++){
             if(sessao[i].id != 0){
                 printf("Filme: %s | Id: %d | Idade Minima: %d\n", sessao[i].nome_filme, sessao[i].id, sessao[i].limIdade);
@@ -69,27 +71,20 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
                 for(int L = 0; L < 10; L++){
                     for(int C = 0; C < 10; C++){
-                        if(C != 9){
-                            if(sessao[i].assento[L][C] == '0'){
-                                printf("%c%d ",Linha[L],C);
-                            }else{
-                                printf("XX "); //Ocupado;
-                            }
+                        if(sessao[i].assento[L][C] == '0'){
+                            printf("%c%d ", Linha[L],C);
                         }else{
-                            if(sessao[i].assento[L][C] == '0'){
-                                printf("%c%d\n",Linha[L],C);
-                            }else{
-                                printf("XX\n");
-                            }
+                            printf("XX ");
                         }
                     }
+                    printf("\n");
                 }
                 printf("_________________________________________________________________\n");
                 printf("                             TELA\n\n\n");
             }
         }
-            
-        
+
+
         char resposta;
         do{
             printf("\nDeseja comprar um ingresso? (S/N): ");
@@ -213,7 +208,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 printf("Você cancelou a compra.\n");
                 printf("\n[Enter] para retornar ao menu login...");
                 while(getchar() != '\n');
-                getchar(); 
+                getchar();
             }
         }
     }
