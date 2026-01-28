@@ -287,6 +287,7 @@ int saberMais(){
         switch(escolha){
             case 1:
                 saberFuncionalidades(escolha);
+                break;
             case 2:
                 saberFuncionalidades(escolha);
                 break;
