@@ -20,23 +20,30 @@
 
 int main(){
     // Criação das variáveis "Globais" dentro da main
-    Usuarios listaUsuarios[MAX_USUARIOS];
-    Sessoes listaSessoes[MAX_SESSOES];
-    Reservas listaReservas[MAX_RESERVAS];
 
+    // 1. Pointers initialized to NULL to avoid "wild pointers"
+    Usuarios *listaUsuarios = NULL;
+    Sessoes *listaSessoes = NULL;
+    Reservas *listaReservas = NULL;
+
+    // 2. Capacity trackers
+    int capUsuarios = 0;
+    int capSessoes = 0;
+    int capReservas = 0;
+
+    // 3. Load data and initialize memory dynamically
+    int qtdUsuarios = carregar_usuarios(&listaUsuarios, &capUsuarios);
+    int qtdSessoes = carregar_sessoes(&listaSessoes, &capSessoes);
+    int qtdReservas = carregar_reservas(&listaReservas, &capReservas);
+
+
+    /*Não precisa mais do loop por causa do calloc
     // Loop para atribuir os IDs como zero (ID = 0 representa um slot vazio no array)
     for(int i = 0; i < MAX_SESSOES; i++){
         // Apenas faz a atribuição para os slots com lixo de memória, ou seja, ainda não utilizados
         if(listaSessoes[i].id < 0 || listaSessoes[i].id > MAX_SESSOES || !isdigit(listaSessoes[i].id)) listaSessoes[i].id = 0;
     }
-
-    // Carregar dados de todas as structs e a quantidade de cada struct
-    int qtdUsuarios = carregar_usuarios(listaUsuarios);
-    int qtdSessoes = carregar_sessoes(listaSessoes);
-    int qtdReservas = carregar_reservas(listaReservas);
-
-    // Carregar todos os dados
-    carregar_dados(listaUsuarios, listaSessoes, listaReservas);
+    */
 
     // Variaveis para marcar o id, pois se usarmos as váriaveis qtd, pode haver duplicidade....
     int idReservas=0;
@@ -229,6 +236,9 @@ int main(){
             case 4:
                 if(confirmarSaida() == 1){
                     salvar_dados(listaUsuarios, listaSessoes, listaReservas, qtdUsuarios, qtdSessoes, qtdReservas);
+                    free(listaUsuarios);
+                    free(listaSessoes);
+                    free(listaReservas);
                     return 0;
                 }
                 break;
