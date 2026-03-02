@@ -6,15 +6,25 @@
 #include "utils.h"
 
 // --- CRUD USUÁRIO (Estrutura 2) ---
-void adicionar_usuario(Usuarios *lista, int *qtdUsuarios, int max){
-    // Verifica capacidade antes de começar
-    if (*qtdUsuarios >= max) {
-        printf("Erro: Banco de dados cheio.\n");
-        getchar();
-        return;
+void adicionar_usuario(Usuarios **lista, int *qtdUsuarios, int *capacidade) {
+    // 1. The Dynamic Expansion Protocol (Geometric Growth)
+    if (*qtdUsuarios >= *capacidade) {
+        int nova_capacidade = (*capacidade > 0) ? (*capacidade * 2) : 5;
+        
+        // Use a temporary pointer. If realloc fails, we do not lose the original data.
+        Usuarios *temp = realloc(*lista, nova_capacidade * sizeof(Usuarios));
+        if (temp == NULL) {
+            fprintf(stderr, "Critical: Memory reallocation failed. Cannot add more users.\n");
+            printf("[Enter] para retornar...\n");
+            getchar();
+            return; 
+        }
+        
+        *lista = temp; // Re-anchor the main pointer to the new memory block
+        *capacidade = nova_capacidade; // Update the system truth
     }
 
-    Usuarios novoUsuario; // Variável local temporária (substitui a global usuarios_temp)
+    Usuarios novoUsuario; 
 
     limparTela();
     printf("================================================\n");
@@ -25,7 +35,7 @@ void adicionar_usuario(Usuarios *lista, int *qtdUsuarios, int max){
     printf("Nome: ");
 
     fgets(novoUsuario.nome, sizeof(novoUsuario.nome), stdin);
-    novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; // Boa prática limpar o \n
+    novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; 
 
     limparTela();
     printf("================================================\n");
@@ -51,19 +61,18 @@ void adicionar_usuario(Usuarios *lista, int *qtdUsuarios, int max){
     printf("CPF: ");
 
     while(1){
-        // Limpa o buffer sempre antes de ler
         while(getchar() != '\n');
 
-        // Passamos o endereço de novoUsuario.cpf para salvar se for validado
-        int resultado_validacao = validarCPF(lista, *qtdUsuarios, novoUsuario.cpf, 1);
+        // Notice the *lista dereference. We must pass the actual array to validarCPF
+        int resultado_validacao = validarCPF(*lista, *qtdUsuarios, novoUsuario.cpf, 1);
 
-        if(resultado_validacao == 1){ // 1: Tudo correto, CPF validado e não cadastrado
+        if(resultado_validacao == 1){ 
             break;
-        }else if(resultado_validacao == 0){ // 0: CPF em formato incorreto
+        }else if(resultado_validacao == 0){ 
             puts("\nVocê digitou o CPF incorretamente.");
             puts("Digite seu CPF neste fomato XXX.XXX.XXX-XX");
             printf("CPF: ");
-        }else if(resultado_validacao == -1){ // -1: CPF já está cadastrado
+        }else if(resultado_validacao == -1){ 
             puts("\nEsse CPF já está cadastrado.");
             puts("Digite um outro CPF.");
             printf("CPF: ");
@@ -82,10 +91,10 @@ void adicionar_usuario(Usuarios *lista, int *qtdUsuarios, int max){
     fgets(novoUsuario.senha, sizeof(novoUsuario.senha), stdin);
     novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0';
 
-    novoUsuario.saldo = 0.0; //Saldo do usuario deve começar zerado!
+    novoUsuario.saldo = 0.0; 
 
-    // Persistência no vetor principal
-    lista[*qtdUsuarios] = novoUsuario;
+    // Persistência no vetor principal (Dereference the double pointer first)
+    (*lista)[*qtdUsuarios] = novoUsuario;
     (*qtdUsuarios)++;
 
     limparTela();
@@ -138,6 +147,17 @@ void excluir_usuario(Usuarios *lista, int *qtdUsuarios){
         printf("==================================================================\n");
         getchar();
     }else{
+        // --- INVARIANT GUARD: Prevent Admin Deletion ---
+        if (resultado_validacao == 0) {
+            limparTela();
+            printf("==========================================================\n");
+            printf("  SECURITY ALERT: A conta Admin nao pode ser excluida!\n");
+            printf("==========================================================\n");
+            printf("\n[Enter] para retornar...\n");
+            getchar();
+            return; // Terminate function immediately
+        }
+        // -----------------------------------------------
 
         limparTela();
         printf("==========================================================\n");

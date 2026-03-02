@@ -34,25 +34,32 @@ int menu_CRUD_sessoes(){
     return opcao;
 }
 
-void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
-    /* Futura alocação dinâmica de memória
-    if(*qtdSessoes >= *maxSessoes){
-        *maxSessoes += 5;
-        Sessoes *temp = (Sessoes *) realloc(*lista, (*maxSessoes) * sizeof(Sessoes));
-        if(temp == NULL){
-            printf("ERRO: Falha na realocacao de memoria!\n");
+void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *capacidade) {
+    // 1. Dynamic Memory Expansion (Geometric Growth)
+    if (*qtdSessoes >= *capacidade) {
+        int nova_capacidade = (*capacidade > 0) ? (*capacidade * 2) : 5;
+        
+        Sessoes *temp = realloc(*lista, nova_capacidade * sizeof(Sessoes));
+        if (temp == NULL) {
+            fprintf(stderr, "Critical: Memory reallocation failed. Registration aborted.\n");
+            printf("[Enter] para retornar...\n");
+            getchar();
             return;
         }
+        
+        // realloc does not zero out memory! We must manually zero the NEW memory chunk.
+        // The new memory starts at index *capacidade.
+        memset(temp + *capacidade, 0, (nova_capacidade - *capacidade) * sizeof(Sessoes));
+        
         *lista = temp;
+        *capacidade = nova_capacidade;
     }
-    */
-    
-
 
     Sessoes nova;
-    // o ID é atribuido automaticamente utilizando a lógica
-    // de escolher o menor ID disponível
-    nova.id = atribuir_ID(lista, maxSessoes);
+    
+    // Note: If atribuir_ID still takes an int, pass *capacidade.
+    // If you haven't updated atribuir_ID, it is better to pass *qtdSessoes as the limit to search.
+    nova.id = atribuir_ID(*lista, *qtdSessoes); 
 
     do{
         limparTela();
@@ -64,9 +71,8 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         printf("Nome do filme: ");
 
         fgets(nova.nome_filme, sizeof(nova.nome_filme), stdin);
-        nova.nome_filme[strcspn(nova.nome_filme, "\n")] = '\0'; // Limpar o \n
+        nova.nome_filme[strcspn(nova.nome_filme, "\n")] = '\0'; 
 
-        //Caso não preencha o nome
         if(strlen(nova.nome_filme) == 0){
             printf("\nERRO: O nome do filme nao pode ser vazio!");
             printf("\nPressione [ENTER] para tentar novamente...");
@@ -83,14 +89,13 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         printf("     Digite a data no formato (DD/MM/AA):\n");
         printf("\n---------------------------------------------\n");
         printf("Data: ");
-        scanf("%8s", nova.data); // Limita a leitura da string
-        while(getchar() != '\n'); //Limpa buffer após leitura
+        scanf("%8s", nova.data); 
+        while(getchar() != '\n'); 
 
-        // Validação: tamanho 8 e barras nas posições certas [2,5]
         if(strlen(nova.data) == 8 && nova.data[2] == '/' && nova.data[5] == '/'){
             dataValida = 1;
         }else{
-            printf("\nERRO: Formato invalido! Use o padrao DD/MM/DD (ex: 15/01/26).");
+            printf("\nERRO: Formato invalido! Use o padrao DD/MM/AA (ex: 15/01/26).");
             printf("\nPressione [ENTER] para tentar novamente...");
             getchar();
         }
@@ -109,7 +114,6 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         while(getchar() != '\n');
 
         int h, m;
-        //sscanf: lê dados de uma string que já existe na memória
         if(sscanf(nova.horario_inicio, "%d:%d", &h, &m) == 2){
             if(h >= 0 && h <= 23 && m >= 0 && m <= 59 && nova.horario_inicio[2] == ':'){
                 horaValida = 1;
@@ -125,6 +129,7 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
 
     }while(!horaValida);
 
+    horaValida = 0; // Reset for the end time
     do{
         limparTela();
         printf("===============================================\n");
@@ -137,7 +142,6 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
         while(getchar() != '\n');
 
         int h, m;
-        //sscanf: lê dados de uma string que já existe na memória
         if(sscanf(nova.horario_final, "%d:%d", &h, &m) == 2){
             if(h >= 0 && h <= 23 && m >= 0 && m <= 59 && nova.horario_final[2] == ':'){
                 horaValida = 1;
@@ -160,7 +164,10 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
     printf("         Digite o valor do ingresso:\n");
     printf("\n---------------------------------------------\n");
     printf("Valor: R$ ");
-    scanf("%f", &nova.valorIngresso);
+    while(scanf("%f", &nova.valorIngresso) != 1) {
+        while(getchar() != '\n');
+        printf("Valor invalido. Digite novamente: R$ ");
+    }
 
     limparTela();
     printf("===============================================\n");
@@ -169,7 +176,10 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
     printf("           Digite a idade minima:\n");
     printf("\n---------------------------------------------\n");
     printf("Idade: ");
-    scanf("%d", &nova.limIdade);
+    while(scanf("%d", &nova.limIdade) != 1) {
+         while(getchar() != '\n');
+         printf("Idade invalida. Digite novamente: ");
+    }
 
     limparTela();
     printf("===============================================\n");
@@ -178,18 +188,19 @@ void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes){
     printf("           Digite a sala da sessão:\n");
     printf("\n---------------------------------------------\n");
     printf("Sala: ");
-    scanf("%d", &nova.sala);
+    while(scanf("%d", &nova.sala) != 1) {
+         while(getchar() != '\n');
+         printf("Sala invalida. Digite novamente: ");
+    }
 
-    // Estabelece todos os assentos como disponíveis
     for(int L = 0; L < 10; L++){
         for(int C = 0; C < 10; C++){
             nova.assento[L][C] = '0'; 
         }
     }
 
-    // Atribui os valores para a Struct e incrementa qtdSessoes
-    // Incrementa depois porque o índice começa no zero
-    lista[*qtdSessoes] = nova;
+    // 2. Pointer Dereference for Array Assignment
+    (*lista)[*qtdSessoes] = nova;
     (*qtdSessoes)++;
 
     limparTela();
@@ -269,6 +280,9 @@ void excluir_sessao(Sessoes *lista, int *qtdSessoes, Reservas *listaReservas, in
             lista[i] = lista[i+1];
         }
         (*qtdSessoes)--;
+
+        // --- Structural Update: Clear Residual Data ---
+        memset(&lista[*qtdSessoes], 0, sizeof(Sessoes));
 
         printf("============================================================\n");
         printf("  Sessao removida com sucesso! [Enter] para continuar...\n");

@@ -9,8 +9,8 @@
 
 // --- CRUD SESSÃO (Estrutura 1) ---
 int menu_CRUD_sessoes();
-void adicionar_sessao(Sessoes *lista, int *qtdSessoes, int maxSessoes);
-void excluir_sessao(Sessoes *lista, int *qtdSessoes, Reservas *ListaReservas, int qtdREservas);
+void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *capacidade);
+void excluir_sessao(Sessoes *lista, int *qtdSessoes, Reservas *ListaReservas, int qtdReservas);
 void modificar_sessao(Sessoes *lista, int qtdSessoes);
 void visualizar_sessao_id(Sessoes *lista, int qtdSessoes);
 void visualizar_todas_sessoes(Sessoes *lista, int qtdSessoes);

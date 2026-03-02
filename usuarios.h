@@ -12,7 +12,7 @@
 int buscaCpfCadastro(Usuarios *lista, int qtdUsuarios, char *cpfTemp);
 int validarCPF(Usuarios *lista, int qtdUsuarios, char *destCpf, int modoCadastro);
 int login(Usuarios *lista, int qtdUsuarios);
-void cadastro(Usuarios *lista, int *qtdUsuarios, int max);
+void cadastro(Usuarios **lista, int *qtdUsuarios, int *capacidade);
 int menuLogin(Usuarios *usuario, int indiceUsuario);
 void verSaldo(Usuarios *usuario, int indiceUsuario);
 void modificarSenha(Usuarios *Usuarios, int indiceUsuario);

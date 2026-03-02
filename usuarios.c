@@ -138,15 +138,24 @@ int login(Usuarios *lista, int qtdUsuarios){
     }
 }
 
-void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
-    // Verifica capacidade antes de começar
-    if(*qtdUsuarios >= max){
-        printf("Erro: Banco de dados cheio.\n");
-        getchar();
-        return;
+void cadastro(Usuarios **lista, int *qtdUsuarios, int *capacidade) {
+    // 1. Dynamic Memory Expansion (Geometric Growth)
+    if (*qtdUsuarios >= *capacidade) {
+        int nova_capacidade = (*capacidade > 0) ? (*capacidade * 2) : 5;
+        
+        Usuarios *temp = realloc(*lista, nova_capacidade * sizeof(Usuarios));
+        if (temp == NULL) {
+            fprintf(stderr, "Critical: Memory reallocation failed. Registration aborted.\n");
+            printf("[Enter] para retornar...\n");
+            getchar();
+            return;
+        }
+        
+        *lista = temp;
+        *capacidade = nova_capacidade;
     }
 
-    Usuarios novoUsuario; // Variável local temporária (substitui a global usuarios_temp)
+    Usuarios novoUsuario; 
 
     limparTela();
     printf("================================================\n");
@@ -157,7 +166,7 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     printf("Nome: ");
 
     fgets(novoUsuario.nome, sizeof(novoUsuario.nome), stdin);
-    novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; // Boa prática limpar o \n
+    novoUsuario.nome[strcspn(novoUsuario.nome, "\n")] = '\0'; 
 
     limparTela();
     printf("================================================\n");
@@ -166,15 +175,13 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     printf("        Digite a sua idade (ex.: 20)\n");
     printf("\n-----------------------------------------------\n");
     printf("Idade: ");
-    scanf(" %d", &novoUsuario.idade);
-    while(novoUsuario.idade < 1 || novoUsuario.idade > 200){
-        while (getchar() != '\n');
-        puts("\n\nVocê digitou incorretamente. Por favor, digite um número");
+    
+    // 2. Antifragile Input Validation
+    while (scanf(" %d", &novoUsuario.idade) != 1 || novoUsuario.idade < 1 || novoUsuario.idade > 200) {
+        while (getchar() != '\n'); // Purge the corrupted buffer
+        puts("\n\nEntrada inválida. Por favor, digite um número inteiro válido (1-200).");
         printf("Idade: ");
-        scanf(" %d", &novoUsuario.idade);
     }
-
-
 
     limparTela();
     printf("================================================\n");
@@ -185,16 +192,16 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     printf("CPF: ");
 
     while(1){
-        // Passamos o endereço de novoUsuario.cpf para salvar se for validado
-        int resultado_validacao = validarCPF(lista, *qtdUsuarios, novoUsuario.cpf, 1);
+        // 3. Proper dereferencing of the double pointer for the validation array
+        int resultado_validacao = validarCPF(*lista, *qtdUsuarios, novoUsuario.cpf, 1);
 
-        if(resultado_validacao == 1){ // 1: Tudo correto, CPF validado e não cadastrado
+        if(resultado_validacao == 1){ 
             break;
-        }else if(resultado_validacao == -2){ // -2: CPF em formato incorreto
+        }else if(resultado_validacao == -2){ 
             puts("\nVocê digitou o CPF incorretamente.");
             puts("Digite o seu CPF neste fomato XXX.XXX.XXX-XX");
             printf("CPF: ");
-        }else if(resultado_validacao == -1){ // -1: CPF já está cadastrado
+        }else if(resultado_validacao == -1){ 
             puts("\nEsse CPF já está cadastrado.");
             puts("Digite um outro CPF ou retorne ao menu.");
             printf("CPF: ");
@@ -213,12 +220,10 @@ void cadastro(Usuarios *lista, int *qtdUsuarios, int max){
     fgets(novoUsuario.senha, sizeof(novoUsuario.senha), stdin);
     novoUsuario.senha[strcspn(novoUsuario.senha, "\n")] = '\0';
 
-    novoUsuario.saldo = 0.0; // Saldo do usuario deve começar zerado!
+    novoUsuario.saldo = 0.0; 
 
-    // IndiceUsuario do admin é 0, portanto, para os próximos usuários: IndiceUsuario = qtdUsuario
-    // Antes de incrementar o qtdUsuario
-    lista[*qtdUsuarios] = novoUsuario;
-    // Incrementamos a quantidade de usuários
+    // 4. Pointer Dereference for Array Assignment
+    (*lista)[*qtdUsuarios] = novoUsuario;
     (*qtdUsuarios)++;
 
     limparTela();
@@ -386,20 +391,24 @@ void exclusaoUsuario(Usuarios *usuario, int indiceUsuario, int *qtdUsuario, char
     }while(*exclusaoBreak != 'S' && *exclusaoBreak != 'N');
 
     if(*exclusaoBreak=='S'){
-    //"Exclusão" dos dados do usuário...
-    // --- ESTRATÉGIA: ARRASTAR PARA A ESQUERDA ---
-    // Começa onde o usuário está e vai copiando o próximo para o lugar do atual
-        for(int i = indiceUsuario; i < *qtdUsuario - 1; i++){
-            usuario[i] = usuario[i + 1];
+        if(indiceUsuario == 0){
+            printf("A conta do admin não pode ser excluída.\n");
+        }else{
+            //"Exclusão" dos dados do usuário...
+            // --- ESTRATÉGIA: ARRASTAR PARA A ESQUERDA ---
+            // Começa onde o usuário está e vai copiando o próximo para o lugar do atual
+                for(int i = indiceUsuario; i < *qtdUsuario - 1; i++){
+                    usuario[i] = usuario[i + 1];
+                }
+                // --- ATUALIZA A QUANTIDADE ---
+                // Como passamos qtdUsuarios como ponteiro, usamos (*ptr)--
+                (*qtdUsuario)--;
+
+                // (Opcional) Limpa o último registro que ficou duplicado no final
+                memset(&usuario[*qtdUsuario], 0, sizeof(Usuarios));
+            }
         }
-        // --- ATUALIZA A QUANTIDADE ---
-        // Como passamos qtdUsuarios como ponteiro, usamos (*ptr)--
-        (*qtdUsuario)--;
-
-        // (Opcional) Limpa o último registro que ficou duplicado no final
-        memset(&usuario[*qtdUsuario], 0, sizeof(Usuarios));
-
-    }
+   
     printf("\n[Enter] para continuar...\n");
     getchar();
 }

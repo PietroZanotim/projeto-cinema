@@ -14,10 +14,6 @@
 #include "CRUD_reservas.h"
 #include "cons_rel.h"
 
-#define MAX_USUARIOS 5
-#define MAX_SESSOES 5
-#define MAX_RESERVAS 5
-
 int main(){
     // Criação das variáveis "Globais" dentro da main
 
@@ -74,7 +70,7 @@ int main(){
                                         int opcao_1 = menu_CRUD_sessoes();
                                         switch(opcao_1){
                                         case 1:
-                                            adicionar_sessao(listaSessoes, &qtdSessoes, MAX_SESSOES);
+                                            adicionar_sessao(&listaSessoes, &qtdSessoes, &capSessoes);
                                             break;
                                         case 2:
                                             excluir_sessao(listaSessoes, &qtdSessoes, listaReservas, qtdReservas);
@@ -100,7 +96,7 @@ int main(){
                                         int opcao_2 = menu_CRUD_usuarios();
                                         switch(opcao_2){
                                         case 1:
-                                            adicionar_usuario(listaUsuarios, &qtdUsuarios, MAX_USUARIOS);
+                                            adicionar_usuario(&listaUsuarios, &qtdUsuarios, &capUsuarios);
                                             break;
                                         case 2:
                                             excluir_usuario(listaUsuarios, &qtdUsuarios); // Verificar o controle de memória...
@@ -199,7 +195,7 @@ int main(){
                             switch(opcao){
                                 case 1:
                                     limparTela();
-                                    listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, listaReservas, &qtdReservas, &idReservas);
+                                    listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, &listaReservas, &capReservas, &qtdReservas, &idReservas);
                                     break;
                                 case 2:
                                     visualizarReservas(listaReservas, qtdReservas, listaUsuarios, indiceUsuario, listaSessoes, qtdSessoes);
@@ -226,7 +222,7 @@ int main(){
                     break; //Break para sair do menu dos demais usuarios;
                 } // Chave do if que válida a quantidade de falhas do login do usuario;
             case 2:
-                cadastro(listaUsuarios, &qtdUsuarios, MAX_USUARIOS);
+                cadastro(&listaUsuarios, &qtdUsuarios, &capUsuarios);
                 indiceUsuario = qtdUsuarios - 1; // Atribuir o indiceUsuário para o auto-login funcionar
                 goto ponto_de_retorno;
                 break;

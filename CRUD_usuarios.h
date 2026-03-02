@@ -10,7 +10,7 @@
 
 // --- CRUD USUÁRIO (Estrutura 2) ---
 int menu_CRUD_usuarios();
-void adicionar_usuario(Usuarios *lista, int *qtdUsuarios, int max);
+void adicionar_usuario(Usuarios **lista, int *qtdUsuarios, int *capacidade);
 void excluir_usuario(Usuarios *lista, int *qtdUsuarios);
 void modificar_usuario(Usuarios *lista, int *qtdUsuarios);
 void visualizar_usuario_cpf(Usuarios *lista, int *qtdUsuarios);
