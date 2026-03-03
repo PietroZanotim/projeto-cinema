@@ -348,19 +348,21 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
                 char cpfTemp[15];
 
                 while(1){
-                    resultado_validacaoLocal = validarCPF(lista, *qtdUsuarios, cpfTemp, 0); //Usamos o validar cpf como no login, para validar se existe este CPF;
+                    // Pass 1 (Registration Mode): We WANT the CPF to not exist.
+                    resultado_validacaoLocal = validarCPF(lista, *qtdUsuarios, cpfTemp, 1); 
 
-                    if(resultado_validacaoLocal == -2){
-                        // 0: CPF em formato incorreto
+                    if(resultado_validacaoLocal == 1){
+                        // 1 means CPF is valid format and NOT registered. Perfect.
+                        strcpy(lista[resultado_validacao].cpf, cpfTemp); 
+                        break;
+                    }else if(resultado_validacaoLocal == -2){
                         puts("\nVocê digitou o CPF incorretamente.");
                         puts("Digite o seu CPF neste formato XXX.XXX.XXX-XX");
                         printf("CPF: ");
                         contErros++;
                     }else if(resultado_validacaoLocal == -1){
-                        strcpy(lista[resultado_validacao].cpf, cpfTemp); // O cpf digitado não existe... Válido!!!
-                        break;
-                    }else{
-                        puts("\nEsse CPF esta sendo utilizado.");
+                        // -1 in mode 1 means CPF already exists.
+                        puts("\nEsse CPF esta sendo utilizado por outro usuario.");
                         printf("CPF: ");
                         contErros++;
                     }
