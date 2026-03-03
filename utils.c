@@ -59,8 +59,9 @@ int confirmarSaida(){
             resposta = ' '; // Define como inválido se o scanf falhar
         }
 
-        // Limpa o buffer de entrada para a próxima iteração
-        while (getchar() != '\n');
+        // Limpa o buffer de entrada com segurança contra EOF
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
 
         resposta = toupper(resposta); // Converte para maiúsculo
 
@@ -98,8 +99,9 @@ int confirmarRetorno(){
             resposta = ' '; // Define como inválido se o scanf falhar
         }
 
-        // Limpa o buffer de entrada para a próxima iteração
-        while (getchar() != '\n');
+        // Limpa o buffer de entrada com segurança contra EOF
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
 
         resposta = toupper(resposta); // Converte para maiúsculo
 
