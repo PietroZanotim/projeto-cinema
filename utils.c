@@ -124,22 +124,16 @@ int confirmarRetorno(){
 
 int voltar() {
     int c;
-
-    // Lê o primeiro caractere que o usuário digitar.
-    c = getchar();
-
-    // Se o usuário apenas apertou Enter (o caractere lido é '\n')
-    if (c == '\n' || c == EOF) {
-        return 1;
-    }
-
-    // Se ele digitou algo antes de apertar Enter (ex: "abc" + Enter)
-    else {
-        // Limpa o resto da sujeira que ele digitou até o próximo '\n'
-        while (getchar() != '\n');
-
-        printf("Digito invalido! Aperte apenas [Enter] para voltar: ");
-        return voltar(); // Chamada recursiva para tentar novamente
+    while (1) {
+        c = getchar();
+        
+        if (c == '\n' || c == EOF) {
+            return 1;
+        } else {
+            // Safe buffer clearing: catches both \n and EOF
+            while ((c = getchar()) != '\n' && c != EOF);
+            printf("Digito invalido! Aperte apenas [Enter] para voltar: ");
+        }
     }
 }
 
