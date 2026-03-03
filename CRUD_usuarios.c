@@ -319,9 +319,10 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
 
                 int idade;
 
-                while(scanf(" %d", &idade) != 1 || idade >= 100){
-                    printf("\nIdade inválida, digite novamente: ");
-                    getchar();
+                // Strict validation: must be a number, between 1 and 200.
+                while(scanf(" %d", &idade) != 1 || idade < 1 || idade >= 200){
+                    while (getchar() != '\n'); // Purge the hostile buffer entirely
+                    printf("\nIdade inválida, digite um número inteiro: ");
                 }
 
                 lista[resultado_validacao].idade = idade;
@@ -330,9 +331,9 @@ void modificar_usuario(Usuarios *lista, int *qtdUsuarios){
                 printf("===============================================================\n");
                 printf("                 Idade atualizada com sucesso!");
                 printf("\n===============================================================\n");
-                printf("\n[Enter] para retornar ao menu login...");
-                while (getchar() != '\n'); // Limpa o buffer (caso tenha sobrado algo)
-                getchar(); // Aguarda o usuário enviar o enter
+                printf("\n[Enter] para retornar ao menu...");
+                while (getchar() != '\n'); 
+                getchar(); 
                 break;
 
             case 3:
