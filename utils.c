@@ -344,28 +344,27 @@ int validar_formato_data(char *data){
 int validarInput(int tamanhoMenu){
     char input[50];
     int opcao;
-    int entradaValida = 0;
+    char lixo; // Váriavel para capturar sujeira após o número
 
-    do{
-        fgets(input, 50, stdin);
-
-        // 1. Verifica se é um número inteiro válido
-        if(sscanf(input, "%d", &opcao) != 1){
-            printf("Erro: Voce digitou letras ou simbolos.\n");
-            printf("Por favor, digite um numero entre 1 e %d.\n", tamanhoMenu);
-            continue; // Volta para o início do loop
+    while(1){
+        // 1. Check for EOF or read failure
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            clearerr(stdin); // Reset the error state
+            return 4; // Failsafe: Return the exit option to prevent infinite loops
         }
 
-        // 2. Verifica se o número está dentro do intervalo do menu
-        if(opcao < 1 || opcao > tamanhoMenu){
-            printf("Opcao invalida! O numero deve ser entre 1 e %d.\n", tamanhoMenu);
-            continue; // Volta para o início do loop
+        // 2. Strict Validation: sscanf should find exactly 1 integer. 
+        // If it finds a char after the integer, it returns 2 (invalid).
+        if (sscanf(input, "%d %c", &opcao, &lixo) == 1) {
+            if (opcao >= 1 && opcao <= tamanhoMenu) {
+                return opcao; // Perfect match
+            } else {
+                printf("Opcao invalida! O numero deve ser entre 1 e %d.\n", tamanhoMenu);
+            }
+        } else {
+            printf("Erro: Entrada invalida. Digite APENAS um numero entre 1 e %d.\n", tamanhoMenu);
         }
-
-        // Se passou pelas duas barreiras acima, a entrada é válida
-        entradaValida = 1;
-
-    }while(!entradaValida);
-
-    return opcao;
+        
+        printf("Digite a opcao desejada: ");
+    }
 }
