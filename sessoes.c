@@ -165,7 +165,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
                     linhaAssentoInt = converteLinhaAssento(linhaAssento);
 
-                    do{ 
+                do{ 
                         printf("\nDigite a coluna do assento desejado (Ex.1): ");
                         scanf("%d", &colunaAssento);
 
@@ -173,7 +173,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                             printf("Coluna de assento inválida!\n");
                         }
 
-                    }while(colunaAssento<0 || colunaAssento>9);
+                }while(colunaAssento<0 || colunaAssento>9);
 
                     if(sessao[indiceSessao].assento[linhaAssentoInt][colunaAssento]=='1'){
                         printf("Sentimos muito, este assento está ocupado...\n");

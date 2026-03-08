@@ -195,7 +195,7 @@ int main(){
                             switch(opcao){
                                 case 1:
                                     limparTela();
-                                    listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, &listaReservas, &capReservas, &qtdReservas, &idReservas);
+                                    listarSessoes(listaSessoes, qtdSessoes, listaUsuarios, indiceUsuario, &listaReservas, &qtdReservas, &capReservas, &idReservas);
                                     break;
                                 case 2:
                                     visualizarReservas(listaReservas, qtdReservas, listaUsuarios, indiceUsuario, listaSessoes, qtdSessoes);
