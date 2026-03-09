@@ -38,7 +38,7 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *capacidade) {
     // 1. Dynamic Memory Expansion (Geometric Growth)
     if (*qtdSessoes >= *capacidade) {
         int nova_capacidade = (*capacidade > 0) ? (*capacidade * 2) : 5;
-        
+
         Sessoes *temp = realloc(*lista, nova_capacidade * sizeof(Sessoes));
         if (temp == NULL) {
             fprintf(stderr, "Critical: Memory reallocation failed. Registration aborted.\n");
@@ -46,20 +46,20 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *capacidade) {
             getchar();
             return;
         }
-        
+
         // realloc does not zero out memory! We must manually zero the NEW memory chunk.
         // The new memory starts at index *capacidade.
         memset(temp + *capacidade, 0, (nova_capacidade - *capacidade) * sizeof(Sessoes));
-        
+
         *lista = temp;
         *capacidade = nova_capacidade;
     }
 
     Sessoes nova;
-    
+
     // Note: If atribuir_ID still takes an int, pass *capacidade.
     // If you haven't updated atribuir_ID, it is better to pass *qtdSessoes as the limit to search.
-    nova.id = atribuir_ID(*lista, *qtdSessoes); 
+    nova.id = atribuir_ID(*lista, *qtdSessoes);
 
     do{
         limparTela();
@@ -71,7 +71,7 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *capacidade) {
         printf("Nome do filme: ");
 
         fgets(nova.nome_filme, sizeof(nova.nome_filme), stdin);
-        nova.nome_filme[strcspn(nova.nome_filme, "\n")] = '\0'; 
+        nova.nome_filme[strcspn(nova.nome_filme, "\n")] = '\0';
 
         if(strlen(nova.nome_filme) == 0){
             printf("\nERRO: O nome do filme nao pode ser vazio!");
@@ -89,8 +89,8 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *capacidade) {
         printf("     Digite a data no formato (DD/MM/AA):\n");
         printf("\n---------------------------------------------\n");
         printf("Data: ");
-        scanf("%8s", nova.data); 
-        while(getchar() != '\n'); 
+        scanf("%8s", nova.data);
+        while(getchar() != '\n');
 
         if(strlen(nova.data) == 8 && nova.data[2] == '/' && nova.data[5] == '/'){
             dataValida = 1;
@@ -195,7 +195,7 @@ void adicionar_sessao(Sessoes **lista, int *qtdSessoes, int *capacidade) {
 
     for(int L = 0; L < 10; L++){
         for(int C = 0; C < 10; C++){
-            nova.assento[L][C] = '0'; 
+            nova.assento[L][C] = '0';
         }
     }
 
@@ -251,7 +251,7 @@ void excluir_sessao(Sessoes *lista, int *qtdSessoes, Reservas *listaReservas, in
         printf(" Deseja confirmar a exclusao definitiva? (S/N)\n");
         printf("===============================================\n\n");
 
-        if(scanf("%c", &resposta) != 1){
+        if(scanf(" %c", &resposta) != 1){
             resposta = ' ';
         }
 

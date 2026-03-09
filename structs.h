@@ -3,7 +3,7 @@
 #define STRUCTS_H
 
 
-// (S1) Registro Independente 1 
+// (S1) Registro Independente 1
 typedef struct Sessoes{
     int id;
     char horario_inicio[6];
@@ -27,10 +27,10 @@ typedef struct Usuarios{
 
 // (S3) Registro Relacional
 typedef struct Reservas{
-    int id;                
+    int id;
     char cpf_usuario[15];   // Aponta para um Usuario (S2). O cpf é único.
-    int id_sessao;          // Aponta para S1 
-    char assento[2];        // Informação adicional (ex: "F10")
+    int id_sessao;          // Aponta para S1
+    char assento[3];        // Informação adicional (ex: "F10")
 } Reservas;
 
 #endif

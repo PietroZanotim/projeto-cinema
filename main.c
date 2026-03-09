@@ -43,6 +43,7 @@ int main(){
 
     // Variaveis para marcar o id, pois se usarmos as váriaveis qtd, pode haver duplicidade....
     int idReservas=0;
+
     int idSessoes=0;
 
     // Inicializar o inidiceUsuário no escopo da main para o auto-login ao cadastrar funcionar
@@ -121,7 +122,7 @@ int main(){
                                         int opcao_3 = menu_CRUD_reservas();
                                         switch(opcao_3){
                                             case 1:
-                                                adicionar_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, &idReservas);
+                                                adicionar_reserva(&listaReservas, &qtdReservas, &capReservas, listaUsuarios, qtdUsuarios, listaSessoes, qtdSessoes, &idReservas);
                                                 break;
                                             case 2:
                                                 excluir_reserva(listaReservas, &qtdReservas, listaUsuarios, qtdUsuarios, &idReservas);

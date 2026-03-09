@@ -116,19 +116,19 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
         }
 
         if(resposta=='S'){
-            int indiceSessao = -1; 
-            char input[20]; 
+            int indiceSessao = -1;
+            char input[20];
             int idBusca;
-            int saiu = 0; 
+            int saiu = 0;
 
             while(1){
                 printf("\nDigite o id do filme (Digite 'q', para sair): ");
                 // SECURITY FIX: Prevent Buffer Overflow
-                scanf("%19s", input); 
+                scanf("%19s", input);
 
                 if(input[0] == 'q' || input[0] == 'Q'){
                     saiu = 1;
-                    break; 
+                    break;
                 }
 
                 idBusca = atoi(input); // Use atoi instead of input[0]-'0' to support IDs > 9
@@ -143,7 +143,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 }else if(usuario[indiceUsuario].saldo < sessao[indiceSessao].valorIngresso){
                     printf("\nNão foi possível adquirir o ingresso, valor insuficiente.\n");
                 }else{
-                    break; 
+                    break;
                 }
             }
 
@@ -152,8 +152,8 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 int colunaAssento;
                 int linhaAssentoInt;
 
-                do{ 
-                    do{ 
+                do{
+                    do{
                         printf("\nDigite a linha do assento desejado (Ex.A): ");
                         scanf(" %c", &linhaAssento);
                         linhaAssento = toupper(linhaAssento);
@@ -165,7 +165,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
 
                     linhaAssentoInt = converteLinhaAssento(linhaAssento);
 
-                do{ 
+                do{
                         printf("\nDigite a coluna do assento desejado (Ex.1): ");
                         scanf("%d", &colunaAssento);
 
@@ -184,7 +184,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 // --- DYNAMIC MEMORY EXPANSION (GEOMETRIC GROWTH) ---
                 if (*qtdReservas >= *capReservas) {
                     int nova_capacidade = (*capReservas > 0) ? (*capReservas * 2) : 5;
-                    
+
                     Reservas *temp = realloc(*reserva, nova_capacidade * sizeof(Reservas));
                     if (temp == NULL) {
                         fprintf(stderr, "Critical: Memory reallocation failed. Compra abortada.\n");
@@ -193,27 +193,28 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                         getchar();
                         return;
                     }
-                    
+
                     // Zero out the newly allocated chunk
                     memset(temp + *capReservas, 0, (nova_capacidade - *capReservas) * sizeof(Reservas));
-                    
+
                     *reserva = temp;
                     *capReservas = nova_capacidade;
                 }
                 // ---------------------------------------------------
 
-                usuario[indiceUsuario].saldo -= sessao[indiceSessao].valorIngresso; 
-                sessao[indiceSessao].assento[linhaAssentoInt][colunaAssento] = '1'; 
+                usuario[indiceUsuario].saldo -= sessao[indiceSessao].valorIngresso;
+                sessao[indiceSessao].assento[linhaAssentoInt][colunaAssento] = '1';
 
                 // Notice the dereference (*reserva) before indexing
-                (*reserva)[*qtdReservas].id = *qtdIdReservas; 
+                (*reserva)[*qtdReservas].id = *qtdIdReservas;
                 (*qtdIdReservas)++;
 
                 (*reserva)[*qtdReservas].id_sessao = sessao[indiceSessao].id;
                 strcpy((*reserva)[*qtdReservas].cpf_usuario, usuario[indiceUsuario].cpf);
 
-                (*reserva)[*qtdReservas].assento[0] = linhaAssento; 
+                (*reserva)[*qtdReservas].assento[0] = linhaAssento;
                 (*reserva)[*qtdReservas].assento[1] = colunaAssento + '0';
+                (*reserva)[*qtdReservas].assento[2] = '\0';
 
                 (*qtdReservas)++;
 
@@ -223,7 +224,7 @@ void listarSessoes(Sessoes *sessao, int quantidadeSessoes, Usuarios *usuario, in
                 printf("\n==============================================\n");
                 printf("\n[Enter] para retornar ao menu login...");
                 while(getchar() != '\n');
-                getchar(); 
+                getchar();
             }
             else {
                 limparTela();

@@ -34,7 +34,7 @@ int menu_CRUD_reservas(){ //codar as funções previamente declaradas em CRUD_re
 
     return opcao; //isso retorna para a função main na linha 115 para opcao_3
 }
-
+                                                                //alguma coisa para alocação dinamica
 void adicionar_reserva(Reservas **reservas, int *qtdReservas, int *capReservas, Usuarios *usuarios, int qtdUsuarios, Sessoes *sessoes, int qtdSessoes, int *qtdIdReservas){
     int usuarioProcurado;
     int i;
@@ -62,18 +62,18 @@ void adicionar_reserva(Reservas **reservas, int *qtdReservas, int *capReservas, 
         printf("Saldo: %.2f\n", usuarios[i].saldo);
         printf("\n------------------\n");
     }
-    printf("\nUsuário: ");
+    printf("\n Selecione um Usuário: ");
 
     while (1){
         if(scanf("%d", &usuarioProcurado) != 1){
             while(getchar() != '\n'); // Clear invalid input
             usuarioProcurado = -1;
         }
-        if(usuarioProcurado < 1 || usuarioProcurado > qtdUsuarios){
+        if(usuarioProcurado < 1 || usuarioProcurado >= qtdUsuarios){
             puts("\nEsse usuário não existe.");
             printf("Usuário: ");
         }else{
-            break; 
+            break;
         }
     }
 
@@ -120,12 +120,12 @@ void excluir_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios){
             while(getchar() != '\n'); // Clear invalid input
             reservaProcurada = -1;
         }
-        
+
         if(reservaProcurada < 1 || reservaProcurada > *qtdReservas){
             puts("\nEssa reserva não existe.");
             printf("Reserva: ");
         }else{
-            break; 
+            break;
         }
     }
     reservaProcurada--; // Convert to zero-indexed array position
@@ -136,30 +136,30 @@ void excluir_reserva(Reservas *reservas, int *qtdReservas, Usuarios *usuarios){
     do{
         printf("\nDeseja confirmar a exclusão? (S/N): ");
         if (scanf(" %c", &resposta) != 1) {
-            resposta = ' '; 
+            resposta = ' ';
         }
         while (getchar() != '\n');
-        resposta = toupper(resposta); 
-        
+        resposta = toupper(resposta);
+
         if (resposta != 'S' && resposta != 'N') {
             printf("\nOpcao invalida! Digite S ou N.\n Pressione Enter para tentar novamente.");
-            getchar(); 
+            getchar();
         }
 
     }while (resposta != 'S' && resposta != 'N');
 
     if(resposta == 'S'){
         // FIXED: Shift starts at the target index, not 0.
-        for(int j = reservaProcurada; j < (*qtdReservas) - 1; j++){ 
+        for(int j = reservaProcurada; j < (*qtdReservas) - 1; j++){
             reservas[j] = reservas[j+1];
         }
-        
+
         // FIXED: Decrement only happens if confirmed.
         (*qtdReservas)--;
-        
+
         // Structural Update: Zero out the residual memory
         memset(&reservas[*qtdReservas], 0, sizeof(Reservas));
-        
+
         printf("\n============================================================\n");
         printf("  Reserva excluída com sucesso! [Enter] para continuar...\n");
         printf("============================================================\n");
